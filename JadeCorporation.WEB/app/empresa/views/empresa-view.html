@@ -1,0 +1,48 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Empresa seleccionada
+            </header>
+            <div class="panel-body">
+                <div class=" form">
+                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
+                        <div class="form-group ">
+                            <label for="cname" class="control-label col-lg-2">Nombre (requerido)</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-hide="true" ng-model="empresa.CodigoEmpresa" id="codigoempresa" name="codigoempresa" minlength="2" type="text" />
+                                <input class=" form-control" ng-model="empresa.Nombre" id="nombre" name="nombre" minlength="2" type="text" required />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="cname" class="control-label col-lg-2">Direccion (requerido)</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="empresa.Direccion" id="direccion" name="direccion" minlength="2" type="text" required />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="cname" class="control-label col-lg-2">Telefono (requerido)</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="empresa.Telefono" id="telefono" name="telefono" minlength="2" type="text" required />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="cemail" class="control-label col-lg-2">Correo (requerido)</label>
+                            <div class="col-lg-10">
+                                <input class="form-control " ng-model="empresa.Email" id="email" type="email" name="email" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

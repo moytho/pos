@@ -1,0 +1,4 @@
+﻿Obtener el id del usuario conectado
+var UserId=HttpContext.Current.User.Identity.GetUserId();
+Obtener Name-Email del usuario conectado
+var user = base.ControllerContext.RequestContext.Principal.Identity;

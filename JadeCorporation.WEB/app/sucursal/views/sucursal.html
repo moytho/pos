@@ -1,0 +1,51 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Sucursales <a class="btn btn-success btn-xs" href="#/sucursal/create"><i class="fa fa-check"></i></a>
+            </header>
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th ng-hide="true">Codigo Sucursal</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Area</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th ng-hide="true">Estado</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="sucursal in sucursales">
+                        <td ng-hide="true">
+                            {{ sucursal.CodigoSucursal }}
+                        </td>
+                        <td>
+                            {{ sucursal.Nombre }}
+                        </td>
+                        <td>
+                            {{ sucursal.Direccion }}
+                        </td>
+                        <td>
+                            {{ sucursal.Area}}
+                        </td>
+                        <td>
+                            {{ sucursal.Telefono}}
+                        </td>
+                        <td>
+                            {{ sucursal.Email}}
+                        </td>
+                        
+                        <td class="hidden-xs">
+                            <a class="btn btn-primary btn-xs" href="#/sucursal/edit/{{sucursal.CodigoSucursal}}"><i class="fa fa-pencil"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>

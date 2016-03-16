@@ -1,0 +1,10 @@
+﻿Agregar este metodo en ModelCore.Context.cs
+public void SetConnectionString(string connectionString)
+{
+    this.Database.Connection.ConnectionString = connectionString;
+}
+abajo de
+  public JadeCore1Entities()
+            : base("name=JadeCore1Entities")
+        {
+        }

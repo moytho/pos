@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fa7e9f8ea54f4b618545454b12b74c80" Name="Diagram1">
+        <EntityTypeShape EntityType="ServiceDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ServiceDBModel.AspNetUser" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="ServiceDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ServiceDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ServiceDBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ServiceDBModel.Empresa" Width="1.5" PointX="7.375" PointY="4.875" />
+        <EntityTypeShape EntityType="ServiceDBModel.Modulo" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="ServiceDBModel.FK_AspNetUsers_Empresa" />
+        <AssociationConnector Association="ServiceDBModel.FK_Modulos_Modulos" />
+        <EntityTypeShape EntityType="ServiceDBModel.AspNetUsersPerfilesAsignado" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="ServiceDBModel.Metodo" Width="1.5" PointX="9.625" PointY="1.125" />
+        <EntityTypeShape EntityType="ServiceDBModel.Perfile" Width="1.5" PointX="9.625" PointY="5.125" />
+        <EntityTypeShape EntityType="ServiceDBModel.PerfilesMetodo" Width="1.5" PointX="11.875" PointY="5" />
+        <AssociationConnector Association="ServiceDBModel.FK_AspNetUsersPerfilesAsignados_AspNetUsers" />
+        <AssociationConnector Association="ServiceDBModel.FK_AspNetUsersPerfilesAsignados_PerfilesMetodos" />
+        <AssociationConnector Association="ServiceDBModel.FK_Perfiles_Empresa" />
+        <AssociationConnector Association="ServiceDBModel.FK_PerfilesMetodos_Metodos" />
+        <AssociationConnector Association="ServiceDBModel.FK_PerfilesMetodos_Perfiles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

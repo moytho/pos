@@ -1,0 +1,34 @@
+La solucion esta compuesta por 2 proyectos.
+Seleccionar el proyecto ApiTest como principal.
+Archivos de configuracion se los envio por separado ya que no los estaremos publicando en github por razones de seguridad
+
+JadeCorporation.WEB es el proyecto del webapp esto es la progra del lado del cliente (web browser - front end)
+La organizacion del proyecto es por entidades. Ejemplo empresa es una carpeta y ahi tiene toda la progra js que este relacionada con empresa. 
+Ir a app/autenticacion/authService.js
+Cambiar var serviceBase = 'http://localhost:64486/'; por la direccion local que este utilizando su web api local, posiblemente solo tendran que cambiar el puerto.
+En otros archivos, por ejemplo app/autenticacion/loginController.js encontraran lineas de codigo referenciando a este proyecto, en mi caso es "window.location.href = "http://localhost:3883/#/home";"
+en estos casos posiblemente solo necesitaran cambiar el puerto que esta utilizando su web app (JadeCorporation.WEB)
+Las carpetas views siempre tendran archivos html que son las que se cargan dinamicamente a nuestra SPA (single page application)
+En el caso de que tengamos archivos que no tengan definida una entidad usaremos el siguiente patron shared y el tipo de file
+- sharedcontrollers
+- sharedservices
+- sharedviews
+- directivas estaran guardadas unicamente en la carpeta directives
+etc
+index.html es nuestra unica pagina que contiene todas las vistas (html).
+login.html es nuestra pagina para login.
+Aunque github maneja trabajo de distintos usuarios, la manera en que esta organizado el proyecto nos ayuda a evitar problemas de 
+sobreescribir codigo de alguien mas (en teoria github lo maneja pero por si las moscas)
+
+ApiTest. Disculpen que ya no le cambie el nombre pero esta es la progra del lado del server (web API - back end)
+Por el momento esta aceptando peticiones de cualquier host, posteriormente se restringira
+En la carpeta Models tenemos el modelo de todas nuestras entidades convertidas en clases
+En la carpeta Extensions guardaremos todas las clases que sean genericas o que utilizemos  en todo el proyecto en general.
+En la carpeta Controllers estan los metodos de nuestro servicio que seran consumidos por nuestro cliente.
+En la carpeta Conexion guardaremos clases que modifiquen acciones relacionadas a nuestra conexion. Por ejemplo ClaseConexion determina
+el usuario conectado a que empresa pertenece y lo redirecciona a la bd asignada a su empresa.
+En la carpeta MessageHandlers tenemos una unica clase que es la responsable de manejar request del tipo get,post,put,delete pero especialmente OPTIONS que es generado on the fly
+
+Trataremos de retornar la informacion al cliente en clases DTO (Data transfer object). Por ejemplo para empresa tenemos la entidad Empresa
+que es la generada por nuestra bd en nuestro modelo, en vez de retornar el/los objeto/s como Empresa los retornamos como EmpresaDTO.
+

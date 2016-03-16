@@ -1,0 +1,46 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Datos de mi empresa <a class="btn btn-success btn-xs" href="#/empresa/create"><i class="fa fa-check"></i></a>
+            </header>
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th>Codigo Empresa</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="empresa in empresas">
+                        <td>
+                            {{ empresa.CodigoEmpresa }}
+                        </td>
+                        <td>
+                            {{ empresa.Nombre }}
+                        </td>
+                        <td>
+                            {{ empresa.Direccion }}
+                        </td>
+                        <td>
+                            {{ empresa.Telefono }}
+                        </td>
+                        <td>
+                            {{ empresa.Email}}
+                        </td>
+                        
+                        <td class="hidden-xs">                        
+                            <a class="btn btn-primary btn-xs" href="#/empresa/edit/{{empresa.CodigoEmpresa}}"><i class="fa fa-pencil"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>
