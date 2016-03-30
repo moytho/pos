@@ -1,0 +1,38 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Abastecimientos de un producto <a class="btn btn-success btn-xs" href="#/productoAbastecimiento/create"><i class="fa fa-check"></i></a>
+            </header>
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th ng-hide="true">Codigo Producto Abastecimiento</th>
+                        <th>Medio de Abastecimiento</th>
+                        <th>Dias en Abastecer producto</th>
+                        <th ng-hide="true">Estado</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="productoAbastecimiento in productoAbastecimientos">
+                        <td ng-hide="true">
+                            {{ productoAbastecimiento.CodigoProductoAbastecimiento }}
+                        </td>
+                        <td>
+                            {{ productoAbastecimiento.Descripcion }}
+                        </td>
+                        <td>
+                            {{ productoAbastecimiento.DiasAbastecimiento }}
+                        </td>
+                        <td class="hidden-xs">
+                            <a class="btn btn-primary btn-xs" href="#/productoAbastecimiento/edit/{{productoAbastecimiento.CodigoProductoAbastecimiento}}"><i class="fa fa-pencil"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>

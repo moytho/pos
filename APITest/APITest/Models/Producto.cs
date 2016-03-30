@@ -16,12 +16,13 @@ namespace APITest.Models
     {
         public Producto()
         {
-            this.FacturaDetalles = new HashSet<FacturaDetalle>();
+            this.ProductoPrecios = new HashSet<ProductoPrecio>();
         }
     
         public int CodigoProducto { get; set; }
         public int CodigoEmpresa { get; set; }
-        public Nullable<int> CodigoClasificacion { get; set; }
+        public Nullable<int> CodigoProductoClasificacion { get; set; }
+        public Nullable<int> CodigoProductoMarca { get; set; }
         public string CodigoLocal { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> CodigoProductoTipo { get; set; }
@@ -29,8 +30,18 @@ namespace APITest.Models
         public Nullable<decimal> PrecioCosto { get; set; }
         public Nullable<decimal> PrecioVenta { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public string SKU { get; set; }
+        public Nullable<int> CodigoProductoAbastecimiento { get; set; }
+        public Nullable<int> StockMinimo { get; set; }
+        public Nullable<decimal> Alto { get; set; }
+        public Nullable<decimal> Ancho { get; set; }
+        public Nullable<decimal> Profundidad { get; set; }
+        public string ImagenUrl { get; set; }
     
-        public virtual ICollection<FacturaDetalle> FacturaDetalles { get; set; }
+        public virtual ProductoClasificacion ProductoClasificacion { get; set; }
+        public virtual ProductoMarca ProductoMarca { get; set; }
         public virtual ProductoTipo ProductoTipo { get; set; }
+        public virtual ProductoAbastecimiento ProductoAbastecimiento { get; set; }
+        public virtual ICollection<ProductoPrecio> ProductoPrecios { get; set; }
     }
 }

@@ -10,6 +10,36 @@ app.controller('menuController', ['$scope', 'authService', '$location', function
                 "icon": "fa fa-home",
                 "submodulo": []
             },
+                        {
+                            "modulo": "Productos",
+                            "icon": "fa fa-th",
+                            "submodulo": [
+                                { "Descripcion": "Inventario", "Url": "#/producto" },
+                                { "Descripcion": "Busqueda", "Url": "#/productobusqueda" },
+                                { "Descripcion": "Transferir producto", "Url": "#/productotransferir" },
+                                { "Descripcion": "Clasificaciones", "Url": "#/productoClasificacion" },
+                                { "Descripcion": "Marcas", "Url": "#/productoMarca" },
+                                { "Descripcion": "Canales de Abastecimientos", "Url": "#/productoAbastecimiento" },
+                                { "Descripcion": "Bodega", "Url": "#/productobodega" }
+                            ]
+                        },
+            {
+                "modulo": "Clientes",
+                "icon": "fa fa-laptop",
+                "submodulo": [
+                    { "Descripcion": "Informacion de clientes", "Url": "#/cliente" },
+                    { "Descripcion": "Tipos de cliente", "Url": "#/clienteTipo" },
+                    { "Descripcion": "Cuentas por cobrar", "Url": "#/cuentasPorCobrar" }
+                ]
+            },
+            {
+                "modulo": "Proveedores",
+                "icon": "fa fa-laptop",
+                "submodulo": [
+                    { "Descripcion": "Informacion de proveedores", "Url": "#/proveedor" },
+                    { "Descripcion": "Cuentas por pagar", "Url": "#/cuentasPorPagar" }
+                ]
+            },
             {
                 "modulo": "Datos Generales",
                 "icon": "fa fa-laptop",
@@ -41,18 +71,8 @@ app.controller('menuController', ['$scope', 'authService', '$location', function
                     { "Descripcion": "Caja de Cobro", "Url": "#/usuariocaja" },
                     { "Descripcion": "Notificaciones", "Url": "#/usuarionotificacion" }
                 ]
-            },
-            {
-                "modulo": "Productos",
-                "icon": "fa fa-th",
-                "submodulo": [
-                    { "Descripcion": "Inventario", "Url": "#/productoinventario" },
-                    { "Descripcion": "Busqueda", "Url": "#/productobusqueda" },
-                    { "Descripcion": "Transferir producto", "Url": "#/productotransferir" },
-                    { "Descripcion": "Clasificacion", "Url": "#/productoclasificacion" },
-                    { "Descripcion": "Bodega", "Url": "#/productobodega" }
-                ]
-            },
+            }
+
         ];
         console.log($scope.menu);
 

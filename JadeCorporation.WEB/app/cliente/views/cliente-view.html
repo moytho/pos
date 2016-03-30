@@ -1,0 +1,70 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Cliente
+            </header>
+            <div class="panel-body">
+                <div class=" form">
+                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
+                        <div class="form-group ">
+                            <label for="CodigoLocal" class="control-label col-lg-2">Identificador</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.Identificador" id="Identificador" name="Identificador" type="text" />
+                                <input class=" form-control" ng-model="cliente.CodigoCliente" id="CodigoCliente" ng-hide="true" name="CodigoCliente" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre" class="control-label col-lg-2">Nombre Comercial(requerido)</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.NombreComercial" id="CodigoComercial" name="CodigoComercial" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nombre" class="control-label col-lg-2">Responsable(requerido)</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.Responsable" id="Responsable" name="Responsable" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="direccion" class="control-label col-lg-2">Area</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.Area" id="Area" name="Area" type="text" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="direccion" class="control-label col-lg-2">Telefono</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.Telefono" id="Telefono" name="Telefono" type="text" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="Direccion" class="control-label col-lg-2">Direccion</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.Direccion" id="Direccion" name="Direccion" type="text" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="CorreoElectronico" class="control-label col-lg-2">Correo Electronico</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-model="cliente.CorreoElectronico" id="CorreoElectronico" name="CorreoElectronico" type="email" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

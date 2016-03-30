@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D1B23382-227C-47FC-BD60-C73241217B1A}</ProjectGuid>
+    <ProjectGuid>{35D5DEF9-9F41-4F51-92DD-DA647C187010}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -180,6 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -217,9 +221,14 @@
     <Compile Include="Conexion\ClaseConexion.cs" />
     <Compile Include="Conexion\IIdentityExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ClienteTiposController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ProductoAbastecimientosController.cs" />
+    <Compile Include="Controllers\ProductoClasificacionesController.cs" />
+    <Compile Include="Controllers\ProductoMarcasController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensiones\AccionesManuales.cs" />
@@ -244,6 +253,16 @@
     <Compile Include="Models\AspNetUsersPerfilesAsignado.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClasificacionDTO.cs" />
+    <Compile Include="Models\Cliente.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClienteDTO.cs" />
+    <Compile Include="Models\ClienteTipo.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClienteTipoDTO.cs" />
+    <Compile Include="Models\ClienteYMas.cs" />
     <Compile Include="Models\ConexionYPermiso_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -252,9 +271,6 @@
     </Compile>
     <Compile Include="Models\EmpresaDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Marca.cs">
-      <DependentUpon>ModelCore.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MarcaDTO.cs" />
     <Compile Include="Models\Metodo.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -298,6 +314,28 @@
     <Compile Include="Models\PerfilesMetodo.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Producto.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoAbastecimiento.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoAbastecimientoDTO.cs" />
+    <Compile Include="Models\ProductoClasificacion.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoDTO.cs" />
+    <Compile Include="Models\ProductoMarca.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoPrecio.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoTipo.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoTipoDTO.cs" />
+    <Compile Include="Models\ProductoYMas.cs" />
     <Compile Include="Models\Sucursal.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
@@ -314,12 +352,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Providers\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\Notas.txt" />
     <Content Include="Notas.txt" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
@@ -382,8 +422,9 @@
     </Content>
     <None Include="Properties\PublishProfiles\JADEApi.pubxml" />
     <None Include="Properties\PublishProfiles\Service.pubxml" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-messages.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -416,9 +457,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Providers\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Providers\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Providers\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

@@ -58,7 +58,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\appLogin.js" />
+    <Content Include="app\clienteTipo\clienteTipoController.js" />
+    <Content Include="app\clienteTipo\clienteTipoService.js" />
+    <Content Include="app\clienteTipo\views\clienteTipo-view.html" />
+    <Content Include="app\clienteTipo\views\clienteTipo.html" />
     <Content Include="app\empresa\views\empresa-view.html" />
+    <Content Include="app\cliente\clienteController.js" />
+    <Content Include="app\cliente\clienteService.js" />
+    <Content Include="app\cliente\views\cliente-view.html" />
+    <Content Include="app\cliente\views\cliente.html" />
+    <Content Include="app\productoClasificacion\views\productoClasificacion.html" />
+    <Content Include="app\productoAbastecimiento\productoAbastecimientoController.js" />
+    <Content Include="app\productoAbastecimiento\productoAbastecimientoService.js" />
+    <Content Include="app\productoAbastecimiento\views\productoAbastecimiento-view.html" />
+    <Content Include="app\productoAbastecimiento\views\productoAbastecimiento.html" />
+    <Content Include="app\productoMarca\productoMarcaController.js" />
+    <Content Include="app\productoMarca\productoMarcaService.js" />
+    <Content Include="app\productoMarca\views\productoMarca.html" />
+    <Content Include="app\productoMarca\views\productoMarca-view.html" />
+    <Content Include="app\productoClasificacion\productoClasificacionController.js" />
+    <Content Include="app\productoClasificacion\productoClasificacionService.js" />
+    <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
+    <Content Include="app\producto\productoController.js" />
+    <Content Include="app\producto\productoService.js" />
+    <Content Include="app\producto\views\producto-view.html" />
+    <Content Include="app\producto\views\producto.html" />
     <Content Include="app\sucursal\sucursalController.js" />
     <Content Include="app\empresa\empresaController.js" />
     <Content Include="app\sharedcontrollers\menuController.js" />
@@ -87,6 +111,7 @@
     <Content Include="css\layout-theme-one.css" />
     <Content Include="css\layout-theme-three.css" />
     <Content Include="css\layout-theme-two.css" />
+    <Content Include="css\loading-bar.css" />
     <Content Include="css\owl.carousel.css" />
     <Content Include="css\print-invoice.css" />
     <Content Include="css\select2-bootstrap.css" />
@@ -846,8 +871,11 @@
     <Content Include="js\wizard-init.js" />
     <Content Include="login.html" />
     <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-formly-templates-bootstrap.js" />
+    <Content Include="scripts\angular-messages.js" />
+    <Content Include="scripts\angular-messages.min.js" />
+    <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-ui-route.js" />
-    <Content Include="scripts\angular.min.js.map" />
     <Content Include="packages.config" />
     <Content Include="scripts\angular-route.min.js.map" />
     <Content Include="scripts\angular-resource.min.js.map" />
@@ -910,6 +938,10 @@
     <Content Include="fonts\Simple-Line-Icons.ttf" />
     <Content Include="fonts\Simple-Line-Icons.woff" />
     <None Include="Properties\PublishProfiles\JADEWebApp.pubxml" />
+    <Content Include="scripts\angular.js" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-messages.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -942,13 +974,10 @@
     <Content Include="index.html" />
     <Content Include="scripts\angular-local-storage.js" />
     <Content Include="scripts\angular-local-storage.min.js" />
-    <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-resource.js" />
     <Content Include="scripts\angular-resource.min.js" />
     <Content Include="scripts\angular-route.js" />
     <Content Include="scripts\angular-route.min.js" />
-    <Content Include="scripts\angular.js" />
-    <Content Include="scripts\angular.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -958,8 +987,10 @@
     <Content Include="content\css\bootstrap.min.css.map" />
     <Content Include="content\css\bootstrap.css.map" />
     <None Include="scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="scripts\api-check.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\formly.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\loading-bar.js" />

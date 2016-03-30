@@ -37,7 +37,11 @@
                                 <input class=" form-control" ng-model="registration.ConfirmPassword" id="password" name="password" minlength="2" type="password" required />
                             </div>
                         </div>
-                        
+                        <!--Usamos un enfoque diferente a app/productoClasificacion/views/productoClasificacion-view
+                        En ese caso mencionado necesitamos mandar el select como un unico valor (value),en este caso solo
+                        enviaremos el select como un objeto completo, ya que la clase definida en el server posee la misma
+                        informacion del objeto creado por angularjs-->
+
                         <div class="form-group ">
                             <label for="cemail" class="control-label col-lg-2">Empresa</label>
                             <div class="col-lg-10">

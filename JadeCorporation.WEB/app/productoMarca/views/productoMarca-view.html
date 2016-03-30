@@ -1,0 +1,37 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Marca del producto
+            </header>
+            <div class="panel-body">
+                <div class=" form">
+                    <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
+                        <div class="form-group ">
+                            <label for="nombre" class="control-label col-lg-2">Marca</label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" ng-hide="true" ng-model="productoMarca.CodigoProductoMarca" id="CodigoProductoMarca" name="CodigoProductoMarca" type="text" />
+                                <input class=" form-control" ng-model="productoMarca.Nombre" ng-maxlength="50" ng-minlength="2" ng-class="{error:form.Nombre.$dirty && form.Nombre.$invalid}" id="Nombre" name="Nombre" type="text" required />
+                                <div ng-messages="(form.Nombre.$dirty && form.Nombre.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">La marca es requerida.</div>
+                                    <div class="error" ng-message="minlength">La marca debe poseer por lo menos 2 caracteres</div>
+                                    <div class="error" ng-message="maxlength">La marca no puede poseer mas de 50 caracteres</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

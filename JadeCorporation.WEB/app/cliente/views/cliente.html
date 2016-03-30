@@ -1,0 +1,51 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Cliente <a class="btn btn-success btn-xs" href="#/cliente/create"><i class="fa fa-check"></i></a>
+            </header>
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th ng-hide="true">Codigo Cliente</th>
+                        <th>Identificador</th>
+                        <th>Nombre Comercial</th>
+                        <th>Telefono</th>
+                        <th>Correo Electronico</th>
+                        <th>Tipo Cliente</th>
+                        <th ng-hide="true">Estado</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="cliente in clientes">
+                        <td ng-hide="true">
+                            {{ cliente.CodigoCliente }}
+                        </td>
+                        <td>
+                            {{ cliente.Identificador }}
+                        </td>
+                        <td>
+                            {{ cliente.NombreComercial }}
+                        </td>
+                        <td>
+                            {{ cliente.Telefono }}
+                        </td>
+                        <td>
+                            {{ cliente.CorreoElectronico}}
+                        </td>
+                        <td>
+                            {{ cliente.ClienteTipoDescripcion}}
+                        </td>
+                        
+                        <td class="hidden-xs">
+                            <a class="btn btn-primary btn-xs" href="#/cliente/edit/{{cliente.CodigoCliente}}"><i class="fa fa-pencil"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>

@@ -31,6 +31,13 @@ namespace APITest.Models
         }
     
         public virtual DbSet<Sucursal> Sucursals { get; set; }
-        public virtual DbSet<Marca> Marcas { get; set; }
+        public virtual DbSet<Producto> Productoes { get; set; }
+        public virtual DbSet<ProductoClasificacion> ProductoClasificacions { get; set; }
+        public virtual DbSet<ProductoMarca> ProductoMarcas { get; set; }
+        public virtual DbSet<ProductoTipo> ProductoTipoes { get; set; }
+        public virtual DbSet<Cliente> Clientes { get; set; }
+        public virtual DbSet<ClienteTipo> ClienteTipoes { get; set; }
+        public virtual DbSet<ProductoAbastecimiento> ProductoAbastecimientoes { get; set; }
+        public virtual DbSet<ProductoPrecio> ProductoPrecios { get; set; }
     }
 }

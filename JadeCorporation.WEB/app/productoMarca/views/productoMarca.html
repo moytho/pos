@@ -1,0 +1,34 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Marcas de un producto <a class="btn btn-success btn-xs" href="#/productoMarca/create"><i class="fa fa-check"></i></a>
+            </header>
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th ng-hide="true">Codigo Producto Marca</th>
+                        <th>Marca</th>
+                        <th ng-hide="true">Estado</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="productoMarca in productoMarcas">
+                        <td ng-hide="true">
+                            {{ productoMarca.CodigoProductoMarca }}
+                        </td>
+                        <td>
+                            {{ productoMarca.Nombre }}
+                        </td>
+                        <td class="hidden-xs">
+                            <a class="btn btn-primary btn-xs" href="#/productoMarca/edit/{{productoMarca.CodigoProductoMarca}}"><i class="fa fa-pencil"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>

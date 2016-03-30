@@ -14,14 +14,10 @@ namespace APITest.Models
     
     public partial class Cliente
     {
-        public Cliente()
-        {
-            this.Facturas = new HashSet<Factura>();
-        }
-    
         public int CodigoCliente { get; set; }
         public int CodigoEmpresa { get; set; }
         public string Identificador { get; set; }
+        public Nullable<int> CodigoClienteTipo { get; set; }
         public string NombreComercial { get; set; }
         public string Area { get; set; }
         public string Telefono { get; set; }
@@ -30,8 +26,10 @@ namespace APITest.Models
         public bool PoseeCredito { get; set; }
         public Nullable<System.DateTime> FechaCorte { get; set; }
         public Nullable<int> DiasCreditos { get; set; }
-        public decimal MontoPermitido { get; set; }
+        public decimal MontoCredito { get; set; }
+        public bool Estado { get; set; }
+        public string Responsable { get; set; }
     
-        public virtual ICollection<Factura> Facturas { get; set; }
+        public virtual ClienteTipo ClienteTipo { get; set; }
     }
 }

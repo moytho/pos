@@ -5,9 +5,9 @@ using System.Web;
 
 namespace APITest.Models
 {
-    public class MarcaDTO
+    public class ProductoMarcaDTO
     {
-        public int CodigoMarca { get; set; }
+        public int CodigoProductoMarca { get; set; }
         public int CodigoEmpresa { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }

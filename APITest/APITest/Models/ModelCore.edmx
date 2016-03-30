@@ -5,15 +5,112 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="JadeCore1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Marca">
+        <EntityType Name="Cliente">
           <Key>
-            <PropertyRef Name="CodigoMarca" />
+            <PropertyRef Name="CodigoCliente" />
             <PropertyRef Name="CodigoEmpresa" />
           </Key>
-          <Property Name="CodigoMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="Identificador" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoClienteTipo" Type="int" />
+          <Property Name="NombreComercial" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Responsable" Type="varchar" MaxLength="75" />
+          <Property Name="Area" Type="varchar" MaxLength="5" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
+          <Property Name="Direccion" Type="varchar" MaxLength="150" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="50" />
+          <Property Name="PoseeCredito" Type="bit" Nullable="false" />
+          <Property Name="FechaCorte" Type="datetime" />
+          <Property Name="DiasCreditos" Type="int" />
+          <Property Name="MontoCredito" Type="decimal" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClienteTipo">
+          <Key>
+            <PropertyRef Name="CodigoClienteTipo" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoClienteTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoProductoClasificacion" Type="int" />
+          <Property Name="CodigoProductoMarca" Type="int" />
+          <Property Name="CodigoLocal" Type="varchar" MaxLength="50" />
+          <Property Name="SKU" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="CodigoProductoTipo" Type="int" />
+          <Property Name="CodigoProductoAbastecimiento" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="PrecioCosto" Type="decimal" Precision="12" Scale="0" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="12" Scale="0" />
+          <Property Name="StockMinimo" Type="int" />
+          <Property Name="Alto" Type="decimal" Precision="12" Scale="0" />
+          <Property Name="Ancho" Type="decimal" Precision="12" Scale="0" />
+          <Property Name="Profundidad" Type="decimal" Precision="12" Scale="0" />
+          <Property Name="ImagenUrl" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProductoAbastecimiento">
+          <Key>
+            <PropertyRef Name="CodigoProductoAbastecimiento" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoAbastecimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DiasAbastecimiento" Type="int" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoClasificacion">
+          <Key>
+            <PropertyRef Name="CodigoProductoClasificacion" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoClasificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoClasificacionPadre" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoMarca">
+          <Key>
+            <PropertyRef Name="CodigoProductoMarca" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoPrecio">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoClienteTipo" />
+          </Key>
+          <Property Name="CodigoProductoPrecio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoClienteTipo" Type="int" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoTipo">
+          <Key>
+            <PropertyRef Name="CodigoProductoTipo" />
+          </Key>
+          <Property Name="CodigoProductoTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Sucursal">
           <Key>
@@ -28,9 +125,158 @@
           <Property Name="Telefono" Type="varchar" MaxLength="10" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Clasificacion_Clasificacion">
+          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="0..1" />
+          <End Role="ProductoClasificacion1" Type="Self.ProductoClasificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoClasificacion1">
+              <PropertyRef Name="CodigoClasificacionPadre" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_ClienteTipo">
+          <End Role="ClienteTipo" Type="Self.ClienteTipo" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteTipo">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Clasificacion1">
+          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Marca">
+          <End Role="ProductoMarca" Type="Self.ProductoMarca" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoMarca">
+              <PropertyRef Name="CodigoProductoMarca" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoMarca" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_ProductoAbastecimiento">
+          <End Role="ProductoAbastecimiento" Type="Self.ProductoAbastecimiento" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoAbastecimiento">
+              <PropertyRef Name="CodigoProductoAbastecimiento" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoAbastecimiento" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_ProductoTipo">
+          <End Role="ProductoTipo" Type="Self.ProductoTipo" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoTipo">
+              <PropertyRef Name="CodigoProductoTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_ClienteTipo">
+          <End Role="ClienteTipo" Type="Self.ClienteTipo" Multiplicity="1" />
+          <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteTipo">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="JadeCore1ModelStoreContainer">
-          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClienteTipo" EntityType="Self.ClienteTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoAbastecimiento" EntityType="Self.ProductoAbastecimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoClasificacion" EntityType="Self.ProductoClasificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoMarca" EntityType="Self.ProductoMarca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoPrecio" EntityType="Self.ProductoPrecio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoTipo" EntityType="Self.ProductoTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="Self.FK_Clasificacion_Clasificacion">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
+            <End Role="ProductoClasificacion1" EntitySet="ProductoClasificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_ClienteTipo" Association="Self.FK_Cliente_ClienteTipo">
+            <End Role="ClienteTipo" EntitySet="ClienteTipo" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Clasificacion1" Association="Self.FK_Producto_Clasificacion1">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
+            <End Role="ProductoMarca" EntitySet="ProductoMarca" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoAbastecimiento" Association="Self.FK_Producto_ProductoAbastecimiento">
+            <End Role="ProductoAbastecimiento" EntitySet="ProductoAbastecimiento" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoTipo" Association="Self.FK_Producto_ProductoTipo">
+            <End Role="ProductoTipo" EntitySet="ProductoTipo" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_ClienteTipo" Association="Self.FK_ProductoPrecio_ClienteTipo">
+            <End Role="ClienteTipo" EntitySet="ClienteTipo" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_Producto" Association="Self.FK_ProductoPrecio_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -38,7 +284,46 @@
       <Schema Namespace="JadeCore1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="JadeCore1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Sucursals" EntityType="JadeCore1Model.Sucursal" />
-          <EntitySet Name="Marcas" EntityType="JadeCore1Model.Marca" />
+          <EntitySet Name="Productoes" EntityType="JadeCore1Model.Producto" />
+          <EntitySet Name="ProductoClasificacions" EntityType="JadeCore1Model.ProductoClasificacion" />
+          <EntitySet Name="ProductoMarcas" EntityType="JadeCore1Model.ProductoMarca" />
+          <EntitySet Name="ProductoTipoes" EntityType="JadeCore1Model.ProductoTipo" />
+          <AssociationSet Name="FK_Producto_Clasificacion1" Association="JadeCore1Model.FK_Producto_Clasificacion1">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacions" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Marca" Association="JadeCore1Model.FK_Producto_Marca">
+            <End Role="ProductoMarca" EntitySet="ProductoMarcas" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoTipo" Association="JadeCore1Model.FK_Producto_ProductoTipo">
+            <End Role="ProductoTipo" EntitySet="ProductoTipoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="JadeCore1Model.FK_Clasificacion_Clasificacion">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacions" />
+            <End Role="ProductoClasificacion1" EntitySet="ProductoClasificacions" />
+          </AssociationSet>
+          <EntitySet Name="Clientes" EntityType="JadeCore1Model.Cliente" />
+          <EntitySet Name="ClienteTipoes" EntityType="JadeCore1Model.ClienteTipo" />
+          <EntitySet Name="ProductoAbastecimientoes" EntityType="JadeCore1Model.ProductoAbastecimiento" />
+          <EntitySet Name="ProductoPrecios" EntityType="JadeCore1Model.ProductoPrecio" />
+          <AssociationSet Name="FK_Cliente_ClienteTipo" Association="JadeCore1Model.FK_Cliente_ClienteTipo">
+            <End Role="ClienteTipo" EntitySet="ClienteTipoes" />
+            <End Role="Cliente" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_ClienteTipo" Association="JadeCore1Model.FK_ProductoPrecio_ClienteTipo">
+            <End Role="ClienteTipo" EntitySet="ClienteTipoes" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoAbastecimiento" Association="JadeCore1Model.FK_Producto_ProductoAbastecimiento">
+            <End Role="ProductoAbastecimiento" EntitySet="ProductoAbastecimientoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_Producto" Association="JadeCore1Model.FK_ProductoPrecio_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecios" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sucursal">
           <Key>
@@ -53,16 +338,239 @@
           <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="Marca">
+        <EntityType Name="Producto">
           <Key>
-            <PropertyRef Name="CodigoMarca" />
+            <PropertyRef Name="CodigoProducto" />
             <PropertyRef Name="CodigoEmpresa" />
           </Key>
-          <Property Name="CodigoMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoProductoClasificacion" Type="Int32" />
+          <Property Name="CodigoProductoMarca" Type="Int32" />
+          <Property Name="CodigoLocal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoProductoTipo" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PrecioCosto" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="PrecioVenta" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="ProductoClasificacion" Relationship="JadeCore1Model.FK_Producto_Clasificacion1" FromRole="Producto" ToRole="ProductoClasificacion" />
+          <NavigationProperty Name="ProductoMarca" Relationship="JadeCore1Model.FK_Producto_Marca" FromRole="Producto" ToRole="ProductoMarca" />
+          <NavigationProperty Name="ProductoTipo" Relationship="JadeCore1Model.FK_Producto_ProductoTipo" FromRole="Producto" ToRole="ProductoTipo" />
+          <Property Name="SKU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoProductoAbastecimiento" Type="Int32" />
+          <Property Name="StockMinimo" Type="Int32" />
+          <Property Name="Alto" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="Ancho" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="Profundidad" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="ImagenUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProductoAbastecimiento" Relationship="JadeCore1Model.FK_Producto_ProductoAbastecimiento" FromRole="Producto" ToRole="ProductoAbastecimiento" />
+          <NavigationProperty Name="ProductoPrecios" Relationship="JadeCore1Model.FK_ProductoPrecio_Producto" FromRole="Producto" ToRole="ProductoPrecio" />
+        </EntityType>
+        <EntityType Name="ProductoClasificacion">
+          <Key>
+            <PropertyRef Name="CodigoProductoClasificacion" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoClasificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoClasificacionPadre" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_Clasificacion1" FromRole="ProductoClasificacion" ToRole="Producto" />
+          <NavigationProperty Name="ProductoClasificacion1" Relationship="JadeCore1Model.FK_Clasificacion_Clasificacion" FromRole="ProductoClasificacion" ToRole="ProductoClasificacion1" />
+          <NavigationProperty Name="ProductoClasificacion2" Relationship="JadeCore1Model.FK_Clasificacion_Clasificacion" FromRole="ProductoClasificacion1" ToRole="ProductoClasificacion" />
+        </EntityType>
+        <EntityType Name="ProductoMarca">
+          <Key>
+            <PropertyRef Name="CodigoProductoMarca" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_Marca" FromRole="ProductoMarca" ToRole="Producto" />
         </EntityType>
+        <EntityType Name="ProductoTipo">
+          <Key>
+            <PropertyRef Name="CodigoProductoTipo" />
+          </Key>
+          <Property Name="CodigoProductoTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_ProductoTipo" FromRole="ProductoTipo" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Producto_Clasificacion1">
+          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Marca">
+          <End Type="JadeCore1Model.ProductoMarca" Role="ProductoMarca" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoMarca">
+              <PropertyRef Name="CodigoProductoMarca" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoMarca" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_ProductoTipo">
+          <End Type="JadeCore1Model.ProductoTipo" Role="ProductoTipo" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoTipo">
+              <PropertyRef Name="CodigoProductoTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clasificacion_Clasificacion">
+          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoClasificacion1">
+              <PropertyRef Name="CodigoClasificacionPadre" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="CodigoCliente" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoCliente" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Identificador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoClienteTipo" Type="Int32" />
+          <Property Name="NombreComercial" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PoseeCredito" Type="Boolean" Nullable="false" />
+          <Property Name="FechaCorte" Type="DateTime" Precision="3" />
+          <Property Name="DiasCreditos" Type="Int32" />
+          <Property Name="MontoCredito" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <NavigationProperty Name="ClienteTipo" Relationship="JadeCore1Model.FK_Cliente_ClienteTipo" FromRole="Cliente" ToRole="ClienteTipo" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Responsable" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ClienteTipo">
+          <Key>
+            <PropertyRef Name="CodigoClienteTipo" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoClienteTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="JadeCore1Model.FK_Cliente_ClienteTipo" FromRole="ClienteTipo" ToRole="Cliente" />
+          <NavigationProperty Name="ProductoPrecios" Relationship="JadeCore1Model.FK_ProductoPrecio_ClienteTipo" FromRole="ClienteTipo" ToRole="ProductoPrecio" />
+        </EntityType>
+        <EntityType Name="ProductoAbastecimiento">
+          <Key>
+            <PropertyRef Name="CodigoProductoAbastecimiento" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoProductoAbastecimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiasAbastecimiento" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_ProductoAbastecimiento" FromRole="ProductoAbastecimiento" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="ProductoPrecio">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoClienteTipo" />
+          </Key>
+          <Property Name="CodigoProductoPrecio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoClienteTipo" Type="Int32" Nullable="false" />
+          <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ClienteTipo" Relationship="JadeCore1Model.FK_ProductoPrecio_ClienteTipo" FromRole="ProductoPrecio" ToRole="ClienteTipo" />
+          <NavigationProperty Name="Producto" Relationship="JadeCore1Model.FK_ProductoPrecio_Producto" FromRole="ProductoPrecio" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Cliente_ClienteTipo">
+          <End Type="JadeCore1Model.ClienteTipo" Role="ClienteTipo" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Cliente" Role="Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteTipo">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_ClienteTipo">
+          <End Type="JadeCore1Model.ClienteTipo" Role="ClienteTipo" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoPrecio" Role="ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClienteTipo">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="CodigoClienteTipo" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_ProductoAbastecimiento">
+          <End Type="JadeCore1Model.ProductoAbastecimiento" Role="ProductoAbastecimiento" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoAbastecimiento">
+              <PropertyRef Name="CodigoProductoAbastecimiento" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoAbastecimiento" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_Producto">
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoPrecio" Role="ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -82,13 +590,110 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Marcas">
-            <EntityTypeMapping TypeName="JadeCore1Model.Marca">
-              <MappingFragment StoreEntitySet="Marca">
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="JadeCore1Model.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="ImagenUrl" ColumnName="ImagenUrl" />
+                <ScalarProperty Name="Profundidad" ColumnName="Profundidad" />
+                <ScalarProperty Name="Ancho" ColumnName="Ancho" />
+                <ScalarProperty Name="Alto" ColumnName="Alto" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="CodigoProductoAbastecimiento" ColumnName="CodigoProductoAbastecimiento" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="PrecioCosto" ColumnName="PrecioCosto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoProductoTipo" ColumnName="CodigoProductoTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoLocal" ColumnName="CodigoLocal" />
+                <ScalarProperty Name="CodigoProductoMarca" ColumnName="CodigoProductoMarca" />
+                <ScalarProperty Name="CodigoProductoClasificacion" ColumnName="CodigoProductoClasificacion" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoClasificacions">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoClasificacion">
+              <MappingFragment StoreEntitySet="ProductoClasificacion">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoClasificacionPadre" ColumnName="CodigoClasificacionPadre" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProductoClasificacion" ColumnName="CodigoProductoClasificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoMarcas">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoMarca">
+              <MappingFragment StoreEntitySet="ProductoMarca">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
-                <ScalarProperty Name="CodigoMarca" ColumnName="CodigoMarca" />
+                <ScalarProperty Name="CodigoProductoMarca" ColumnName="CodigoProductoMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoTipoes">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoTipo">
+              <MappingFragment StoreEntitySet="ProductoTipo">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoProductoTipo" ColumnName="CodigoProductoTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="JadeCore1Model.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="MontoCredito" ColumnName="MontoCredito" />
+                <ScalarProperty Name="DiasCreditos" ColumnName="DiasCreditos" />
+                <ScalarProperty Name="FechaCorte" ColumnName="FechaCorte" />
+                <ScalarProperty Name="PoseeCredito" ColumnName="PoseeCredito" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+                <ScalarProperty Name="CodigoClienteTipo" ColumnName="CodigoClienteTipo" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoCliente" ColumnName="CodigoCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClienteTipoes">
+            <EntityTypeMapping TypeName="JadeCore1Model.ClienteTipo">
+              <MappingFragment StoreEntitySet="ClienteTipo">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoClienteTipo" ColumnName="CodigoClienteTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoAbastecimientoes">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoAbastecimiento">
+              <MappingFragment StoreEntitySet="ProductoAbastecimiento">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="DiasAbastecimiento" ColumnName="DiasAbastecimiento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProductoAbastecimiento" ColumnName="CodigoProductoAbastecimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoPrecios">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoPrecio">
+              <MappingFragment StoreEntitySet="ProductoPrecio">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="CodigoClienteTipo" ColumnName="CodigoClienteTipo" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="CodigoProductoPrecio" ColumnName="CodigoProductoPrecio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -106,7 +711,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
