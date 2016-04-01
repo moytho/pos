@@ -1,9 +1,9 @@
-﻿var app = angular.module('AngularAuthApp', ['ngAnimate','ngRoute', 'LocalStorageModule', 'angular-loading-bar','ngMessages']);
+﻿var app = angular.module('AngularAuthApp', ['ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider,CONFIG) {
 
     $routeProvider.when("/home", {controller: "homeController",templateUrl: "app/sharedviews/home.html"});
-    $routeProvider.when("/login", {redirectTo: function () { window.location = "/login.html"; }});
+    $routeProvider.when("/login", { redirectTo: function () { window.location = CONFIG.LOGIN_URL;}});
     $routeProvider.when("/registrarusuario", {controller: "signupController",templateUrl: "app/autenticacion/views/signup.html"});
     //un listado de todas las empresa GET api/empresas
     $routeProvider.when("/empresa", { controller: "empresaController", templateUrl: "app/empresa/views/empresa.html" });

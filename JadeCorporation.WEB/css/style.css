@@ -2712,7 +2712,7 @@ h2.form-heading {
     z-index: 2;
 }
 
-.form-signin input[type="text"], .form-signin input[type="password"] {
+.form-signin input[type="text"], .form-signin input[type="password"], .form-signin input[type="email"] {
     margin-bottom: 15px;
     border-radius: 4px;
     border: none;
@@ -6527,3 +6527,52 @@ a.view-all:hover {
     width: 100%;
     height: auto;
 }
+
+div.error {
+    display: inline-block;
+    margin: 8px 0;
+    color: #e55957;
+    font-weight: 400;
+    white-space: nowrap;
+}
+input.error {
+    background: rgb(251, 227, 228);
+    border: 1px solid #fbc2c4 !important;
+    color: #8a1f11;
+}
+
+        
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.pop {
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+    .pop.ng-enter,
+    .pop.ng-leave {
+        -webkit-transition: all 1s ease;
+        transition: all 1s ease;
+    }
+
+    .pop.ng-enter {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    .pop.ng-enter-active,
+    .pop.ng-leave,
+    .pop.ng-leave-active {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .pop.ng-leave-active {
+        display:none;
+    }

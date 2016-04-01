@@ -1,10 +1,7 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+app.controller('loginController', ['$scope', '$location', 'authService','CONFIG', function ($scope, $location, authService,CONFIG) {
 
-    $scope.estaAutenticado = authService.authentication;
-
-    //if ($scope.estaAutenticado.isAuth == true) window.location.href = "http://72.55.164.234/JADEWebApp/#/home";
-    if ($scope.estaAutenticado.isAuth == true) window.location.href = "http://localhost:3883/#/home";
+    if (authService.authentication.isAuth) window.location.href = CONFIG.HOME_URL;
 
     $scope.loginData = {
         Email: "",
@@ -14,16 +11,16 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
     $scope.message = "";
 
     $scope.login = function () {
+        $scope.message = '';
         authService.login($scope.loginData).then(function (response) {
-
-            //$location.path('//#/home');
-            //window.location.href = "http://72.55.164.234/JADEWebApp/#/home";
-            window.location.href = "http://localhost:3883/#/home";
+            //alert(CONFIG.HOME_URL);
+            window.location.href = CONFIG.HOME_URL;
+            
         
         },
          function (err) {
              console.log(err);
-            // $scope.message = err.error_description;
+             $scope.message = err.error_description;
          });
     };
 

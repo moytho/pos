@@ -57,11 +57,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\appConfiguration.js" />
     <Content Include="app\appLogin.js" />
     <Content Include="app\clienteTipo\clienteTipoController.js" />
     <Content Include="app\clienteTipo\clienteTipoService.js" />
     <Content Include="app\clienteTipo\views\clienteTipo-view.html" />
     <Content Include="app\clienteTipo\views\clienteTipo.html" />
+    <Content Include="app\directives\scrollOnClick.js" />
     <Content Include="app\empresa\views\empresa-view.html" />
     <Content Include="app\cliente\clienteController.js" />
     <Content Include="app\cliente\clienteService.js" />
@@ -121,6 +123,7 @@
     <Content Include="css\style-responsive.css" />
     <Content Include="css\style.css" />
     <Content Include="css\tagsinput.css" />
+    <Content Include="css\angular-toastr.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\icomoon-weather-demo\demo-files\demo.css" />
     <Content Include="fonts\icomoon-weather-demo\demo-files\demo.js" />
@@ -875,6 +878,7 @@
     <Content Include="scripts\angular-messages.js" />
     <Content Include="scripts\angular-messages.min.js" />
     <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-toastr.js" />
     <Content Include="scripts\angular-ui-route.js" />
     <Content Include="packages.config" />
     <Content Include="scripts\angular-route.min.js.map" />
@@ -990,6 +994,11 @@
     <Content Include="scripts\api-check.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="app\directives\progressbar\progressbar.directive.js" />
+    <Content Include="app\directives\progressbar\progressbar.html" />
+    <Content Include="app\directives\toast\toast.controller.js" />
+    <Content Include="app\directives\toast\toast.directive.js" />
+    <Content Include="app\directives\toast\toast.html" />
     <Content Include="scripts\formly.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />

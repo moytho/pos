@@ -233,7 +233,7 @@ namespace APITest.Controllers
                 connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
                 using (JadeCore1Entities db = new JadeCore1Entities())
                 {
-                    Producto producto = db.Productoes.Find(id);
+                    Producto producto = db.Productoes.Find(id,conexion.CodigoEmpresa);
                     if (producto == null)
                     {
                         return NotFound();

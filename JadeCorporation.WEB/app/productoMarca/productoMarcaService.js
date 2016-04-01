@@ -1,7 +1,6 @@
 ﻿'use strict';
-app.factory('productoMarcaService', ['$http', function ($http) {
-    var serviceBase = 'http://localhost:64486/';
-    //var serviceBase = 'http://72.55.164.234/JadeAPI/';
+app.factory('productoMarcaService', ['$http', 'CONFIG', function ($http, CONFIG) {
+    var serviceBase = CONFIG.SERVICE_BASE;
     var productoMarcaServiceFactory = {};
 
     var _getProductoMarcas = function () {

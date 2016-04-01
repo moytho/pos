@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('clienteTipoController', ['$scope', 'clienteTipoService', 
-    function ($scope, clienteTipoService) {
+app.controller('clienteTipoController', ['$scope', 'clienteTipoService','toastr', 
+    function ($scope, clienteTipoService, toastr) {
     
     $scope.clienteTipos = [];
     
@@ -14,7 +14,7 @@ app.controller('clienteTipoController', ['$scope', 'clienteTipoService',
     //$window.loading_screen.finish();
 }]);
 
-app.controller('clienteTipoEditar', ['$scope', 'clienteTipoService', '$routeParams', '$location', function ($scope, clienteTipoService, $routeParams, $location) {
+app.controller('clienteTipoEditar', ['$scope', 'clienteTipoService', '$routeParams', '$location','toastr', function ($scope, clienteTipoService, $routeParams, $location,toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
     
@@ -32,9 +32,13 @@ app.controller('clienteTipoEditar', ['$scope', 'clienteTipoService', '$routePara
     };
 
     $scope.update = function () {
-        console.log($scope.clienteTipo);
         clienteTipoService.updateClienteTipo(codigo, $scope.clienteTipo).then(function (results) {
-            $location.path('/clienteTipo');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/clienteTipo');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -42,7 +46,12 @@ app.controller('clienteTipoEditar', ['$scope', 'clienteTipoService', '$routePara
 
     $scope.delete = function () {
         clienteTipoService.deleteClienteTipo(codigo).then(function (results) {
-            $location.path('/clienteTipo');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/clienteTipo');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -50,13 +59,18 @@ app.controller('clienteTipoEditar', ['$scope', 'clienteTipoService', '$routePara
 
 }]);
 
-app.controller('clienteTipoCrear', ['$scope', 'clienteTipoService', '$routeParams', '$location', function ($scope, clienteTipoService, $routeParams, $location) {
+app.controller('clienteTipoCrear', ['$scope', 'clienteTipoService', '$routeParams', '$location', 'toastr', function ($scope, clienteTipoService, $routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.clienteTipo = {};
 
     $scope.create = function () {
         clienteTipoService.createClienteTipo($scope.clienteTipo).then(function (results) {
-            $location.path('/clienteTipo');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/clienteTipo');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });

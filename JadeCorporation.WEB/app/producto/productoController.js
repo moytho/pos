@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('productoController', ['$scope', 'productoService', 
-    function ($scope, productoService) {
+app.controller('productoController', ['$scope','$window', 'productoService', 'toastr',
+    function ($scope, $window,productoService, toastr) {
     
     $scope.productos = [];
     
@@ -14,7 +14,7 @@ app.controller('productoController', ['$scope', 'productoService',
     //$window.loading_screen.finish();
 }]);
 
-app.controller('productoEditar', ['$scope', 'productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', function ($scope, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location) {
+app.controller('productoEditar', ['$scope','$window', 'productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope,$window, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
     
@@ -40,19 +40,18 @@ app.controller('productoEditar', ['$scope', 'productoService', 'productoMarcaSer
         console.log(error);
     });
 
-
-
-    
-
-
     $scope.goBack = function () {
         $location.path('/producto');
     };
 
     $scope.update = function () {
-        console.log($scope.producto);
         productoService.updateProducto(codigo, $scope.producto).then(function (results) {
-            $location.path('/producto');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/producto');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -60,7 +59,12 @@ app.controller('productoEditar', ['$scope', 'productoService', 'productoMarcaSer
 
     $scope.delete = function () {
         productoService.deleteProducto(codigo).then(function (results) {
-            $location.path('/producto');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/producto');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -68,7 +72,7 @@ app.controller('productoEditar', ['$scope', 'productoService', 'productoMarcaSer
 
 }]);
 
-app.controller('productoCrear', ['$scope', 'productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', function ($scope, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location) {
+app.controller('productoCrear', ['$scope', '$window','productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope,$window, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
@@ -76,7 +80,7 @@ app.controller('productoCrear', ['$scope', 'productoService', 'productoMarcaServ
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
-
+        
     }, function (error) {
         console.log(error);
     });
@@ -89,10 +93,13 @@ app.controller('productoCrear', ['$scope', 'productoService', 'productoMarcaServ
     });
 
     $scope.create = function () {
-        console.log("hi from productoCrear");
-        console.log($scope.producto);
         productoService.createProducto($scope.producto).then(function (results) {
-            $location.path('/producto');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/producto');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            } 
         }, function (error) {
             console.log(error);
         });

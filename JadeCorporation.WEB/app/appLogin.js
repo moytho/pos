@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthAppLogin', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+﻿var app = angular.module('AngularAuthAppLogin', ['ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages']);
 
 app.run(['authService', function (authService) {
     authService.fillAuthData();

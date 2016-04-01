@@ -6,44 +6,48 @@
             </header>
             <div class="panel-body">
                 <div class=" form">
-                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
+                    <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
                         <div class="form-group ">
-                            <label for="nombre" class="control-label col-lg-2">Nombre (requerido)</label>
+                            <label for="nombre" class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-hide="true" ng-model="sucursal.CodigoSucursal" id="codigosucursal" name="codigosucursal" minlength="2" type="text" />
-                                <input class=" form-control" ng-model="sucursal.Nombre" id="nombre" name="nombre" minlength="2" type="text" required />
+                                <input class=" form-control" ng-hide="true" ng-model="sucursal.CodigoSucursal" id="codigosucursal" name="codigosucursal" type="text" />
+                                <input class=" form-control" ng-model="sucursal.Nombre" id="Nombre" name="Nombre" type="text" required
+                                       ng-class="{error:form.Nombre.$dirty && form.Nombre.$invalid}" />
+                                <div ng-messages="(form.Nombre.$dirty && form.Nombre.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">Ingrese un nombre para esta sucursal</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="direccion" class="control-label col-lg-2">Direccion (requerido)</label>
+                            <label for="direccion" class="control-label col-lg-2">Direccion</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-model="sucursal.Direccion" id="direccion" name="direccion" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="sucursal.Direccion" id="direccion" name="direccion" type="text"/>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="area" class="control-label col-lg-2">Codigo de Area (requerido)</label>
+                            <label for="area" class="control-label col-lg-2">Codigo de Area</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-model="sucursal.Area" id="area" name="area" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="sucursal.Area" id="area" name="area" type="text"/>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="telefono" class="control-label col-lg-2">Telefono (requerido)</label>
+                            <label for="telefono" class="control-label col-lg-2">Telefono</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-model="sucursal.Telefono" id="telefono" name="telefono" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="sucursal.Telefono" id="telefono" name="telefono" type="text"/>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="email" class="control-label col-lg-2">Correo (requerido)</label>
+                            <label for="email" class="control-label col-lg-2">Correo</label>
                             <div class="col-lg-10">
-                                <input class="form-control " ng-model="sucursal.Email" id="email" type="email" name="email" required />
+                                <input class="form-control " ng-model="sucursal.Email" id="email" type="email" name="email"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
-                                <button class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
-                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
-                                <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" scroll-on-click type="submit">Actualizar</button>
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" scroll-on-click type="submit">Guardar</button>
+                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" scroll-on-click type="submit">Eliminar</button>
+                                <button class="btn btn-default" ng-click="goBack()" scroll-on-click type="button">Cancelar</button>
                             </div>
                         </div>
                     </form>

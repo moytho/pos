@@ -5,39 +5,43 @@
                 Empresa seleccionada
             </header>
             <div class="panel-body">
-                <div class=" form">
-                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
+                <div class="form">
+                    <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
                         <div class="form-group ">
-                            <label for="cname" class="control-label col-lg-2">Nombre (requerido)</label>
+                            <label for="cname" class="control-label col-lg-2">Nombre</label>
                             <div class="col-lg-10">
                                 <input class=" form-control" ng-hide="true" ng-model="empresa.CodigoEmpresa" id="codigoempresa" name="codigoempresa" minlength="2" type="text" />
-                                <input class=" form-control" ng-model="empresa.Nombre" id="nombre" name="nombre" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="empresa.Nombre" id="Nombre" name="Nombre" type="text" required 
+                                       ng-class="{error:form.Nombre.$dirty && form.Nombre.$invalid}" />
+                                <div ng-messages="(form.Nombre.$dirty && form.Nombre.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">Ingrese un nombre para esta empresa</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="cname" class="control-label col-lg-2">Direccion (requerido)</label>
+                            <label for="cname" class="control-label col-lg-2">Direccion</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-model="empresa.Direccion" id="direccion" name="direccion" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="empresa.Direccion" id="direccion" name="direccion" type="text"/>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="cname" class="control-label col-lg-2">Telefono (requerido)</label>
+                            <label for="cname" class="control-label col-lg-2">Telefono</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-model="empresa.Telefono" id="telefono" name="telefono" minlength="2" type="text" required />
+                                <input class=" form-control" ng-model="empresa.Telefono" id="telefono" name="telefono" type="text"/>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="cemail" class="control-label col-lg-2">Correo (requerido)</label>
+                            <label for="cemail" class="control-label col-lg-2">Correo</label>
                             <div class="col-lg-10">
-                                <input class="form-control " ng-model="empresa.Email" id="email" type="email" name="email" required />
+                                <input class="form-control " ng-model="empresa.Email" id="Email" type="Email" name="email"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
-                                <button class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
-                                <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
-                                <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                                <button scroll-on-click ng-disabled="form.$invalid" class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button scroll-on-click ng-disabled="form.$invalid" class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button scroll-on-click class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                <button scroll-on-click class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
                             </div>
                         </div>
                     </form>

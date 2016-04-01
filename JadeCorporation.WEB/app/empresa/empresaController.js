@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('empresaController', ['$rootScope', '$location','$scope', 'empresaService', function ($rootScope,$location,$scope, empresaService) {
+app.controller('empresaController', ['$rootScope', '$location', '$scope', 'empresaService', 'toastr', function ($rootScope, $location, $scope, empresaService, toastr) {
     
     $scope.empresas = [];
     
@@ -12,7 +12,7 @@ app.controller('empresaController', ['$rootScope', '$location','$scope', 'empres
     
 }]);
 
-app.controller('empresaEditar', ['$scope', 'empresaService', '$routeParams', '$location', function ($scope, empresaService, $routeParams, $location) {
+app.controller('empresaEditar', ['$scope', 'empresaService', '$routeParams', '$location', 'toastr', function ($scope, empresaService, $routeParams, $location, toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
 
@@ -32,7 +32,12 @@ app.controller('empresaEditar', ['$scope', 'empresaService', '$routeParams', '$l
     $scope.update = function () {
         console.log($scope.empresa);
         empresaService.updateEmpresa(codigo,$scope.empresa).then(function (results) {
-            $location.path('/empresa');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/empresa');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -40,7 +45,12 @@ app.controller('empresaEditar', ['$scope', 'empresaService', '$routeParams', '$l
 
     $scope.delete = function () {
         empresaService.deleteEmpresa(codigo).then(function (results) {
-            $location.path('/empresa');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/empresa');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });      
@@ -48,15 +58,18 @@ app.controller('empresaEditar', ['$scope', 'empresaService', '$routeParams', '$l
 
 }]);
 
-app.controller('empresaCrear', ['$scope', 'empresaService', '$routeParams', '$location', function ($scope, empresaService, $routeParams, $location) {
+app.controller('empresaCrear', ['$scope', 'empresaService', '$routeParams', '$location', 'toastr', function ($scope, empresaService, $routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.empresa = {};
 
     $scope.create = function () {
-        console.log("hi from empresaCrear");
-        console.log($scope.empresa);
         empresaService.createEmpresa($scope.empresa).then(function (results) {
-            $location.path('/empresa');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/empresa');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });

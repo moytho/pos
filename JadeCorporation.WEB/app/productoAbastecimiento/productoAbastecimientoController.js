@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('productoAbastecimientoController', ['$scope', 'productoAbastecimientoService',
-    function ($scope, productoAbastecimientoService) {
+app.controller('productoAbastecimientoController', ['$scope', 'productoAbastecimientoService','toastr',
+    function ($scope, productoAbastecimientoService, toastr) {
 
         $scope.productoAbastecimientos = [];
 
@@ -14,7 +14,7 @@ app.controller('productoAbastecimientoController', ['$scope', 'productoAbastecim
         //$window.loading_screen.finish();
     }]);
 
-app.controller('productoAbastecimientoEditar', ['$scope', 'productoAbastecimientoService', '$routeParams', '$location', function ($scope, productoAbastecimientoService, $routeParams, $location) {
+app.controller('productoAbastecimientoEditar', ['$scope', 'productoAbastecimientoService', '$routeParams', '$location', 'toastr', function ($scope, productoAbastecimientoService, $routeParams, $location, toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
 
@@ -33,7 +33,12 @@ app.controller('productoAbastecimientoEditar', ['$scope', 'productoAbastecimient
 
     $scope.update = function () {
         productoAbastecimientoService.updateProductoAbastecimiento(codigo, $scope.productoAbastecimiento).then(function (results) {
-            $location.path('/productoAbastecimiento');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/productoAbastecimiento');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -41,7 +46,12 @@ app.controller('productoAbastecimientoEditar', ['$scope', 'productoAbastecimient
 
     $scope.delete = function () {
         productoAbastecimientoService.deleteProductoAbastecimiento(codigo).then(function (results) {
-            $location.path('/productoAbastecimiento');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/productoAbastecimiento');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -49,13 +59,18 @@ app.controller('productoAbastecimientoEditar', ['$scope', 'productoAbastecimient
 
 }]);
 
-app.controller('productoAbastecimientoCrear', ['$scope', 'productoAbastecimientoService', '$routeParams', '$location', function ($scope, productoAbastecimientoService, $routeParams, $location) {
+app.controller('productoAbastecimientoCrear', ['$scope', 'productoAbastecimientoService', '$routeParams', '$location', 'toastr', function ($scope, productoAbastecimientoService, $routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.productoAbastecimiento = {};
 
     $scope.create = function () {
         productoAbastecimientoService.createProductoAbastecimiento($scope.productoAbastecimiento).then(function (results) {
-            $location.path('/productoAbastecimiento');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/productoAbastecimiento');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });

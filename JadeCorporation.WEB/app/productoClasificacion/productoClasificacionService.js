@@ -1,7 +1,6 @@
 ﻿'use strict';
-app.factory('productoClasificacionService', ['$http', function ($http) {
-    var serviceBase = 'http://localhost:64486/';
-    //var serviceBase = 'http://72.55.164.234/JadeAPI/';
+app.factory('productoClasificacionService', ['$http', 'CONFIG', function ($http, CONFIG) {
+    var serviceBase = CONFIG.SERVICE_BASE;
     var productoClasificacionServiceFactory = {};
 
     var _getProductoClasificaciones = function () {

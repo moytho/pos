@@ -1,12 +1,12 @@
 ﻿'use strict';
-app.controller('productoMarcaController', ['$scope', 'productoMarcaService',
-    function ($scope, productoMarcaService) {
+app.controller('productoMarcaController', ['$scope', 'productoMarcaService', 'toastr',
+    function ($scope, productoMarcaService, toastr) {
 
         $scope.productoMarcas = [];
-
         productoMarcaService.getProductoMarcas().then(function (results) {
-            $scope.productoMarcas = results.data;
 
+            $scope.productoMarcas = results.data;
+        
         }, function (error) {
             console.log(error);
         });
@@ -14,7 +14,7 @@ app.controller('productoMarcaController', ['$scope', 'productoMarcaService',
         //$window.loading_screen.finish();
     }]);
 
-app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$routeParams', '$location', function ($scope, productoMarcaService, $routeParams, $location) {
+app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$routeParams', '$location','toastr', function ($scope, productoMarcaService, $routeParams, $location,toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
 
@@ -33,7 +33,13 @@ app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$route
 
     $scope.update = function () {
         productoMarcaService.updateProductoMarca(codigo, $scope.productoMarca).then(function (results) {
-            $location.path('/productoMarca');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/productoMarca');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
+            
         }, function (error) {
             console.log(error);
         });
@@ -41,7 +47,12 @@ app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$route
 
     $scope.delete = function () {
         productoMarcaService.deleteProductoMarca(codigo).then(function (results) {
-            $location.path('/productoMarca');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/productoMarca');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -49,13 +60,18 @@ app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$route
 
 }]);
 
-app.controller('productoMarcaCrear', ['$scope', 'productoMarcaService', '$routeParams', '$location', function ($scope, productoMarcaService, $routeParams, $location) {
+app.controller('productoMarcaCrear', ['$scope', 'productoMarcaService', '$routeParams', '$location','toastr', function ($scope, productoMarcaService, $routeParams, $location,toastr) {
     $scope.editar = false;
     $scope.productoMarca = {};
 
     $scope.create = function () {
         productoMarcaService.createProductoMarca($scope.productoMarca).then(function (results) {
-            $location.path('/productoMarca');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/productoMarca');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });

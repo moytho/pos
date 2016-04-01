@@ -1,8 +1,7 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+app.factory('authService', ['$http', '$q', 'localStorageService', 'CONFIG', function ($http, $q, localStorageService, CONFIG) {
 
-    var serviceBase = 'http://localhost:64486/';
-    //var serviceBase = 'http://72.55.164.234/JadeAPI/';
+    var serviceBase = CONFIG.SERVICE_BASE;
     var authServiceFactory = {};
 
     var _authentication = {

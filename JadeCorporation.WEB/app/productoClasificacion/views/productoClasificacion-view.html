@@ -6,12 +6,16 @@
             </header>
             <div class="panel-body">
                 <div class=" form">
-                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
+                    <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
                         <div class="form-group ">
                             <label for="nombre" class="control-label col-lg-2">Descripcion (requerido)</label>
                             <div class="col-lg-10">
                                 <input class=" form-control" ng-hide="true" ng-model="productoClasificacion.CodigoProductoClasificacion" id="codigoproductoclasificacion" name="codigoproductoclasificacion" minlength="2" type="text" />
-                                <input class=" form-control" ng-model="productoClasificacion.Descripcion" id="nombre" name="nombre" type="text" required />
+                                <input class=" form-control" ng-model="productoClasificacion.Descripcion" id="Descripcion" name="Descripcion" type="text" required
+                                       ng-class="{error:form.Descripcion.$dirty && form.Descripcion.$invalid}" />
+                                <div ng-messages="(form.Descripcion.$dirty && form.Descripcion.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">Ingrese una descripcion para este tipo de clasificacion de producto</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group ">
@@ -27,8 +31,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
-                                <button class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
                                 <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
                                 <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
                             </div>

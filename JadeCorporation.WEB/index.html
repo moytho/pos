@@ -24,58 +24,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
     <link href="css/loading-bar.css" rel="stylesheet" />
-    <style>
-
-        div.error {
-            display: inline-block;
-            margin: 8px 0;
-            color: #e55957;
-            font-weight: 400;
-            white-space: nowrap;
-        }
-        input.error {
-            background: rgb(251, 227, 228);
-            border: 1px solid #fbc2c4 !important;
-            color: #8a1f11;
-        }
-
-        
-
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-
-        .pop {
-            position: relative;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-        }
-
-            .pop.ng-enter,
-            .pop.ng-leave {
-                -webkit-transition: all 1s ease;
-                transition: all 1s ease;
-            }
-
-            .pop.ng-enter {
-                -webkit-transform: scale(0);
-                transform: scale(0);
-            }
-
-            .pop.ng-enter-active,
-            .pop.ng-leave,
-            .pop.ng-leave-active {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-            }
-
-            .pop.ng-leave-active {
-                display:none;
-            }
-
-    </style>
+    <link href="css/angular-toastr.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -85,6 +34,7 @@
 
 </head>
 <body class="sticky-header">
+
     <div ng-cloak>
         {{scoped_var}}
         <section>
@@ -213,6 +163,7 @@
                     </ul>
                     <!--sidebar nav end-->
                     <!--sidebar widget start-->
+                    <!--
                     <div class="sidebar-widget">
                         <h4>Server Status</h4>
                         <ul class="list-group">
@@ -237,6 +188,7 @@
                             <li><a href="javascript:;" class="btn btn-success btn-sm ">View Details</a></li>
                         </ul>
                     </div>
+                    -->
                     <!--sidebar widget end-->
                 </div>
             </div>
@@ -269,27 +221,28 @@
                             <!-- Classic list -->
                             <li class="dropdown">
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
-                                    Mega <b class=" fa fa-angle-down"></b>
+                                    Mi Tablero <b class=" fa fa-angle-down"></b>
                                 </a>
                                 <ul class="dropdown-menu wide-full">
                                     <li>
                                         <!-- Content container to add padding -->
                                         <div class="yamm-content">
                                             <div class="row">
+                                                <!--
                                                 <ul class="col-sm-2 list-unstyled">
                                                     <li>
-                                                        <p class="title">Standard</p>
+                                                        <p class="title">Mas usados</p>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:;"> Slick Mega Navigation </a>
+                                                        <a href="javascript:;"> Inventario </a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:;"> Built in BS3+</a>
+                                                        <a href="javascript:;"> Clientes</a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:;"> Full Customizable </a>
+                                                        <a href="javascript:;"> Ordenes de compra </a>
                                                     </li>
-                                                    <li>
+                                                    <!--<li>
                                                         <a href="javascript:;"> Huge Components </a>
                                                     </li>
                                                     <li>
@@ -299,6 +252,8 @@
                                                         <a href="javascript:;"> Fontawesome </a>
                                                     </li>
                                                 </ul>
+                                                -->
+                                                <!--
                                                 <ul class="col-sm-2 list-unstyled">
                                                     <li>
                                                         <p class="title">Description</p>
@@ -328,6 +283,8 @@
                                                         </a>
                                                     </li>
                                                 </ul>
+                                                -->
+                                                <!--
                                                 <ul class="col-sm-2 list-unstyled">
                                                     <li>
                                                         <p class="title">Iconic</p>
@@ -347,17 +304,17 @@
                                                     <li>
                                                         <a href="javascript:;"><i class="fa fa-briefcase text-muted"></i> Briefcase Icon</a>
                                                     </li>
-                                                </ul>
+                                                </ul>-->
                                                 <ul class="col-sm-3 list-unstyled">
                                                     <li>
-                                                        <p class="title">Image + Description</p>
+                                                        <p class="title">Favoritos</p>
                                                     </li>
                                                     <li>
                                                         <a href="javascript:;">
                                                             <img class="icon-img" src="img/mega-menu/mega_icon1.png" alt="" />
                                                             <span class="icon-desk">
-                                                                <span class="d-title">Full Flat Concept</span>
-                                                                <span class="d-desk">Description goes here</span>
+                                                                <span class="d-title">Reportes</span>
+                                                                <span class="d-desk">Cree reportes personalizados</span>
                                                             </span>
                                                         </a>
                                                     </li>
@@ -365,8 +322,8 @@
                                                         <a href="javascript:;">
                                                             <img class="icon-img" src="img/mega-menu/mega_icon2.png" alt="" />
                                                             <span class="icon-desk">
-                                                                <span class="d-title">Amaging Dashboard</span>
-                                                                <span class="d-desk">Build with BS3</span>
+                                                                <span class="d-title">Sugerencias</span>
+                                                                <span class="d-desk">Envienos sus sugerencias</span>
                                                             </span>
                                                         </a>
                                                     </li>
@@ -374,8 +331,8 @@
                                                         <a href="javascript:;">
                                                             <img class="icon-img" src="img/mega-menu/mega_icon3.png" alt="" />
                                                             <span class="icon-desk">
-                                                                <span class="d-title">3500+ Satisfied Client</span>
-                                                                <span class="d-desk">Max 5 star rating</span>
+                                                                <span class="d-title">Productos</span>
+                                                                <span class="d-desk">Consulte, Cree, Edite y Elimine productos</span>
                                                             </span>
                                                         </a>
                                                     </li>
@@ -383,21 +340,19 @@
                                                         <a href="javascript:;">
                                                             <img class="icon-img" src="img/mega-menu/mega_icon4.png" alt="" />
                                                             <span class="icon-desk">
-                                                                <span class="d-title">Easy to Cutomize</span>
-                                                                <span class="d-desk">Very easy to use</span>
+                                                                <span class="d-title">Clientes</span>
+                                                                <span class="d-desk">Mantenga al dia su cartera de clientes.</span>
                                                             </span>
                                                         </a>
                                                     </li>
                                                 </ul>
                                                 <ul class="col-sm-3 list-unstyled custom-nav-img">
                                                     <li>
-                                                        <p class="title">Custom</p>
+                                                        <p class="title">Mensaje del dia</p>
                                                     </li>
                                                     <li>
                                                         <p class="desk">
-                                                            Ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Asperiores aut, autem commodi cumque illum pariatur
-                                                            vero. Ad adipisci animi delectus
+                                                            Quien quiere hacer algo, encuentra un medio. Quien no quiere hacer nada encuentra una excusa.
                                                         </p>
                                                     </li>
                                                     <li><span class="mega-bg"></span></li>
@@ -408,6 +363,7 @@
                                 </ul>
                             </li>
                             <!-- Classic dropdown -->
+                            <!--
                             <li class="dropdown">
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
                                     English  <b class=" fa fa-angle-down"></b>
@@ -430,6 +386,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            -->
                         </ul>
                     </div>
                     <!--mega menu end-->
@@ -441,29 +398,30 @@
                                 <li class="d-none">
                                     <a href="javascript:;" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                                         <i class="fa fa-envelope-o"></i>
-                                        <span class="badge bg-primary">6</span>
+                                        <span class="badge bg-primary">1</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-title">
                                         <div class="title-row">
                                             <h5 class="title purple">
-                                                You have 6 Unread Mail
+                                                Tiene 1 mensaje
                                             </h5>
-                                            <a href="javascript:;" class="btn-primary btn-view-all">View all</a>
+                                            <a href="javascript:;" class="btn-primary btn-view-all">Buzon</a>
                                         </div>
                                         <div class="notification-list mail-list">
                                             <a href="javascript:;" class="single-mail">
                                                 <span class="icon bg-primary">
-                                                    S
+                                                    J
                                                 </span>
-                                                <strong>Smith Doe</strong>
-                                                <small> Just Now</small>
+                                                <strong>Sistema JADE</strong>
+                                                <small>Ahora</small>
                                                 <p>
-                                                    <small>Hello smith i have some query about your</small>
+                                                    <small>Bienvenido al sistema de inventarios de JADE</small>
                                                 </p>
                                                 <span class="un-read tooltips" data-original-title="Mark as Read" data-toggle="tooltip" data-placement="left">
                                                     <i class="fa fa-circle"></i>
                                                 </span>
                                             </a>
+                                            <!--
                                             <a href="javascript:;" class="single-mail">
                                                 <span class="icon bg-success">
                                                     A
@@ -513,11 +471,13 @@
                                                     <i class="fa fa-circle-o"></i>
                                                 </span>
                                             </a>
+                                            -->
                                         </div>
                                     </div>
                                 </li>
                                 <!--mail info end-->
                                 <!--task info start-->
+                                <!--
                                 <li class="d-none">
                                     <a href="javascript:;" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                                         <i class="fa fa-tasks"></i>
@@ -583,8 +543,10 @@
                                         </div>
                                     </div>
                                 </li>
+                                -->
                                 <!--task info end-->
                                 <!--notification info start-->
+                                <!--
                                 <li>
                                     <a href="javascript:;" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                                         <i class="fa fa-bell-o"></i>
@@ -661,6 +623,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                -->
                                 <!--notification info end-->
                             </ul>
                         </div>
@@ -668,11 +631,11 @@
                         <!--right notification start-->
                         <div class="right-notification">
                             <ul class="notification-menu">
-                                <li>
+                                <!--<li>
                                     <form class="search-content" action="index.html" method="post">
                                         <input type="text" class="form-control" name="keyword" placeholder="Search...">
                                     </form>
-                                </li>
+                                </li>-->
                                 <li data-ng-hide="!authentication.isAuth">
                                     <a href="javascript:;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <img src="img/avatar-mini.jpg" alt="">{{authentication.userName}} <!-- user -->
@@ -685,8 +648,8 @@
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu purple pull-right">
-                                        <li><a href="javascript:;">  Profile</a></li>
-                                        <li>
+                                        <li><a href="/usuarioperfil">Pefil</a></li>
+                                        <!--<li>
                                             <a href="javascript:;">
                                                 <span class="badge bg-danger pull-right">40%</span>
                                                 <span>Settings</span>
@@ -698,8 +661,8 @@
                                                 Help
                                             </a>
                                         </li>
-
-                                        <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                        -->
+                                        <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -760,11 +723,11 @@
                                 <a href="#chat" data-toggle="tab">Chat</a>
                             </li>
                             <li class="">
-                                <a href="#info" data-toggle="tab">Info</a>
+                                <a href="#info" data-toggle="tab">Actualizaciones</a>
                             </li>
-                            <li class="">
+                            <!--<li class="">
                                 <a href="#settings" data-toggle="tab">Settings</a>
-                            </li>
+                            </li>-->
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active " id="chat">
@@ -772,9 +735,9 @@
                                     <div class="online-chat-container">
                                         <div class="chat-list">
                                             <h3>Chat list</h3>
-                                            <h5>34 Friends Online, 80 Offline</h5>
+                                            <h5>Servicio al Cliente: 0 Conectados, 1 Desconectados</h5>
                                             <a href="#" class="add-people tooltips" data-original-title="Add People" data-toggle="tooltip" data-placement="left">
-                                                <i class="fa fa-plus"></i>
+                                                <!--<i class="fa fa-plus"></i>-->
                                             </a>
                                         </div>
                                         <div class="side-title">
@@ -783,6 +746,7 @@
                                                 <div class="title-border"></div>
                                             </div>
                                         </div>
+                                        <!--
                                         <ul class="team-list chat-list-side">
                                             <li>
                                                 <a href="#">
@@ -792,9 +756,9 @@
                                                     </span>
                                                     <div class="inline">
                                                         <span class="name">
-                                                            Alison Jones
+                                                            Erick Racancoj
                                                         </span>
-                                                        <small class="text-muted">Start exploring</small>
+                                                        <small class="text-muted">Hola! Bienvenido </small>
                                                     </div>
                                                 </a>
                                             </li>
@@ -855,6 +819,7 @@
                                                 </a>
                                             </li>
                                         </ul>
+                                        -->
                                         <div class="side-title">
                                             <h2>Offline</h2>
                                             <div class="title-border-row">
@@ -870,12 +835,13 @@
                                                     </span>
                                                     <div class="inline">
                                                         <span class="name">
-                                                            Alison Jones
+                                                            Erick Racancoj
                                                         </span>
-                                                        <small class="text-muted">Start exploring</small>
+                                                        <small class="text-muted">Hola! Bienvenido</small>
                                                     </div>
                                                 </a>
                                             </li>
+                                            <!--
                                             <li>
                                                 <a href="#">
                                                     <span class="thumb-small">
@@ -932,6 +898,7 @@
                                                     </div>
                                                 </a>
                                             </li>
+                                            -->
                                         </ul>
                                     </div>
 
@@ -940,14 +907,14 @@
                             </div>
                             <div role="tabpanel" class="tab-pane " id="info">
                                 <div class="chat-list info">
-                                    <h3>Latest Information</h3>
+                                    <h3>Ultimas actualizaciones</h3>
                                     <a href="javascript:;" class="add-people tooltips" data-original-title="Refresh" data-toggle="tooltip" data-placement="left">
                                         <i class="fa fa-repeat"></i>
                                     </a>
                                 </div>
                                 <div class="aside-widget">
                                     <div class="side-title-alt">
-                                        <h2>Revenue</h2>
+                                        <h2>Administrativo</h2>
                                         <a href="#" class="close side-w-close">
                                             <i class="fa fa-times"></i>
                                         </a>
@@ -959,9 +926,9 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    Received Money from John Doe
+                                                    Reporte Libro de ventas
                                                 </span>
-                                                <span class="value green-color">$12300</span>
+                                                <span class="value green-color">Junio 2016</span>
                                             </div>
                                         </li>
                                         <li>
@@ -970,9 +937,9 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    Total Admin Template Sales
+                                                    Creacion de Usuarios
                                                 </span>
-                                                <span class="value purple-color">$40100</span>
+                                                <span class="value purple-color">Junio 2016</span>
                                             </div>
                                         </li>
                                         <li>
@@ -981,9 +948,9 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    Monty Revenue
+                                                    Elegir Metodo de Control de Inventarios
                                                 </span>
-                                                <span class="value red-color">$322300</span>
+                                                <span class="value red-color">Junio 2016</span>
                                             </div>
                                         </li>
                                         <li>
@@ -992,59 +959,18 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    Received Money from John Doe
+                                                    Control de Pago a Proveedores
                                                 </span>
-                                                <span class="value blue-color">$1520</span>
+                                                <span class="value blue-color">Junio 2016</span>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
+                                
+
                                 <div class="aside-widget">
                                     <div class="side-title-alt">
-                                        <h2>Statistics</h2>
-                                        <a href="#" class="close side-w-close">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                    <ul class="team-list chat-list-side info statistics border-less-list">
-                                        <li>
-                                            <div class="inline">
-                                                <span class="name">
-                                                    Foreign Visit
-                                                </span>
-                                                <small class="text-muted">25% Increase</small>
-                                            </div>
-                                            <span class="thumb-small">
-                                                <span id="foreign-visit" class="chart"></span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <div class="inline">
-                                                <span class="name">
-                                                    Montly Visit
-                                                </span>
-                                                <small class="text-muted">Average visit 12% Increase</small>
-                                            </div>
-                                            <span class="thumb-small">
-                                                <span id="monthly-visit" class="chart"></span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <div class="inline">
-                                                <span class="name">
-                                                    Unique Visit
-                                                </span>
-                                                <small class="text-muted">35% unique visitor </small>
-                                            </div>
-                                            <span class="thumb-small">
-                                                <span id="unique-visit" class="chart"></span>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="aside-widget">
-                                    <div class="side-title-alt">
-                                        <h2>Notification</h2>
+                                        <h2>Agenda</h2>
                                         <a href="#" class="close side-w-close">
                                             <i class="fa fa-times"></i>
                                         </a>
@@ -1056,9 +982,9 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    Meeting with John Doe at
+                                                    Capacitacion
                                                 </span>
-                                                <span class="value text-muted">11.30 am</span>
+                                                <span class="value text-muted"> Julio 2016</span>
                                             </div>
                                         </li>
                                         <li>
@@ -1067,13 +993,14 @@
                                             </span>
                                             <div class="inline">
                                                 <span class="name">
-                                                    3 membership request pending
+                                                    Capacitacion Modulos Administrativos
                                                 </span>
-                                                <span class="value text-muted">John, Smith, Lira</span>
+                                                <span class="value text-muted">Julio 2016</span>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
+                                <!--
                                 <div class="aside-widget">
 
                                     <div class="side-title-alt">
@@ -1101,9 +1028,10 @@
                                         </li>
                                     </ul>
                                 </div>
+                                -->
                                 <div class="aside-widget">
                                     <div class="side-title-alt">
-                                        <h2>Work Progress</h2>
+                                        <h2>Rendimiento personal</h2>
                                         <a href="#" class="close side-w-close">
                                             <i class="fa fa-times"></i>
                                         </a>
@@ -1112,16 +1040,17 @@
                                         <li>
                                             <div class="states">
                                                 <div class="info">
-                                                    <div class="desc pull-left">Server Setup and Configuration</div>
+                                                    <div class="desc pull-left">Efectividad</div>
                                                 </div>
                                                 <div class="progress progress-xs">
                                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
                                                 </div>
                                                 <div class="info">
-                                                    <small class="percent pull-left text-muted">50% completed</small>
+                                                    <small class="percent pull-left text-muted">80% completed</small>
                                                 </div>
                                             </div>
                                         </li>
+                                        <!--
                                         <li>
                                             <div class="states">
                                                 <div class="info">
@@ -1135,6 +1064,7 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        -->
                                     </ul>
                                 </div>
                             </div>
@@ -1237,16 +1167,31 @@
         <script src="scripts/angular-route.min.js"></script>
         <script src="scripts/angular-local-storage.min.js"></script>
         <script src="scripts/angular-animate.min.js"></script>
+        <script src="scripts/angular-toastr.js"></script>
         <script src="scripts/loading-bar.js"></script>
         <script src="scripts/angular-messages.js"></script>
         <!-- Load app main script -->
-        <script src="app/app.js"></script>
+        <script>
+            //Necesito hacer esto para que cada vez que tomen las nuevas rutas//
+            document.write("<script type='text/javascript' src='app/app.js?v=" + Date.now() + "'><\/script>");
+        </script>
+        <script>
+            //Necesito hacer esto para que siempre cargue la configuracion mas reciente//
+            document.write("<script type='text/javascript' src='app/appConfiguration.js?v=" + Date.now() + "'><\/script>");
+        </script>
+
+        <!--<script src="app/app.js"></script>-->
         <!-- Load directives -->
         <script src="app/directives/mAppLoading.js"></script>
         <script src="app/directives/selectedModule.js"></script>
+        <script src="app/directives/scrollOnClick.js"></script>
         <!-- Load services -->
         <script src="app/autenticacion/authInterceptorService.js"></script>
-        <script src="app/autenticacion/authService.js"></script>
+        <script>
+            //Necesito hacer esto para que cada vez que publique en el server al momento de cambiar las constantes no tome la configuracion que uso en mi local//
+            document.write("<script type='text/javascript' src='app/autenticacion/authService.js?v=" + Date.now() + "'><\/script>");
+        </script>
+        <!--<script src="app/autenticacion/authService.js"></script>-->
         <script src="app/empresa/empresaService.js"></script>
         <script src="app/sucursal/sucursalService.js"></script>
         <script src="app/producto/productoService.js"></script>

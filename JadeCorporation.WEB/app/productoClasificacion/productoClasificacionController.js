@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('productoClasificacionController', ['$scope', 'productoClasificacionService', 
-    function ($scope, productoClasificacionService) {
+app.controller('productoClasificacionController', ['$scope', 'productoClasificacionService', 'toastr',
+    function ($scope, productoClasificacionService, toastr) {
     
         $scope.productoClasificaciones = [];
     
@@ -14,7 +14,7 @@ app.controller('productoClasificacionController', ['$scope', 'productoClasificac
     //$window.loading_screen.finish();
 }]);
 
-app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionService', '$routeParams', '$location', function ($scope, productoClasificacionService, $routeParams, $location) {
+app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
 
@@ -22,7 +22,7 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
-        console.log($scope.productoClasificaciones);
+        
     }, function (error) {
         console.log(error);
     });
@@ -42,9 +42,13 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
     };
 
     $scope.update = function () {
-        console.log($scope.productoClasificacion);
         productoClasificacionService.updateProductoClasificacion(codigo, $scope.productoClasificacion).then(function (results) {
-            $location.path('/productoClasificacion');
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/productoClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -52,7 +56,12 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
 
     $scope.delete = function () {
         productoClasificacionService.deleteProductoClasificacion(codigo).then(function (results) {
-            $location.path('/productoClasificacion');
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/productoClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
@@ -60,20 +69,25 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
 
 }]);
 
-app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionService', '$routeParams', '$location', function ($scope, productoClasificacionService, $routeParams, $location) {
+app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.productoClasificacion = {};
     $scope.productoClasificaciones = [];
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
-
+        
     }, function (error) {
         console.log(error);
     });
     $scope.create = function () {
         productoClasificacionService.createProductoClasificacion($scope.productoClasificacion).then(function (results) {
-            $location.path('/productoClasificacion');
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/productoClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
         }, function (error) {
             console.log(error);
         });
