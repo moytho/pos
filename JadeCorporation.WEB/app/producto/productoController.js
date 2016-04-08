@@ -1,5 +1,46 @@
 ﻿'use strict';
-app.controller('productoController', ['$scope','$window', 'productoService', 'toastr',
+
+app.controller('productoImagenes', ['$location', '$scope', '$http', '$timeout', '$upload', '$routeParams', 'CONFIG', 'toastr', function (location,$scope, $http, $timeout, $upload, $routeParams, CONFIG, toastr) {
+    var CodigoProducto = $routeParams.codigo;
+    $scope.upload = [];
+    $scope.fileUploadObj = { CodigoProducto: CodigoProducto, Descripcion: "Test string 2" };
+
+    $scope.onFileSelect = function ($files) {
+        //$files: an array of files selected, each file has name, size, and type.
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            (function (index) {
+                $scope.upload[index] = $upload.upload({
+                    url: CONFIG.SERVICE_BASE+"/api/producto/uploadimagenl/"+CodigoProducto, // webapi url
+                    method: "POST",
+                    data: { fileUploadObj: $scope.fileUploadObj },
+                    file: $file
+                }).progress(function (evt) {
+                    // get upload percentage
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    if (status == 200) {
+                        toastr.success("Datos creados correctamente", data);
+                        $location.path('/producto/editar/'+CodigoProducto);
+                    } else {
+                        toastr.error("Ha sucedido un error", "Porfavor seleccione otra imagen");
+                    }
+                    console.log(data);
+                }).error(function (data, status, headers, config) {
+                    // file failed to upload
+                    console.log(data);
+                });
+            })(i);
+        }
+    }
+
+    $scope.abortUpload = function (index) {
+        $scope.upload[index].abort();
+    }
+}]);
+
+app.controller('productoController', ['$scope', '$window', 'productoService', 'toastr',
     function ($scope, $window,productoService, toastr) {
     
     $scope.productos = [];
@@ -14,22 +55,39 @@ app.controller('productoController', ['$scope','$window', 'productoService', 'to
     //$window.loading_screen.finish();
 }]);
 
-app.controller('productoEditar', ['$scope','$window', 'productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope,$window, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location, toastr) {
+app.controller('productoEditar', ['$scope', '$window', 'productoService', 'productoMarcaService', 'productoClasificacionService', 'productoAbastecimientoService', '$routeParams', '$location', 'toastr', 'CONFIG', function ($scope, $window, productoService, productoMarcaService, productoClasificacionService, productoAbastecimientoService, $routeParams, $location, toastr, CONFIG) {
     $scope.editar = true;
+    $scope.service_base = CONFIG.SERVICE_BASE;
     var codigo = $routeParams.codigo;
     
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
+    $scope.productoAbastecimientos = [];
+    $scope.productoImagenes = [];
     $scope.producto = {};
 
+    productoService.getProductoImagenes(codigo).then(function (results) {
+        $scope.productoImagenes = results.data;
+        console.log($scope.productoImagenes);
+    }, function (error) {
+        console.log(error);
+    });
+    console.log($scope.productoImagenes);
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
+
         productoMarcaService.getProductoMarcas().then(function (results) {
             $scope.productoMarcas = results.data;
-            productoService.getProducto(codigo).then(function (results) {
-                console.log(results);
-                $scope.producto = results.data[0];
-                console.log($scope.producto);
+
+            productoAbastecimientoService.getProductoAbastecimientos().then(function (results) {
+                $scope.productoAbastecimientos = results.data;
+
+                productoService.getProducto(codigo).then(function (results) {
+                    $scope.producto = results.data[0];
+                    console.log($scope.producto);
+                }, function (error) {
+                    console.log(error);
+                });
             }, function (error) {
                 console.log(error);
             });
@@ -45,7 +103,8 @@ app.controller('productoEditar', ['$scope','$window', 'productoService', 'produc
     };
 
     $scope.update = function () {
-        productoService.updateProducto(codigo, $scope.producto).then(function (results) {
+
+        productoService.updateProducto(codigo, fd).then(function (results) {
             if (results.status == 204) {
                 toastr.success("Datos actualizados correctamente", "Correcto");
                 $location.path('/producto');
@@ -72,10 +131,11 @@ app.controller('productoEditar', ['$scope','$window', 'productoService', 'produc
 
 }]);
 
-app.controller('productoCrear', ['$scope', '$window','productoService', 'productoMarcaService', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope,$window, productoService, productoMarcaService, productoClasificacionService, $routeParams, $location, toastr) {
+app.controller('productoCrear', ['$scope', '$window', 'productoService', 'productoMarcaService', 'productoClasificacionService', 'productoAbastecimientoService', '$routeParams', '$location', 'toastr', function ($scope, $window, productoService, productoMarcaService, productoClasificacionService, productoAbastecimientoService,$routeParams, $location, toastr) {
     $scope.editar = false;
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
+    $scope.productoAbastecimientos = [];
     $scope.producto = {};
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
@@ -88,6 +148,12 @@ app.controller('productoCrear', ['$scope', '$window','productoService', 'product
     productoMarcaService.getProductoMarcas().then(function (results) {
         $scope.productoMarcas = results.data;
 
+    }, function (error) {
+        console.log(error);
+    });
+
+    productoService.getProductoAbastecimientos().then(function (results) {
+        $scope.productoAbastecimientos = results.data;
     }, function (error) {
         console.log(error);
     });

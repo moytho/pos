@@ -36,7 +36,7 @@ namespace APITest
                 defaults: new { id = RouteParameter.Optional }
             );
 
-                    
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
         }
     }
 }

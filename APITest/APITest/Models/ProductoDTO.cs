@@ -25,6 +25,6 @@ namespace APITest.Models
         public Nullable<decimal> Ancho { get; set; }
         public Nullable<decimal> Profundidad { get; set; }
         public string ImagenUrl { get; set; }
-    
+        public List<ProductoImagen> ProductoImagens { get; set; }
     }
 }

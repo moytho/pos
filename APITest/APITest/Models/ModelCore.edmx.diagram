@@ -22,6 +22,8 @@
         <AssociationConnector Association="JadeCore1Model.FK_ProductoPrecio_ClienteTipo" />
         <AssociationConnector Association="JadeCore1Model.FK_Producto_ProductoAbastecimiento" />
         <AssociationConnector Association="JadeCore1Model.FK_ProductoPrecio_Producto" />
+        <EntityTypeShape EntityType="JadeCore1Model.ProductoImagen" Width="1.5" PointX="7.875" PointY="1.75" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoImagen_Producto1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -13,7 +13,9 @@ using System.Web;
 using APITest.Conexion;
 using System.Configuration;
 using AutoMapper;
-
+using System.Threading.Tasks;
+using APITest.Extensiones;
+using System.IO;
 namespace APITest.Controllers
 {
     [Authorize]
@@ -22,12 +24,124 @@ namespace APITest.Controllers
         private JadeCore1Entities db = new JadeCore1Entities();
         private string connectionString = "";
         private string UserId = "";
+
+
+        [Route("api/producto/uploadimagen/{id?}")]
+        [HttpPost()]
+        public IHttpActionResult UploadImagen(int id)
+        {
+            string PathUrl = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/ProductoImagenes/");
+            string UrlCorto = "App_Data/ProductoImagenes/";
+            HttpFileCollection Files = System.Web.HttpContext.Current.Request.Files;
+            UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
+            if (conexion.PoseePermiso == 1)
+            {
+                try
+                {
+                    int ImagenesGuardadas = 0;
+                    connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
+                    using (JadeCore1Entities db = new JadeCore1Entities())
+                    {
+                        db.SetConnectionString(connectionString);
+                        for (int iCnt = 0; iCnt <= Files.Count - 1; iCnt++)
+                        {
+                            System.Web.HttpPostedFile file = Files[iCnt];
+
+                            if (file.ContentLength > 0)
+                            {
+                                //Determinamos la extension del archivo
+                                string extension = Path.GetExtension(file.FileName);
+                                //Guardar imagen con el nombre que se recibio
+                                if (Extensiones.AccionesManuales.GuardarImagen(file, PathUrl))
+                                {   //Si se guardo la imagen guardaremos un registro
+                                    ProductoImagen productoImagen = new ProductoImagen();
+                                    productoImagen.CodigoEmpresa = conexion.CodigoEmpresa;
+                                    productoImagen.CodigoProducto = id;
+                                    productoImagen.ImagenUrl = UrlCorto + file.FileName;
+                                    db.ProductoImagens.Add(productoImagen);
+                                    //Guardamos el registro
+                                    db.SaveChanges();
+                                    ImagenesGuardadas++;
+                                    //Determinamos el nuevo nombre que le daremos a la imagen tomando en cuenta
+                                    //el identity del record recien insertado con la extension del archivo
+                                    string NuevoNombreImagen=productoImagen.CodigoProductoImagen.ToString()+extension;
+                                    //Renombramos el nombre del archivo
+                                    Extensiones.AccionesManuales.RenombrarNombreImagen(PathUrl, file.FileName, NuevoNombreImagen);
+                                    //var productoInsertado=db.ProductoImagens.Find(productoImagen.CodigoProductoImagen,NuevoNombreImagen);
+                                    productoImagen.ImagenUrl = UrlCorto+NuevoNombreImagen;
+                                    db.Entry(productoImagen).State = EntityState.Modified;
+                                    //actualizacion del registro
+                                    db.SaveChanges();
+                                    
+                                }
+                            }
+                        }
+                    }
+                    //if (ImagenesGuardadas > 0)
+                        return Ok("Imagenes guardadas " + ImagenesGuardadas.ToString());
+                    //else
+                      //  return Ok();
+                    
+                } catch (Exception exception)
+                {
+                    return InternalServerError();
+                }
+            }
+            //si no posee permiso retornamos el estado Unauthorized 501
+            else return Unauthorized();
+        }
         // GET api/Productos
         //Este tendra que ser modificado, para consultar globalmente (todas las sucursales) o
         //solo la sucursal local
+
+       [Route("api/productoimagenes/{id?}")]       
+        public IHttpActionResult GetProductoImagenes(int id)
+        {
+            UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
+
+            if (conexion.PoseePermiso == 1)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
+                    using (JadeCore1Entities db = new JadeCore1Entities())
+                    {
+                        var query = (from productoImagenes in db.ProductoImagens
+                                     where (productoImagenes.CodigoEmpresa == conexion.CodigoEmpresa && productoImagenes.CodigoProducto == id && productoImagenes.ImagenUrl != null)
+                                     orderby productoImagenes.CodigoProductoImagen
+                                     select new ProductoImagenDTO
+                                     {
+                                         CodigoEmpresa = productoImagenes.CodigoEmpresa,
+                                         CodigoProductoImagen = productoImagenes.CodigoProductoImagen,
+                                         CodigoProducto = productoImagenes.CodigoProducto,
+                                         ImagenUrl = productoImagenes.ImagenUrl,
+                                         Principal = productoImagenes.Principal
+                                     }).ToList();
+
+
+                        if (query == null)
+                        {
+                            return NotFound();
+                        }
+
+                        return Ok(query);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    return InternalServerError();
+                }
+            }
+            else return Unauthorized();
+        }
+        
         [AllowAnonymous]
         [Route("api/productotipos")]
-        public IHttpActionResult GetProductoAbastecimientoes()
+        //Esta es la misma misma informacion para todas las empresas, por eso no estoy haciendo consulta para determianr
+        //A que empresa pertenece el usuario actual
+        public IHttpActionResult GetProductoTipos()
         {
             var query = (from productoTipo in db.ProductoTipoes
                          orderby productoTipo.Descripcion
@@ -100,7 +214,7 @@ namespace APITest.Controllers
         public IHttpActionResult GetProducto(int id)
         {
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "SucursalesController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -109,6 +223,7 @@ namespace APITest.Controllers
                     connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
                     using (JadeCore1Entities db = new JadeCore1Entities())
                     {
+                        
                         //una manera diferente de obtener la(s) sucursal(es) y convertir a la clase SucursalDTO
                         var query = (from producto in db.Productoes
                                      where (producto.CodigoProducto == id && producto.CodigoEmpresa == conexion.CodigoEmpresa)
@@ -125,7 +240,13 @@ namespace APITest.Controllers
                                          PrecioCosto=producto.PrecioCosto,
                                          PrecioVenta=producto.PrecioVenta,
                                          CodigoProductoTipo=producto.CodigoProductoTipo,
-                                         Estado = producto.Estado
+                                         Estado = producto.Estado,
+                                         SKU=producto.SKU,
+                                         Alto=producto.Alto,
+                                         Ancho=producto.Ancho,
+                                         Profundidad=producto.Profundidad,
+                                         ImagenUrl=producto.ImagenUrl,
+                                         StockMinimo=producto.StockMinimo
                                      }).ToList();
                         if (query == null)
                         {
@@ -156,7 +277,7 @@ namespace APITest.Controllers
                 return BadRequest();
             }
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "SucursalessController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -197,7 +318,7 @@ namespace APITest.Controllers
                 return BadRequest(ModelState);
             }
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "SucursalesController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -211,6 +332,7 @@ namespace APITest.Controllers
                     producto.ProductoClasificacion = null;
                     //convirtiendo el objecto marca a null para que no haga un insert de este objeto
                     producto.ProductoMarca = null;
+                    producto.CodigoProductoAbastecimiento = null;
                     db.Productoes.Add(producto);
                     db.SaveChanges();
                     Mapper.CreateMap<Producto, ProductoDTO>();
@@ -226,7 +348,7 @@ namespace APITest.Controllers
         public IHttpActionResult DeleteProducto(int id)
         {
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "SucursalessController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -280,3 +402,36 @@ namespace APITest.Controllers
         }
     }
 }
+
+#region otra forma de guardar imagenes
+/*   [Route("api/producto/uploadimagen")]
+        [HttpPost] // This is from System.Web.Http, and not from System.Web.Mvc
+        public async Task<HttpResponseMessage> Upload()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                this.Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            var provider = Extensiones.AccionesManuales.GetMultipartProvider();
+            var result = await Request.Content.ReadAsMultipartAsync(provider);
+
+            // On upload, files are given a generic name like "BodyPart_26d6abe1-3ae1-416a-9429-b35f15e6e5d5"
+            // so this is how you can get the original file name
+            var originalFileName =Extensiones.AccionesManuales.GetDeserializedFileName(result.FileData.First());
+
+            // uploadedFileInfo object will give you some additional stuff like file length,
+            // creation time, directory name, a few filesystem methods etc..
+            var uploadedFileInfo = new FileInfo(result.FileData.First().LocalFileName);
+
+            // Remove this line as well as GetFormData method if you're not 
+            // sending any form data with your upload request
+            var fileUploadObj = Extensiones.AccionesManuales.GetFormData<ProductoDTO>(result);
+            //int CodigoProdcto = 
+            // Through the request response you can return an object to the Angular controller
+            // You will be able to access this in the .success callback through its data attribute
+            // If you want to send something to the .error callback, use the HttpStatusCode.BadRequest instead
+            var returnData = "ReturnTest";
+            return this.Request.CreateResponse(HttpStatusCode.OK, new { returnData });
+        }*/
+#endregion

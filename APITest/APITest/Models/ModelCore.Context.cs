@@ -24,7 +24,6 @@ namespace APITest.Models
         {
             this.Database.Connection.ConnectionString = connectionString;
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -39,5 +38,6 @@ namespace APITest.Models
         public virtual DbSet<ClienteTipo> ClienteTipoes { get; set; }
         public virtual DbSet<ProductoAbastecimiento> ProductoAbastecimientoes { get; set; }
         public virtual DbSet<ProductoPrecio> ProductoPrecios { get; set; }
+        public virtual DbSet<ProductoImagen> ProductoImagens { get; set; }
     }
 }

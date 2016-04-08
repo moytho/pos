@@ -17,6 +17,7 @@ namespace APITest.Models
         public Producto()
         {
             this.ProductoPrecios = new HashSet<ProductoPrecio>();
+            this.ProductoImagens = new HashSet<ProductoImagen>();
         }
     
         public int CodigoProducto { get; set; }
@@ -43,5 +44,6 @@ namespace APITest.Models
         public virtual ProductoTipo ProductoTipo { get; set; }
         public virtual ProductoAbastecimiento ProductoAbastecimiento { get; set; }
         public virtual ICollection<ProductoPrecio> ProductoPrecios { get; set; }
+        public virtual ICollection<ProductoImagen> ProductoImagens { get; set; }
     }
 }

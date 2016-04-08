@@ -325,6 +325,10 @@
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductoDTO.cs" />
+    <Compile Include="Models\ProductoImagen.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoImagenDTO.cs" />
     <Compile Include="Models\ProductoMarca.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
@@ -421,7 +425,6 @@
       <LastGenOutput>ModelCore.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\JADEApi.pubxml" />
-    <None Include="Properties\PublishProfiles\Service.pubxml" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
@@ -454,12 +457,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\ProductoImagenes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Providers\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Providers\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Providers\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

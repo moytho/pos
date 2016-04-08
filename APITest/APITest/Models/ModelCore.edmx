@@ -82,6 +82,16 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductoImagen">
+          <Key>
+            <PropertyRef Name="CodigoProductoImagen" />
+          </Key>
+          <Property Name="CodigoProductoImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="ImagenUrl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Principal" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProductoMarca">
           <Key>
             <PropertyRef Name="CodigoProductoMarca" />
@@ -207,6 +217,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductoImagen_Producto1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoImagen" Type="Self.ProductoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoImagen">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductoPrecio_ClienteTipo">
           <End Role="ClienteTipo" Type="Self.ClienteTipo" Multiplicity="1" />
           <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
@@ -241,6 +265,7 @@
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoAbastecimiento" EntityType="Self.ProductoAbastecimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoClasificacion" EntityType="Self.ProductoClasificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoImagen" EntityType="Self.ProductoImagen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoMarca" EntityType="Self.ProductoMarca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoPrecio" EntityType="Self.ProductoPrecio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoTipo" EntityType="Self.ProductoTipo" Schema="dbo" store:Type="Tables" />
@@ -268,6 +293,10 @@
           <AssociationSet Name="FK_Producto_ProductoTipo" Association="Self.FK_Producto_ProductoTipo">
             <End Role="ProductoTipo" EntitySet="ProductoTipo" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoImagen_Producto1" Association="Self.FK_ProductoImagen_Producto1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoImagen" EntitySet="ProductoImagen" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductoPrecio_ClienteTipo" Association="Self.FK_ProductoPrecio_ClienteTipo">
             <End Role="ClienteTipo" EntitySet="ClienteTipo" />
@@ -324,6 +353,11 @@
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="ProductoPrecio" EntitySet="ProductoPrecios" />
           </AssociationSet>
+          <EntitySet Name="ProductoImagens" EntityType="JadeCore1Model.ProductoImagen" />
+          <AssociationSet Name="FK_ProductoImagen_Producto1" Association="JadeCore1Model.FK_ProductoImagen_Producto1">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="ProductoImagen" EntitySet="ProductoImagens" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sucursal">
           <Key>
@@ -366,6 +400,7 @@
           <Property Name="ImagenUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProductoAbastecimiento" Relationship="JadeCore1Model.FK_Producto_ProductoAbastecimiento" FromRole="Producto" ToRole="ProductoAbastecimiento" />
           <NavigationProperty Name="ProductoPrecios" Relationship="JadeCore1Model.FK_ProductoPrecio_Producto" FromRole="Producto" ToRole="ProductoPrecio" />
+          <NavigationProperty Name="ProductoImagens" Relationship="JadeCore1Model.FK_ProductoImagen_Producto1" FromRole="Producto" ToRole="ProductoImagen" />
         </EntityType>
         <EntityType Name="ProductoClasificacion">
           <Key>
@@ -571,6 +606,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductoImagen">
+          <Key>
+            <PropertyRef Name="CodigoProductoImagen" />
+          </Key>
+          <Property Name="CodigoProductoImagen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="ImagenUrl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Principal" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="JadeCore1Model.FK_ProductoImagen_Producto1" FromRole="ProductoImagen" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_ProductoImagen_Producto1">
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoImagen" Role="ProductoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoImagen">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -694,6 +754,17 @@
                 <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="CodigoProductoPrecio" ColumnName="CodigoProductoPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoImagens">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoImagen">
+              <MappingFragment StoreEntitySet="ProductoImagen">
+                <ScalarProperty Name="Principal" ColumnName="Principal" />
+                <ScalarProperty Name="ImagenUrl" ColumnName="ImagenUrl" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="CodigoProductoImagen" ColumnName="CodigoProductoImagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -6,57 +6,137 @@
             </header>
             <div class="panel-body">
                 <div class=" form">
-                    <form class="cmxform form-horizontal tasi-form" id="commentForm">
-                        <div class="form-group ">
-                            <label for="CodigoLocal" class="control-label col-lg-2">Codigo Local</label>
-                            <div class="col-lg-10">
-                                <input class=" form-control" ng-model="producto.CodigoLocal" id="CodigoLocal" name="CodigoLocal" type="text"/>
+                    <form name="form" class="cmxform form-horizontal tasi-form">
+                        <div class="widget">
+                            <div class="form-group row gal-upload">
+                                <div class="col-lg-10">
+                                    <span class="file-input">
+                                            <div class="" ng-repeat="productoImagen in productoImagenes">
+                                                <div class="file-preview-thumbnails">
+                                                    <div class="file-preview-frame" data-fileindex="0">
+                                                        <img ng-src="{{service_base}}{{productoImagen.ImagenUrl}}" class="file-preview-image" title="collage_interior.jpg" alt="collage_interior.jpg" style="width:auto;height:160px;">
+                                                        <div class="file-thumbnail-footer">
+                                                            <div class="file-caption-name" style="width: 98px;" title="collage_interior.jpg">collage_interior.jpg</div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="nombre" class="control-label col-lg-2">Nombre (requerido)</label>
-                            <div class="col-lg-10">
-                                <input class=" form-control" ng-hide="true" ng-model="producto.CodigoProducto" id="codigoproducto" name="codigoproducto" minlength="2" type="text" />
-                                <input class=" form-control" ng-model="producto.Nombre" id="nombre" name="Nombre" type="text" required />
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="direccion" class="control-label col-lg-2">Precio Costo(requerido)</label>
-                            <div class="col-lg-10">
-                                <input class=" form-control" ng-model="producto.PrecioCosto" id="preciocosto" name="preciocosto" type="text" required />
+                            <div class="form-group ">
+                                <label for="CodigoLocal" class="control-label col-lg-2">Codigo Local</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.CodigoLocal" id="CodigoLocal" name="CodigoLocal" type="text" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="cemail" class="control-label col-lg-2">Marca</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" ng-model="producto.CodigoProductoMarca"
-                                        ng-options="opcion.CodigoProductoMarca as opcion.Nombre for opcion in productoMarcas"
-                                         id="codigoempresa" name="codigoempresa" required>
-                                    <option value="">Seleccione una marca</option>
-                                </select>
+                            <div class="form-group ">
+                                <label for="nombre" class="control-label col-lg-2">Nombre Producto</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-hide="true" ng-model="producto.CodigoProducto" id="codigoproducto" name="codigoproducto" type="text" />
+                                    <input class=" form-control" ng-model="producto.Nombre" id="Nombre" name="Nombre" type="text" required
+                                           ng-class="{error:form.Nombre.$dirty && form.Nombre.$invalid}" />
+                                    <div ng-messages="(form.Nombre.$dirty && form.Nombre.$error)" ng-messages-multiple>
+                                        <div class="error" ng-message="required">Ingrese un nombre para este producto</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group ">
-                            <label for="cemail" class="control-label col-lg-2">Clasificacion</label>
-                            <div class="col-lg-10">
-                                <select class="form-control " ng-model="producto.CodigoProductoClasificacion"
-                                        ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones"
-                                        id="codigoempresa" name="codigoempresa" required>
-                                    <option value="">Seleccione una clasificacion</option>
-                                </select>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">Precio Costo(requerido)</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.PrecioCosto" id="preciocosto" name="preciocosto" type="text" required />
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button scroll-on-click class="btn btn-success" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
-                                <button scroll-on-click class="btn btn-success" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
-                                <button scroll-on-click class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
-                                <button scroll-on-click class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">SKU</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.SKU" id="SKU" name="SKU" type="text" required />
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">Existencia Minima</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.StockMinimo" id="StockMinimo" name="StockMinimo" type="text" required />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">Alto</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.Alto" id="Alto" name="Alto" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">Ancho</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.Ancho" id="Ancho" name="Ancho" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="direccion" class="control-label col-lg-2">Profundidad</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-model="producto.Profundidad" id="Profundidad" name="Profundidad" type="text" />
+                                </div>
+                            </div>
+                            <!--ImagenUrl -->
+
+                            <div class="form-group ">
+                                <label for="cemail" class="control-label col-lg-2">Marca</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" ng-model="producto.CodigoProductoMarca"
+                                            ng-options="opcion.CodigoProductoMarca as opcion.Nombre for opcion in productoMarcas"
+                                            id="CodigoProductoMarca" name="CodigoProductoMarca" required>
+                                        <option value="">Seleccione una marca</option>
+                                    </select>
+                                    <div ng-messages="(form.CodigoProductoMarca.$dirty && form.CodigoProductoMarca.$error)" ng-messages-multiple>
+                                        <div class="error" ng-message="required">Seleccione una marca para este producto</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="cemail" class="control-label col-lg-2">Clasificacion</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control " ng-model="producto.CodigoProductoClasificacion"
+                                            ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones"
+                                            id="CodigoProductoClasificacion" name="CodigoProductoClasificacion" required>
+                                        <option value="">Seleccione una clasificacion</option>
+                                    </select>
+                                    <div ng-messages="(form.CodigoProductoClasificacion.$dirty && form.CodigoProductoClasificacion.$error)" ng-messages-multiple>
+                                        <div class="error" ng-message="required">Seleccione una Clasificacion para este producto</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="cemail" class="control-label col-lg-2">Metodo de Abastecimiento</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control " ng-model="producto.CodigoProductoAbastecimiento"
+                                            ng-options="opcion.CodigoProductoAbastecimiento as opcion.Descripcion for opcion in productoAbastecimientos"
+                                            id="CodigoProductoAbastecimiento" name="CodigoProductoAbastecimiento" required>
+                                        <option value="">Seleccione un metodo de abastecimiento</option>
+                                    </select>
+                                    <div ng-messages="(form.CodigoProductoAbastecimiento.$dirty && form.CodigoProductoAbastecimiento.$error)" ng-messages-multiple>
+                                        <div class="error" ng-message="required">Seleccione un canal de abastecimiento para este producto</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                    <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                    <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                    <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                                </div>
+                            </div>
+
+
+</form>
                 </div>
             </div>
         </section>

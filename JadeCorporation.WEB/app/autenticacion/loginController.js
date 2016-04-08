@@ -1,6 +1,8 @@
 ﻿'use strict';
 app.controller('loginController', ['$scope', '$location', 'authService','CONFIG', function ($scope, $location, authService,CONFIG) {
 
+    $scope.configuracion = CONFIG;
+
     if (authService.authentication.isAuth) window.location.href = CONFIG.HOME_URL;
 
     $scope.loginData = {

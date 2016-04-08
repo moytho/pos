@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthApp', ['ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages']);
+﻿var app = angular.module('AngularAuthApp', ['ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages', 'angularFileUpload']);
 
 app.config(function ($routeProvider,CONFIG) {
 
@@ -22,6 +22,8 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/producto", { controller: "productoController", templateUrl: "app/producto/views/producto.html" });
     $routeProvider.when("/producto/edit/:codigo", { controller: "productoEditar", templateUrl: "app/producto/views/producto-view.html" });
     $routeProvider.when("/producto/create", { controller: "productoCrear", templateUrl: "app/producto/views/producto-view.html" });
+    $routeProvider.when("/producto/imagen/:codigo", { controller: "productoImagenes", templateUrl: "app/producto/views/productoImagenes-view.html" });
+    $routeProvider.when("/producto/preciosespeciales/:codigo", { controller: "productoPreciosEspeciales", templateUrl: "app/producto/views/productoPreciosEspeciales-view.html" });
 
     $routeProvider.when("/productoMarca", { controller: "productoMarcaController", templateUrl: "app/productoMarca/views/productoMarca.html" });
     $routeProvider.when("/productoMarca/edit/:codigo", { controller: "productoMarcaEditar", templateUrl: "app/productoMarca/views/productoMarca-view.html" });

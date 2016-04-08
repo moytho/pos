@@ -58,6 +58,7 @@ namespace APITest.MessageHandlers
                     return base.SendAsync(request, cancellationToken).ContinueWith<HttpResponseMessage>(t =>
                     {
                         HttpResponseMessage resp = t.Result;
+                        
                         resp.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
 
                         // Allow authentication & cookie headers

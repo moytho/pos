@@ -63,6 +63,7 @@
     <Content Include="app\clienteTipo\clienteTipoService.js" />
     <Content Include="app\clienteTipo\views\clienteTipo-view.html" />
     <Content Include="app\clienteTipo\views\clienteTipo.html" />
+    <Content Include="app\directives\inputFile.js" />
     <Content Include="app\directives\scrollOnClick.js" />
     <Content Include="app\empresa\views\empresa-view.html" />
     <Content Include="app\cliente\clienteController.js" />
@@ -83,6 +84,8 @@
     <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
     <Content Include="app\producto\productoController.js" />
     <Content Include="app\producto\productoService.js" />
+    <Content Include="app\producto\views\productoImagenes-view.html" />
+    <Content Include="app\producto\views\productoPreciosEspeciales-view.html" />
     <Content Include="app\producto\views\producto-view.html" />
     <Content Include="app\producto\views\producto.html" />
     <Content Include="app\sucursal\sucursalController.js" />
@@ -443,6 +446,8 @@
     <Content Include="img\w-p-img.jpg" />
     <Content Include="img\weather-1.jpg" />
     <Content Include="img\weather_background.jpg" />
+    <Content Include="js\angular-file-upload-shim.js" />
+    <Content Include="js\angular-file-upload.js" />
     <Content Include="js\bootstrap-colorpicker\css\colorpicker.css" />
     <Content Include="js\bootstrap-colorpicker\img\alpha.png" />
     <Content Include="js\bootstrap-colorpicker\img\hue.png" />
@@ -1004,6 +1009,7 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\loading-bar.js" />
     <Content Include="scripts\please-wait.js" />
+    <Content Include="scripts\uploadfile.js" />
     <Content Include="Web.config" />
     <Content Include="scripts\jquery-1.9.1.min.map" />
   </ItemGroup>

@@ -3,6 +3,13 @@ app.factory('productoService', ['$http', 'CONFIG', function ($http, CONFIG) {
     var serviceBase = CONFIG.SERVICE_BASE;
     var productoServiceFactory = {};
 
+    var _getProductoImagenes = function (codigo) {
+
+        return $http.get(serviceBase + 'api/productoimagenes/'+ codigo).then(function (results) {
+            return results;
+        });
+    };
+
     var _getProductos = function () {
 
         return $http.get(serviceBase + 'api/productos').then(function (results) {
@@ -39,6 +46,7 @@ app.factory('productoService', ['$http', 'CONFIG', function ($http, CONFIG) {
     };
 
     productoServiceFactory.getProductos = _getProductos;
+    productoServiceFactory.getProductoImagenes = _getProductoImagenes;
     productoServiceFactory.getProducto = _getProducto;
     productoServiceFactory.createProducto = _createProducto;
     productoServiceFactory.updateProducto = _updateProducto;
