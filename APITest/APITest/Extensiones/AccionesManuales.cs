@@ -12,6 +12,33 @@ namespace APITest.Extensiones
 {
     public static class AccionesManuales
     {
+        public static bool RemoverProductoImagenPrincipal(int CodigoProductoImagen, int CodigoProducto, string nameConnectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings[nameConnectionString].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("Update ProductoImagen set Principal=0 Where CodigoProducto=@CodigoProducto and Principal=1", connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqlParameter("@CodigoProducto", CodigoProducto));
+                    command.ExecuteNonQuery();
+                    
+                    SqlCommand command2 = new SqlCommand("Update ProductoImagen set Principal=1 Where CodigoProducto=@CodigoProducto and CodigoProductoImagen=@CodigoProductoImagen", connection);
+                    command2.CommandType = CommandType.Text;
+                    command2.Parameters.Add(new SqlParameter("@CodigoProducto", CodigoProducto));
+                    command2.Parameters.Add(new SqlParameter("@CodigoProductoImagen", CodigoProductoImagen));
+                    command2.ExecuteNonQuery();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    return false;
+                }
+
+            }
+        }
         public static bool RenombrarNombreImagen(string PathUrl,string NombreImagenViejo,string NombreImagen)
         {
             int ImagenesSubidas = 0;
@@ -25,6 +52,23 @@ namespace APITest.Extensiones
             
 
             if (ImagenesSubidas > 0)
+                return true;
+            else
+                return false;
+        }
+        public static bool EliminarArchivo(string PathCompleto)
+        {
+            int ImagenesEliminadas = 0;
+            // Determinar si el archivo existe para evitar duplicados
+            if (File.Exists(PathCompleto))
+            {
+                // renombra imagen
+                System.IO.File.Delete(PathCompleto);
+                ImagenesEliminadas = ImagenesEliminadas + 1;
+            }
+
+
+            if (ImagenesEliminadas > 0)
                 return true;
             else
                 return false;

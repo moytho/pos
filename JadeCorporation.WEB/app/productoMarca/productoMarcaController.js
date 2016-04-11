@@ -14,7 +14,8 @@ app.controller('productoMarcaController', ['$scope', 'productoMarcaService', 'to
         //$window.loading_screen.finish();
     }]);
 
-app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$routeParams', '$location','toastr', function ($scope, productoMarcaService, $routeParams, $location,toastr) {
+app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$routeParams', '$location', 'toastr',
+                             function ($scope, productoMarcaService, $routeParams, $location, toastr) {
     $scope.editar = true;
     var codigo = $routeParams.codigo;
 
@@ -46,6 +47,15 @@ app.controller('productoMarcaEditar', ['$scope', 'productoMarcaService', '$route
     };
 
     $scope.delete = function () {
+        /*
+        var dlg = dialogs.confirm('Please Confirm', 'Are you absolutely sure you want to delete?');
+        dlg.result.then(function () {
+            console.log("User has confirmed");//do something when user confirms
+        }, function () {
+            console.log("User has cancelled");//do something when user cancels. Can omit the 2nd function if no handling is required
+        });
+        */
+
         productoMarcaService.deleteProductoMarca(codigo).then(function (results) {
             if (results.status == 200) {
                 toastr.success("Datos eliminados correctamente", "Correcto");

@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Producto
+                Producto <a class="btn btn-success btn-xs" href="#/producto/imagen/{{producto.CodigoProducto}}" title="Agregar imagen"><i class="fa fa-check"></i></a>
             </header>
             <div class="panel-body">
                 <div class=" form">
@@ -10,21 +10,29 @@
                         <div class="widget">
                             <div class="form-group row gal-upload">
                                 <div class="col-lg-10">
-                                    <span class="file-input">
-                                            <div class="" ng-repeat="productoImagen in productoImagenes">
-                                                <div class="file-preview-thumbnails">
-                                                    <div class="file-preview-frame" data-fileindex="0">
-                                                        <img ng-src="{{service_base}}{{productoImagen.ImagenUrl}}" class="file-preview-image" title="collage_interior.jpg" alt="collage_interior.jpg" style="width:auto;height:160px;">
-                                                        <div class="file-thumbnail-footer">
-                                                            <div class="file-caption-name" style="width: 98px;" title="collage_interior.jpg">collage_interior.jpg</div>
+                                    
+                                    <div class="dropdown" ng-repeat="productoImagen in productoImagenes" id="divProductoImagen{{$index}}">
 
-                                                        </div>
+                                        <span ng-show="productoImagen.Principal" id="principal{{$index}}" class="time-line-subject green"> <i class="fa fa-check-circle"></i> Principal</span>
+                                        <span ng-hide="productoImagen.Principal" id="secundaria{{$index}}" class="time-line-subject yellow"> <i class="fa fa-check"></i> Secundaria</span>
+
+                                            <div class="file-preview-thumbnails">
+                                                <div class="file-preview-frame" data-fileindex="0">
+                                                    <img ng-src="{{service_base}}{{productoImagen.ImagenUrl}}" onerror="this.src = '../img/no-preview-available.png'" class="file-preview-image" title="collage_interior.jpg" alt="collage_interior.jpg" style="width:auto;height:160px;">
+                                                    <div class="file-thumbnail-footer">
+                                                        <div class="file-caption-name" style="width: 98px;" title="collage_interior.jpg">Imagen {{$index+1}}</div>
+
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="dropdown-content">
+
+                                                <a ng-click="eliminarProductoImagen(productoImagen.CodigoProductoImagen,$index)">Eliminar Imagen</a>
+                                                <a ng-hide="{{productoImagen.Principal}}" ng-click="convertirProductoImagenPrincipal(productoImagen.CodigoProductoImagen,$index)">Convertir en Principal</a>
 
                                             </div>
-                                        
-                                    </span>
+</div>
+                                    
                                 </div>
                             </div>
                             </div>
@@ -128,10 +136,10 @@
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
-                                    <button class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
-                                    <button class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
-                                    <button class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                                    <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                    <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                    <button scroll-up confirm="Esta completamente seguro que desea eliminar este elemento?" class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                    <button scroll-up class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
                                 </div>
                             </div>
 

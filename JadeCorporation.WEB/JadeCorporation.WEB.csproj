@@ -65,6 +65,7 @@
     <Content Include="app\clienteTipo\views\clienteTipo.html" />
     <Content Include="app\directives\inputFile.js" />
     <Content Include="app\directives\scrollOnClick.js" />
+    <Content Include="app\directives\scrollUp.js" />
     <Content Include="app\empresa\views\empresa-view.html" />
     <Content Include="app\cliente\clienteController.js" />
     <Content Include="app\cliente\clienteService.js" />
@@ -879,10 +880,12 @@
     <Content Include="js\wizard-init.js" />
     <Content Include="login.html" />
     <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-confirm.js" />
     <Content Include="scripts\angular-formly-templates-bootstrap.js" />
     <Content Include="scripts\angular-messages.js" />
     <Content Include="scripts\angular-messages.min.js" />
     <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-sanitize.js" />
     <Content Include="scripts\angular-toastr.js" />
     <Content Include="scripts\angular-ui-route.js" />
     <Content Include="packages.config" />
@@ -1004,11 +1007,11 @@
     <Content Include="app\directives\toast\toast.controller.js" />
     <Content Include="app\directives\toast\toast.directive.js" />
     <Content Include="app\directives\toast\toast.html" />
-    <Content Include="scripts\formly.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\loading-bar.js" />
     <Content Include="scripts\please-wait.js" />
+    <Content Include="scripts\ui-bootstrap-tpl.js" />
     <Content Include="scripts\uploadfile.js" />
     <Content Include="Web.config" />
     <Content Include="scripts\jquery-1.9.1.min.map" />

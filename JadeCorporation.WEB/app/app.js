@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthApp', ['ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages', 'angularFileUpload']);
+﻿var app = angular.module('AngularAuthApp', ['angular-confirm','ui.bootstrap', 'ngAnimate', 'ngRoute', 'toastr', 'LocalStorageModule', 'angular-loading-bar', 'ngMessages', 'angularFileUpload' ]);
 
 app.config(function ($routeProvider,CONFIG) {
 

@@ -25,13 +25,103 @@ namespace APITest.Controllers
         private string connectionString = "";
         private string UserId = "";
 
+        [Route("api/productoimagenconvertirprincipal/{id?}")]
+        public IHttpActionResult GetProductoImagenConvertirPrincipal(int CodigoProductoImagen,int CodigoProducto)
+        {
+            UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
+
+            if (conexion.PoseePermiso == 1)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
+                    using (JadeCore1Entities db = new JadeCore1Entities())
+                    {
+
+                        if (AccionesManuales.RemoverProductoImagenPrincipal(CodigoProductoImagen,CodigoProducto,conexion.NameConnectionString))
+                        {
+                            return Ok();
+                        }
+                        else {
+                            return InternalServerError();
+                        }
+
+                        /*var query = (from productoImagenes in db.ProductoImagens
+                                     where (productoImagenes.CodigoEmpresa == conexion.CodigoEmpresa && productoImagenes.CodigoProducto == id && productoImagenes.ImagenUrl != null)
+                                     orderby productoImagenes.CodigoProductoImagen
+                                     select new ProductoImagenDTO
+                                     {
+                                         CodigoEmpresa = productoImagenes.CodigoEmpresa,
+                                         CodigoProductoImagen = productoImagenes.CodigoProductoImagen,
+                                         CodigoProducto = productoImagenes.CodigoProducto,
+                                         ImagenUrl = productoImagenes.ImagenUrl,
+                                         Principal = productoImagenes.Principal
+                                     }).ToList();
+
+
+                        if (query == null)
+                        {
+                            return NotFound();
+                        }*/
+
+                        return Ok();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    return InternalServerError();
+                }
+            }
+            else return Unauthorized();
+        }
+
+        [Route("api/productoimageneliminar/{id?}")]
+        public IHttpActionResult GetDeleteProductoImagen(int id)
+        {
+            UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");
+
+            if (conexion.PoseePermiso == 1)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
+                    using (JadeCore1Entities db = new JadeCore1Entities())
+                    {
+                        
+                       ProductoImagen productoImagen = db.ProductoImagens.Find(id);
+                       if (productoImagen == null)
+                       {
+                            return NotFound();
+                       }
+                        string PathUrl = System.Web.Hosting.HostingEnvironment.MapPath("~/" + productoImagen.ImagenUrl);
+                        if (AccionesManuales.EliminarArchivo(PathUrl))
+                        {
+                            db.ProductoImagens.Remove(productoImagen);
+                            db.SaveChanges();
+
+                            return Ok();
+                        }
+                        else {
+                            return InternalServerError();
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    return InternalServerError();
+                }
+            }
+            else return Unauthorized();
+        }
 
         [Route("api/producto/uploadimagen/{id?}")]
         [HttpPost()]
         public IHttpActionResult UploadImagen(int id)
         {
-            string PathUrl = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/ProductoImagenes/");
-            string UrlCorto = "App_Data/ProductoImagenes/";
+            string PathUrl = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/ProductoImagenes/");
+            string UrlCorto = "Content/ProductoImagenes/";
             HttpFileCollection Files = System.Web.HttpContext.Current.Request.Files;
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
             ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ProductosController");

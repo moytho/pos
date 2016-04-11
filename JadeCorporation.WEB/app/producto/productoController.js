@@ -1,17 +1,17 @@
 ﻿'use strict';
 
-app.controller('productoImagenes', ['$location', '$scope', '$http', '$timeout', '$upload', '$routeParams', 'CONFIG', 'toastr', function (location,$scope, $http, $timeout, $upload, $routeParams, CONFIG, toastr) {
+app.controller('productoImagenes', ['$location', '$scope', '$http', '$timeout', '$upload', '$routeParams', 'CONFIG', 'toastr', function ($location,$scope, $http, $timeout, $upload, $routeParams, CONFIG, toastr) {
     var CodigoProducto = $routeParams.codigo;
     $scope.upload = [];
     $scope.fileUploadObj = { CodigoProducto: CodigoProducto, Descripcion: "Test string 2" };
-
+    //upload a file
     $scope.onFileSelect = function ($files) {
         //$files: an array of files selected, each file has name, size, and type.
         for (var i = 0; i < $files.length; i++) {
             var $file = $files[i];
             (function (index) {
                 $scope.upload[index] = $upload.upload({
-                    url: CONFIG.SERVICE_BASE+"/api/producto/uploadimagenl/"+CodigoProducto, // webapi url
+                    url: CONFIG.SERVICE_BASE+"/api/producto/uploadimagen/"+CodigoProducto, // webapi url
                     method: "POST",
                     data: { fileUploadObj: $scope.fileUploadObj },
                     file: $file
@@ -22,11 +22,11 @@ app.controller('productoImagenes', ['$location', '$scope', '$http', '$timeout', 
                     // file is uploaded successfully
                     if (status == 200) {
                         toastr.success("Datos creados correctamente", data);
-                        $location.path('/producto/editar/'+CodigoProducto);
+                        $location.path('/producto/edit/'+CodigoProducto);
                     } else {
                         toastr.error("Ha sucedido un error", "Porfavor seleccione otra imagen");
                     }
-                    console.log(data);
+                    //console.log(data);
                 }).error(function (data, status, headers, config) {
                     // file failed to upload
                     console.log(data);
@@ -59,20 +59,56 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
     $scope.editar = true;
     $scope.service_base = CONFIG.SERVICE_BASE;
     var codigo = $routeParams.codigo;
-    
+    var codigoProductoImagen = 0;
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
     $scope.productoAbastecimientos = [];
     $scope.productoImagenes = [];
     $scope.producto = {};
 
+    $scope.eliminarProductoImagen = function (codigoProductoImagen, index) {
+        productoService.deleteProductoImagen(codigoProductoImagen).then(function (results) {
+            if (results.status == 200) {
+                toastr.success("Imagen eliminada correctamente de este producto", "Correcto");
+                //Mostramos todas las imagenes nuevamente
+                productoService.getProductoImagenes(codigo).then(function (results) {
+                    $scope.productoImagenes = results.data;
+
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+            
+        }, function (error) {
+            console.log(error);
+        });
+        //$('#divProductoImagen' + index).fadeOut('slow');
+    };
+
+    $scope.convertirProductoImagenPrincipal = function (codigoProductoImagen, index) {
+        productoService.setProductoImagenConvertirPrincipal(codigoProductoImagen,codigo).then(function (results) {
+            if (results.status == 200) {
+                toastr.success("Imagen establecida correctamente como principal de este producto", "Correcto");
+                //Mostramos todas las imagenes nuevamente
+                productoService.getProductoImagenes(codigo).then(function (results) {
+                    $scope.productoImagenes = results.data;
+
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        }, function (error) {
+            console.log(error);
+        });
+        //$('#principal' + index).fadeIn('fast');
+        //$('#secundaria' + index).fadeOut('slow');
+    };
+
     productoService.getProductoImagenes(codigo).then(function (results) {
         $scope.productoImagenes = results.data;
-        console.log($scope.productoImagenes);
     }, function (error) {
         console.log(error);
     });
-    console.log($scope.productoImagenes);
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
 
@@ -84,7 +120,6 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
 
                 productoService.getProducto(codigo).then(function (results) {
                     $scope.producto = results.data[0];
-                    console.log($scope.producto);
                 }, function (error) {
                     console.log(error);
                 });
@@ -104,7 +139,7 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
 
     $scope.update = function () {
 
-        productoService.updateProducto(codigo, fd).then(function (results) {
+        productoService.updateProducto(codigo, $scope.producto).then(function (results) {
             if (results.status == 204) {
                 toastr.success("Datos actualizados correctamente", "Correcto");
                 $location.path('/producto');
