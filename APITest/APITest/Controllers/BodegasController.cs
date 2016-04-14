@@ -17,23 +17,21 @@ using AutoMapper;
 namespace APITest.Controllers
 {
     [Authorize]
-    public class ClienteTiposController : ApiController
+    public class BodegasController : ApiController
     {
         private JadeCore1Entities db = new JadeCore1Entities();
         private string connectionString = "";
         private string UserId = "";
-        // GET api/ClienteTipos
-        [AllowAnonymous]
-        public IHttpActionResult GetClienteTipoes()
+
+        // GET api/Bodegas
+        public IHttpActionResult GetBodegas()
         {
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            //UserId = "e5e7523c-8f71-4bd7-a96c-1a4a2b1fdc93";
             //Esta clase nos retornara 
             //- empresa a la que pertenece el usuario y 
             //-su respectiva cadena de conexion
             //-tambien si posee permiso para realizar esta accion
-            //return Ok();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ClienteTiposController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "BodegasController");
             if (conexion.PoseePermiso == 1)
             {
                 try
@@ -41,17 +39,32 @@ namespace APITest.Controllers
                     connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
                     using (JadeCore1Entities db = new JadeCore1Entities())
                     {
+                        //where (cliente.CodigoEmpresa == conexion.CodigoEmpresa && cliente.Estado == true)
+                        //orderby cliente.NombreComercial
+
                         db.SetConnectionString(connectionString);
                         //Consulta para mostrar todas las sucursales pertenecientes a esta empresa
-                        List<ClienteTipo> productoMarcas = (from clienteTipo in db.ClienteTipoes
-                                                              where (clienteTipo.CodigoEmpresa == conexion.CodigoEmpresa && clienteTipo.Estado == true)
-                                                              orderby clienteTipo.Descripcion
-                                                              select clienteTipo).ToList();
+                        //Left join por si el cliente no tiene asignado un tipo de cliente especifico, mandamos el 
+                        //objeto sin formato
+                        List<BodegaInformacion> bodegas = (from bodega in db.Bodegas
+                                                             join sucursal in db.Sucursals
+                                                             on bodega.CodigoSucursal equals sucursal.CodigoSucursal
+                                                             into joinTable //Agregar parametro sucursal a la que pertenece usuario
+                                                from b in joinTable.Where(condicion => bodega.CodigoEmpresa == conexion.CodigoEmpresa && bodega.CodigoSucursal == conexion.CodigoSucursal  && bodega.Estado == true)
+                                                             select new BodegaInformacion
+                                                             {
+                                                                 Nombre = bodega.Nombre,
+                                                                 CodigoBodega = bodega.CodigoBodega,
+                                                                 CodigoSucursal = bodega.CodigoSucursal,
+                                                                 Sucursal = b.Nombre,
+                                                                  CodigoEmpresa = bodega.CodigoEmpresa,
+                                                                  Estado = bodega.Estado
+                                                             }).ToList();
                         //Convirtiendo la Clase sucursal a sucursalDTO
                         //Esto con el afan de ocultar ciertos campos de nuestro objeto, si fuera el caso
-                        Mapper.CreateMap<ClienteTipo, ClienteTipoDTO>();
-                        List<ClienteTipoDTO> productoMarcaDTO = Mapper.Map<List<ClienteTipo>, List<ClienteTipoDTO>>(productoMarcas);
-                        return Ok(productoMarcaDTO);
+                        //Mapper.CreateMap<Cliente, ClienteDTO>();
+                        //List<ClienteDTO> clienteDTO = Mapper.Map<List<Cliente>, List<ClienteDTO>>(clientes);
+                        return Ok(bodegas);
                     }
                 }
                 catch (Exception exception)
@@ -62,13 +75,13 @@ namespace APITest.Controllers
             //si no posee permiso retornamos el estado Unauthorized 501
             else return Unauthorized();
         }
-        [AllowAnonymous]
-        // GET api/ClienteTipos/5
-        [ResponseType(typeof(ClienteTipo))]
-        public IHttpActionResult GetClienteTipo(int id)
+
+        // GET api/Bodegas/5
+        [ResponseType(typeof(Bodega))]
+        public IHttpActionResult GetBodega(int id)
         {
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ClienteTiposController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "BodegasController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -78,15 +91,16 @@ namespace APITest.Controllers
                     using (JadeCore1Entities db = new JadeCore1Entities())
                     {
                         //una manera diferente de obtener la(s) sucursal(es) y convertir a la clase SucursalDTO
-                        var query = (from clienteTipo in db.ClienteTipoes
-                                     where (clienteTipo.CodigoClienteTipo == id && clienteTipo.CodigoEmpresa == conexion.CodigoEmpresa)
-                                     orderby clienteTipo.Descripcion
-                                     select new ClienteTipoDTO()
+                        var query = (from bodega in db.Bodegas //agregar parametro de sucursal a la que pertenece el usuario
+                                     where (bodega.CodigoBodega == id && bodega.CodigoEmpresa == conexion.CodigoEmpresa && bodega.CodigoSucursal==conexion.CodigoSucursal)
+                                     orderby bodega.Nombre
+                                     select new BodegaDTO()
                                      {
-                                         CodigoEmpresa = clienteTipo.CodigoEmpresa,
-                                         CodigoClienteTipo = clienteTipo.CodigoClienteTipo,
-                                         Descripcion = clienteTipo.Descripcion,
-                                         Estado = clienteTipo.Estado
+                                         Nombre = bodega.Nombre,
+                                         CodigoBodega = bodega.CodigoBodega,
+                                         CodigoSucursal = bodega.CodigoSucursal,
+                                         CodigoEmpresa = bodega.CodigoEmpresa,
+                                         Estado = bodega.Estado
                                      }).ToList();
                         if (query == null)
                         {
@@ -104,20 +118,20 @@ namespace APITest.Controllers
             else return Unauthorized();
         }
 
-        // PUT api/ClienteTipos/5
-        public IHttpActionResult PutClienteTipo(int id, ClienteTipo clientetipo)
+        // PUT api/Bodegas/5
+        public IHttpActionResult PutBodega(int id, Bodega bodega)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != clientetipo.CodigoClienteTipo)
+            if (id != bodega.CodigoBodega)
             {
                 return BadRequest();
             }
             var user = base.ControllerContext.RequestContext.Principal.Identity;
-            ClaseConexion conexion = new ClaseConexion(user.GetUserId().ToString(), this.GetType().FullName.ToString(), "SucursalesController");
+            ClaseConexion conexion = new ClaseConexion(user.GetUserId().ToString(), this.GetType().FullName.ToString(), "BodegasController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -125,12 +139,13 @@ namespace APITest.Controllers
                 using (JadeCore1Entities db = new JadeCore1Entities())
                 {
                     //antes de actualizar verificamos que el usuario pertenezca a la misma empresa de la sucursal
-                    if (!ClienteTipoBelongsToYourCompany(id, conexion.NameConnectionString, conexion.CodigoEmpresa))
+                    if (!BodegaBelongsToYou(id, conexion.NameConnectionString, conexion.CodigoEmpresa,conexion.CodigoSucursal))
                     {
                         return NotFound();
                     }
-                    clientetipo.CodigoEmpresa = conexion.CodigoEmpresa;
-                    db.Entry(clientetipo).State = EntityState.Modified;
+                    bodega.CodigoEmpresa = conexion.CodigoEmpresa;
+                    bodega.CodigoSucursal = conexion.CodigoSucursal;
+                    db.Entry(bodega).State = EntityState.Modified;
 
                     try
                     {
@@ -138,7 +153,7 @@ namespace APITest.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!ClienteTipoExists(id, conexion.NameConnectionString))
+                        if (!BodegaExists(id, conexion.NameConnectionString))
                         {
                             return NotFound();
                         }
@@ -154,43 +169,44 @@ namespace APITest.Controllers
             else return Unauthorized();
         }
 
-        // POST api/ClienteTipos
-        [ResponseType(typeof(ClienteTipo))]
-        public IHttpActionResult PostClienteTipo(ClienteTipo clientetipo)
+        // POST api/Bodegas
+        [ResponseType(typeof(Bodega))]
+        public IHttpActionResult PostBodega(Bodega bodega)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "SucursalesController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "BodegasController");
 
             if (conexion.PoseePermiso == 1)
             {
                 connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
                 using (JadeCore1Entities db = new JadeCore1Entities())
                 {
-                    clientetipo.CodigoEmpresa = conexion.CodigoEmpresa;
-                    clientetipo.Estado = true;
+                    bodega.CodigoEmpresa = conexion.CodigoEmpresa;
+                    bodega.CodigoSucursal = conexion.CodigoSucursal;
+                    bodega.Estado = true;
 
 
-                    db.ClienteTipoes.Add(clientetipo);
+                    db.Bodegas.Add(bodega);
                     db.SaveChanges();
-                    Mapper.CreateMap<ClienteTipo, ClienteTipoDTO>();
-                    ClienteTipoDTO productoMarcaDTO = Mapper.Map<ClienteTipo, ClienteTipoDTO>(clientetipo);
+                    Mapper.CreateMap<Bodega, BodegaDTO>();
+                    BodegaDTO bodegaDTO = Mapper.Map<Bodega, BodegaDTO>(bodega);
 
-                    return CreatedAtRoute("DefaultApi", new { id = clientetipo.CodigoClienteTipo }, productoMarcaDTO);
+                    return CreatedAtRoute("DefaultApi", new { id = bodega.CodigoBodega}, bodegaDTO);
                 }
             }
             else return Unauthorized();
         }
 
-        // DELETE api/ClienteTipos/5
-        [ResponseType(typeof(ClienteTipo))]
-        public IHttpActionResult DeleteClienteTipo(int id)
+        // DELETE api/Bodegas/5
+        [ResponseType(typeof(Bodega))]
+        public IHttpActionResult DeleteBodega(int id)
         {
             UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
-            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ClienteTiposController");
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "BodegasController");
 
             if (conexion.PoseePermiso == 1)
             {
@@ -198,18 +214,26 @@ namespace APITest.Controllers
                 using (JadeCore1Entities db = new JadeCore1Entities())
                 {
 
-                    ClienteTipo clientetipo = db.ClienteTipoes.Find(id, conexion.CodigoEmpresa);
-                    if (clientetipo == null)
+                    Bodega bodega = db.Bodegas.Find(id,conexion.CodigoSucursal,conexion.CodigoEmpresa);
+                    if (bodega == null)
                     {
                         return NotFound();
                     }
-                    clientetipo.Estado = false;
-                    //db.ClienteTipoes.Remove(productomarca);
-                    db.SaveChanges();
-                    Mapper.CreateMap<ClienteTipo, ClienteTipoDTO>();
-                    ClienteTipoDTO productoMarcaDTO = Mapper.Map<ClienteTipo, ClienteTipoDTO>(clientetipo);
 
-                    return Ok(productoMarcaDTO);
+                    //if (BodegaBelongsToYou(id, conexion.NameConnectionString, conexion.CodigoEmpresa, conexion.CodigoSucursal))
+                    //{
+
+                        bodega.Estado = false;
+                        //db.Clientes.Remove(cliente);
+                        db.SaveChanges();
+                        Mapper.CreateMap<Bodega, BodegaDTO>();
+                        BodegaDTO bodegaDTO = Mapper.Map<Bodega, BodegaDTO>(bodega);
+
+                        return Ok(bodegaDTO);
+                    /*}
+                    else {
+                        return NotFound();
+                    }*/
                 }
             }
             else return Unauthorized();
@@ -224,21 +248,21 @@ namespace APITest.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ClienteTipoExists(int id, string nameConnectionString)
+        private bool BodegaExists(int id, string nameConnectionString)
         {
             connectionString = ConfigurationManager.ConnectionStrings[nameConnectionString].ConnectionString;
             using (JadeCore1Entities db = new JadeCore1Entities())
             {
-                return db.ClienteTipoes.Count(e => e.CodigoClienteTipo == id) > 0;
+                return db.Bodegas.Count(e => e.CodigoBodega == id) > 0;
             }
         }
 
-        private bool ClienteTipoBelongsToYourCompany(int id, string nameConnectionString, int CodigoEmpresa)
+        private bool BodegaBelongsToYou(int id, string nameConnectionString, int CodigoEmpresa,int CodigoSucursal)
         {
             connectionString = ConfigurationManager.ConnectionStrings[nameConnectionString].ConnectionString;
             using (JadeCore1Entities db = new JadeCore1Entities())
             {
-                return db.ClienteTipoes.Count(e => e.CodigoEmpresa == CodigoEmpresa && e.CodigoClienteTipo == id) > 0;
+                return db.Bodegas.Count(e => e.CodigoEmpresa == CodigoEmpresa && e.CodigoBodega == id && e.CodigoSucursal == CodigoSucursal) > 0;
             }
         }
     }

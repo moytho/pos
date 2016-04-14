@@ -118,7 +118,7 @@ namespace APITest.Controllers
 
         [Route("api/producto/uploadimagen/{id?}")]
         [HttpPost()]
-        public IHttpActionResult UploadImagen(int id)
+        public HttpResponseMessage UploadImagen(int id)
         {
             string PathUrl = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/ProductoImagenes/");
             string UrlCorto = "Content/ProductoImagenes/";
@@ -169,17 +169,20 @@ namespace APITest.Controllers
                         }
                     }
                     //if (ImagenesGuardadas > 0)
-                        return Ok("Imagenes guardadas " + ImagenesGuardadas.ToString());
+                        //return Ok("Imagenes guardadas " + ImagenesGuardadas.ToString());
+                        return Request.CreateResponse(HttpStatusCode.OK, "Imagen creada correctamente");
                     //else
                       //  return Ok();
                     
                 } catch (Exception exception)
                 {
-                    return InternalServerError();
+                    //return InternalServerError(exception.Message.ToString());
+                    HttpError myCustomError = new HttpError(exception.Message.ToString()) { { "Error", 42 } };
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, myCustomError);
                 }
             }
             //si no posee permiso retornamos el estado Unauthorized 501
-            else return Unauthorized();
+            else return Request.CreateErrorResponse(HttpStatusCode.Unauthorized,"Unauthorized");
         }
         // GET api/Productos
         //Este tendra que ser modificado, para consultar globalmente (todas las sucursales) o
@@ -330,6 +333,7 @@ namespace APITest.Controllers
                                          PrecioCosto=producto.PrecioCosto,
                                          PrecioVenta=producto.PrecioVenta,
                                          CodigoProductoTipo=producto.CodigoProductoTipo,
+                                         CodigoProductoAbastecimiento= producto.CodigoProductoAbastecimiento,
                                          Estado = producto.Estado,
                                          SKU=producto.SKU,
                                          Alto=producto.Alto,
@@ -418,11 +422,12 @@ namespace APITest.Controllers
 
                     producto.CodigoEmpresa = conexion.CodigoEmpresa;
                     producto.Estado = true;
+                    //Como estamos mandando solo el value del select no necesitamos convertira null las entidades siguientes
                     //convirtiendo el objecto clasificacion a null para que no haga un insert de este objeto
-                    producto.ProductoClasificacion = null;
+                    //producto.ProductoClasificacion = null;
                     //convirtiendo el objecto marca a null para que no haga un insert de este objeto
-                    producto.ProductoMarca = null;
-                    producto.CodigoProductoAbastecimiento = null;
+                    //producto.ProductoMarca = null;
+                    //producto.ProductoAbastecimiento = null;
                     db.Productoes.Add(producto);
                     db.SaveChanges();
                     Mapper.CreateMap<Producto, ProductoDTO>();

@@ -132,6 +132,19 @@
                                     </div>
                                 </div>
                             </div>
+                        <div class="form-group ">
+                            <label for="cemail" class="control-label col-lg-2">Producto o servicio</label>
+                            <div class="col-lg-10">
+                                <select class="form-control " ng-model="producto.CodigoProductoTipo"
+                                        ng-options="opcion.CodigoProductoTipo as opcion.Descripcion for opcion in productoTipos"
+                                        id="CodigoProductoTipo" name="CodigoProductoTipo" required>
+                                    <option value="">Seleccione Tipo (producto/servicio)</option>
+                                </select>
+                                <div ng-messages="(form.CodigoProductoTipo.$dirty && form.CodigoProductoTipo.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">Seleccione un tipo de producto/servicio</div>
+                                </div>
+                            </div>
+                        </div>
 
 
                             <div class="form-group">

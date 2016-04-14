@@ -14,13 +14,14 @@ app.controller('menuController', ['$scope', 'authService', '$location', function
                             "modulo": "Productos",
                             "icon": "fa fa-th",
                             "submodulo": [
-                                { "Descripcion": "Inventario", "Url": "#/producto" },
+                                { "Descripcion": "Producto", "Url": "#/producto" },
+                                { "Descripcion": "Bodega", "Url": "#/bodega" },
+                                { "Descripcion": "Inventario", "Url": "#/productoInventario" },
                                 { "Descripcion": "Busqueda", "Url": "#/productobusqueda" },
                                 { "Descripcion": "Transferir producto", "Url": "#/productotransferir" },
                                 { "Descripcion": "Clasificaciones", "Url": "#/productoClasificacion" },
                                 { "Descripcion": "Marcas", "Url": "#/productoMarca" },
-                                { "Descripcion": "Canales de Abastecimientos", "Url": "#/productoAbastecimiento" },
-                                { "Descripcion": "Bodega", "Url": "#/productobodega" }
+                                { "Descripcion": "Canales de Abastecimientos", "Url": "#/productoAbastecimiento" }
                             ]
                         },
             {

@@ -64,6 +64,7 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
     $scope.productoClasificaciones = [];
     $scope.productoAbastecimientos = [];
     $scope.productoImagenes = [];
+    $scope.productoTipos = [];
     $scope.producto = {};
 
     $scope.eliminarProductoImagen = function (codigoProductoImagen, index) {
@@ -109,6 +110,7 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
     }, function (error) {
         console.log(error);
     });
+
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
 
@@ -118,8 +120,16 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
             productoAbastecimientoService.getProductoAbastecimientos().then(function (results) {
                 $scope.productoAbastecimientos = results.data;
 
+                productoService.getProductoTipos().then(function (results) {
+                    $scope.productoTipos = results.data;
+
                 productoService.getProducto(codigo).then(function (results) {
                     $scope.producto = results.data[0];
+                
+                }, function (error) {
+                    console.log(error);
+                });
+                
                 }, function (error) {
                     console.log(error);
                 });
@@ -171,6 +181,7 @@ app.controller('productoCrear', ['$scope', '$window', 'productoService', 'produc
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
     $scope.productoAbastecimientos = [];
+    $scope.productoTipos = [];
     $scope.producto = {};
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
@@ -180,18 +191,31 @@ app.controller('productoCrear', ['$scope', '$window', 'productoService', 'produc
         console.log(error);
     });
 
-    productoMarcaService.getProductoMarcas().then(function (results) {
-        $scope.productoMarcas = results.data;
+    productoClasificacionService.getProductoClasificaciones().then(function (results) {
+        $scope.productoClasificaciones = results.data;
 
+        productoMarcaService.getProductoMarcas().then(function (results) {
+            $scope.productoMarcas = results.data;
+
+            productoAbastecimientoService.getProductoAbastecimientos().then(function (results) {
+                $scope.productoAbastecimientos = results.data;
+
+                productoService.getProductoTipos().then(function (results) {
+                    $scope.productoTipos = results.data;
+
+                }, function (error) {
+                    console.log(error);
+                });
+            }, function (error) {
+                console.log(error);
+            });
+        }, function (error) {
+            console.log(error);
+        });
     }, function (error) {
         console.log(error);
     });
 
-    productoService.getProductoAbastecimientos().then(function (results) {
-        $scope.productoAbastecimientos = results.data;
-    }, function (error) {
-        console.log(error);
-    });
 
     $scope.create = function () {
         productoService.createProducto($scope.producto).then(function (results) {

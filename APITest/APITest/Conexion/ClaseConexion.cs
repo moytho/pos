@@ -17,11 +17,13 @@ namespace APITest.Conexion
         public int PoseePermiso {get; set;}
         public int EsSuperAdmin { get; set; }
         public int CodigoEmpresa { get; set; }
+        public int CodigoSucursal { get; set; }
         public string Usuario { get; set; }
         public string UserId { get; set; }
         public string Metodo { get; set; }
         public string Controlador { get; set; }
-        public ClaseConexion(string _userId,string _metodo,string _controlador){
+        public string MessageError { get; set; }
+         public ClaseConexion(string _userId,string _metodo,string _controlador){
             UserId=_userId;
             Metodo = _metodo;
             Controlador = _controlador;
@@ -47,11 +49,12 @@ namespace APITest.Conexion
                         this.UserId = DatosResultados.Rows[0].Field<string>(1);
                         this.CodigoEmpresa = DatosResultados.Rows[0].Field<int>(2);
                         this.PoseePermiso = DatosResultados.Rows[0].Field<int>(3);
+                        this.CodigoSucursal = DatosResultados.Rows[0].Field<int>(4);
                     }
                 }
                 catch (SqlException ex)
                 {
-                    /*Handle error*/
+                    this.MessageError = ex.Message;
                 }
 
             }

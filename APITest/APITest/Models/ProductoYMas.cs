@@ -32,4 +32,22 @@ namespace APITest.Models
 
         
     }
+
+    public class ProductoInformacionCompleta
+    {
+        public int CodigoProducto { get; set; }
+        public string CodigoLocal { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string Marca { get; set; }
+        public string Clasificacion { get; set; }
+        public Nullable<decimal> PrecioVenta { get; set; }
+        public string Sucursal { get; set; }
+        public int CodigoSucursal { get; set; }
+        public string Bodega { get; set; }
+        public Nullable<bool> Estado { get; set; }
+        public int? Existencia { get; set; }
+        public int? ExistenciaMinima { get; set; }
+
+    }
 }

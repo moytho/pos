@@ -38,6 +38,13 @@ app.factory('productoService', ['$http', 'CONFIG', function ($http, CONFIG) {
         });
     };
 
+    var _getProductoTipos = function (codigo) {
+
+        return $http.get(serviceBase + 'api/productotipos/').then(function (results) {
+            return results;
+        });
+    };
+
     var _updateProducto = function (codigo, producto) {
 
         return $http.put(serviceBase + 'api/productos/' + codigo, producto).then(function (results) {
@@ -60,6 +67,7 @@ app.factory('productoService', ['$http', 'CONFIG', function ($http, CONFIG) {
     };
 
     productoServiceFactory.getProductos = _getProductos;
+    productoServiceFactory.getProductoTipos = _getProductoTipos;
     productoServiceFactory.setProductoImagenConvertirPrincipal = _setProductoImagenConvertirPrincipal;
     productoServiceFactory.getProductoImagenes = _getProductoImagenes;
     productoServiceFactory.getProducto = _getProducto;

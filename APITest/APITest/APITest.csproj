@@ -219,16 +219,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Conexion\ClaseConexion.cs" />
+    <Compile Include="Conexion\ClaseConexionPrueba.cs" />
     <Compile Include="Conexion\IIdentityExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BodegasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClienteTiposController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoAbastecimientosController.cs" />
     <Compile Include="Controllers\ProductoClasificacionesController.cs" />
+    <Compile Include="Controllers\ProductoInventariosController.cs" />
     <Compile Include="Controllers\ProductoMarcasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensiones\AccionesManuales.cs" />
@@ -253,6 +257,10 @@
     <Compile Include="Models\AspNetUsersPerfilesAsignado.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bodega.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BodegaDTO.cs" />
     <Compile Include="Models\ClasificacionDTO.cs" />
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
@@ -329,6 +337,10 @@
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductoImagenDTO.cs" />
+    <Compile Include="Models\ProductoInventario.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoInventarioDTO.cs" />
     <Compile Include="Models\ProductoMarca.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
@@ -355,10 +367,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\ProductoImagenes\2.jpg" />
     <Content Include="Content\ProductoImagenes\3.jpg" />
-    <Content Include="Content\ProductoImagenes\4.jpg" />
-    <Content Include="Content\ProductoImagenes\collage_act.jpg" />
     <Content Include="Content\ProductoImagenes\collage_interior.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Providers\fonts\glyphicons-halflings-regular.svg" />
@@ -460,6 +469,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="WebCopy.config" />
+    <Content Include="WebCopy.Debug.config">
+      <DependentUpon>WebCopy.config</DependentUpon>
+    </Content>
+    <Content Include="WebCopy.Release.config">
+      <DependentUpon>WebCopy.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

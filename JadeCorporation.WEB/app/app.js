@@ -41,6 +41,10 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/cliente/edit/:codigo", { controller: "clienteEditar", templateUrl: "app/cliente/views/cliente-view.html" });
     $routeProvider.when("/cliente/create", { controller: "clienteCrear", templateUrl: "app/cliente/views/cliente-view.html" });
 
+    $routeProvider.when("/bodega", { controller: "bodegaController", templateUrl: "app/bodega/views/bodega.html" });
+    $routeProvider.when("/bodega/edit/:codigo", { controller: "bodegaEditar", templateUrl: "app/bodega/views/bodega-view.html" });
+    $routeProvider.when("/bodega/create", { controller: "bodegaCrear", templateUrl: "app/bodega/views/bodega-view.html" });
+
     $routeProvider.when("/clienteTipo", { controller: "clienteTipoController", templateUrl: "app/clienteTipo/views/clienteTipo.html" });
     $routeProvider.when("/clienteTipo/edit/:codigo", { controller: "clienteTipoEditar", templateUrl: "app/clienteTipo/views/clienteTipo-view.html" });
     $routeProvider.when("/clienteTipo/create", { controller: "clienteTipoCrear", templateUrl: "app/clienteTipo/views/clienteTipo-view.html" });

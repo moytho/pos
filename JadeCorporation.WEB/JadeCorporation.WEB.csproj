@@ -76,6 +76,10 @@
     <Content Include="app\productoAbastecimiento\productoAbastecimientoService.js" />
     <Content Include="app\productoAbastecimiento\views\productoAbastecimiento-view.html" />
     <Content Include="app\productoAbastecimiento\views\productoAbastecimiento.html" />
+    <Content Include="app\bodega\bodegaController.js" />
+    <Content Include="app\bodega\bodegaService.js" />
+    <Content Include="app\bodega\views\bodega-view.html" />
+    <Content Include="app\bodega\views\bodega.html" />
     <Content Include="app\productoMarca\productoMarcaController.js" />
     <Content Include="app\productoMarca\productoMarcaService.js" />
     <Content Include="app\productoMarca\views\productoMarca.html" />

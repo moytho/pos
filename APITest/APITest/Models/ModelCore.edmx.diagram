@@ -24,6 +24,11 @@
         <AssociationConnector Association="JadeCore1Model.FK_ProductoPrecio_Producto" />
         <EntityTypeShape EntityType="JadeCore1Model.ProductoImagen" Width="1.5" PointX="7.875" PointY="1.75" />
         <AssociationConnector Association="JadeCore1Model.FK_ProductoImagen_Producto1" />
+        <EntityTypeShape EntityType="JadeCore1Model.Bodega" Width="1.5" PointX="8.625" PointY="9.75" />
+        <EntityTypeShape EntityType="JadeCore1Model.ProductoInventario" Width="1.5" PointX="10.875" PointY="2.375" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_ProductoUbicacion" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_Producto" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_Sucursal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

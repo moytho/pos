@@ -18,13 +18,13 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
         </head > 
-        <body class="login-body" ng-controller="loginController" > 
+        <body ng-cloak class="login-body" ng-controller="loginController" > 
             <div class="login-logo"> 
                 <img src="img/login_logo.png" alt="" /> 
                 </div > 
                     <h2 class="form-heading"> Ingresar</h2 > 
                     <div class="container log-row" > 
-                        <pre style="color:white;">{{configuracion}}</pre>
+                        <pre ng-show="configuracion.DEBUG" style="color:white;">{{configuracion}}</pre>
                         <form class="form-signin" name="form" novalidate> 
                             <div class="login-wrap" > 
                                 <input 

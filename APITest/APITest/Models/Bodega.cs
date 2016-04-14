@@ -12,19 +12,17 @@ namespace APITest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sucursal
+    public partial class Bodega
     {
-        public Sucursal()
+        public Bodega()
         {
             this.ProductoInventarios = new HashSet<ProductoInventario>();
         }
     
+        public int CodigoBodega { get; set; }
         public int CodigoSucursal { get; set; }
         public int CodigoEmpresa { get; set; }
         public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Area { get; set; }
-        public string Telefono { get; set; }
         public bool Estado { get; set; }
     
         public virtual ICollection<ProductoInventario> ProductoInventarios { get; set; }
