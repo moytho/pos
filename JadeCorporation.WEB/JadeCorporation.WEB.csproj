@@ -89,6 +89,7 @@
     <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
     <Content Include="app\producto\productoController.js" />
     <Content Include="app\producto\productoService.js" />
+    <Content Include="app\producto\views\productoInventario.html" />
     <Content Include="app\producto\views\productoImagenes-view.html" />
     <Content Include="app\producto\views\productoPreciosEspeciales-view.html" />
     <Content Include="app\producto\views\producto-view.html" />

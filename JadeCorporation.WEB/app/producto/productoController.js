@@ -1,5 +1,9 @@
 ﻿'use strict';
 
+app.controller('productoInventario', ['$location', '$scope', '$http', '$timeout', '$upload', '$routeParams', 'CONFIG', 'toastr', function ($location, $scope, $http, $timeout, $upload, $routeParams, CONFIG, toastr) {
+    
+}]);
+
 app.controller('productoImagenes', ['$location', '$scope', '$http', '$timeout', '$upload', '$routeParams', 'CONFIG', 'toastr', function ($location,$scope, $http, $timeout, $upload, $routeParams, CONFIG, toastr) {
     var CodigoProducto = $routeParams.codigo;
     $scope.upload = [];

@@ -16,7 +16,7 @@ namespace APITest.Controllers
         private string connectionString = "";
         private string UserId = "";
         [AllowAnonymous]
-        public IHttpActionResult GetProductoes()
+        public IHttpActionResult GetProductoes(string codigoLocal,int? codigoBodega,int? existencia,int? codigoMarca,int? codigoClasificacion, int? codigoSubClasificacion,string nombreProducto)
         {
             //UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
             UserId="e5e7523c-8f71-4bd7-a96c-1a4a2b1fdc93";

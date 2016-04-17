@@ -1,0 +1,128 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading head-border">
+                Producto <a class="btn btn-success btn-xs" href="#/producto/create"><i class="fa fa-check"></i></a>
+            </header>
+
+            <!-- Filters -->
+            <div id="custom-toolbar">
+                <div class="form-inline" role="form">
+
+                    <!-- Nombre producto-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="busqueda.Nombre" placeholder="Nombre Producto" />
+                        </div>
+                    </div>
+                    <!-- Codigo Local-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="busqueda.CodigoLocal" placeholder="Codigo Local" />
+                        </div>
+                    </div>
+                    <!-- SKU #-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="busqueda.SKU" placeholder="#SKU" />
+                        </div>
+                    </div>
+                    <!--Marca-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" ng-options="opcion.CodigoProductoMarca as opcion.Nombre for opcion in productoMarcas" ng-model="busqueda.Marca">
+                                <option value="%">Marca</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--Clasificacion-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="busqueda.Clasfificacion">
+                                <option value="%">Clasificacion</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--Sub-Clasificacion-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="busqueda.SubClasfificacion">
+                                <option value="%">Sub Clasificacion</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--Abastecimiento-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" ng-options="opcion.CodigoProductoAbastecimiento as opcion.Descripcion for opcion in productoAbastecimientos" ng-model="busqueda.Abastecimiento">
+                                <option value="%">Abastecimiento</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--Bodega-->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" ng-options="opcion.CodigoBodega as opcion.Nombre for opcion in bodegas" ng-model="busqueda.Bodega">
+                                <option value="%">Bodega</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--Apply button -->
+                    <div class="form-group">
+                        <!-- Apply button     <button type="submit" ng-click="applyFilter()" class="btn btn-default">Apply</button> -->
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-striped custom-table table-hover">
+                <thead> 
+                    <tr>
+                        <th ng-hide="true">Codigo Producto</th>
+                        <th>Codigo Local</th>
+                        <th>Nombre</th>
+                        <th>Precio Costo</th>
+                        <th>Clasificacion</th>
+                        <th>Marca</th>
+                        <th ng-hide="true">Estado</th>
+                        <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="producto in productos">
+                        <td ng-hide="true">
+                            {{ producto.CodigoProducto }}
+                        </td>
+                        <td>
+                            {{ producto.CodigoLocal }}
+                        </td>
+                        <td>
+                            {{ producto.Nombre }}
+                        </td>
+                        <td>
+                            {{ producto.PrecioCosto }}
+                        </td>
+                        <td>
+                            {{ producto.Clasificacion}}
+                        </td>
+                        <td>
+                            {{ producto.Marca}}
+                        </td>
+                        
+                        <td class="hidden-xs">
+                            <a class="btn btn-primary btn-xs" href="#/producto/edit/{{producto.CodigoProducto}}"><i class="fa fa-pencil"></i></a>                           
+                            <a class="btn btn-primary btn-xs" href="#/producto/imagen/{{producto.CodigoProducto}}"><i class="fa fa-file-picture-o"></i></a>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+    </div>
+    </div>

@@ -25,6 +25,9 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/producto/imagen/:codigo", { controller: "productoImagenes", templateUrl: "app/producto/views/productoImagenes-view.html" });
     $routeProvider.when("/producto/preciosespeciales/:codigo", { controller: "productoPreciosEspeciales", templateUrl: "app/producto/views/productoPreciosEspeciales-view.html" });
 
+    $routeProvider.when("/productoInventario", { controller: "productoInventarioController", templateUrl: "app/producto/views/productoInventario.html" });
+
+
     $routeProvider.when("/productoMarca", { controller: "productoMarcaController", templateUrl: "app/productoMarca/views/productoMarca.html" });
     $routeProvider.when("/productoMarca/edit/:codigo", { controller: "productoMarcaEditar", templateUrl: "app/productoMarca/views/productoMarca-view.html" });
     $routeProvider.when("/productoMarca/create", { controller: "productoMarcaCrear", templateUrl: "app/productoMarca/views/productoMarca-view.html" });
