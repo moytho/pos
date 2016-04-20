@@ -72,6 +72,8 @@
     <Content Include="app\cliente\views\cliente-view.html" />
     <Content Include="app\cliente\views\cliente.html" />
     <Content Include="app\productoClasificacion\views\productoClasificacion.html" />
+    <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
+    <Content Include="app\productoClasificacion\views\productoSubClasificacion.html" />
     <Content Include="app\productoAbastecimiento\productoAbastecimientoController.js" />
     <Content Include="app\productoAbastecimiento\productoAbastecimientoService.js" />
     <Content Include="app\productoAbastecimiento\views\productoAbastecimiento-view.html" />
@@ -86,8 +88,9 @@
     <Content Include="app\productoMarca\views\productoMarca-view.html" />
     <Content Include="app\productoClasificacion\productoClasificacionController.js" />
     <Content Include="app\productoClasificacion\productoClasificacionService.js" />
-    <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
+    <Content Include="app\productoClasificacion\views\productoSubClasificacion-view.html" />
     <Content Include="app\producto\productoController.js" />
+    <Content Include="app\producto\productoInventario.js" />
     <Content Include="app\producto\productoService.js" />
     <Content Include="app\producto\views\productoInventario.html" />
     <Content Include="app\producto\views\productoImagenes-view.html" />

@@ -40,6 +40,10 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/productoClasificacion/edit/:codigo", { controller: "productoClasificacionEditar", templateUrl: "app/productoClasificacion/views/productoClasificacion-view.html" });
     $routeProvider.when("/productoClasificacion/create", { controller: "productoClasificacionCrear", templateUrl: "app/productoClasificacion/views/productoClasificacion-view.html" });
 
+    $routeProvider.when("/productoSubClasificacion", { controller: "productoSubClasificacionController", templateUrl: "app/productoClasificacion/views/productoSubClasificacion.html" });
+    $routeProvider.when("/productoSubClasificacion/edit/:codigo", { controller: "productoSubClasificacionEditar", templateUrl: "app/productoClasificacion/views/productoSubClasificacion-view.html" });
+    $routeProvider.when("/productoSubClasificacion/create", { controller: "productoSubClasificacionCrear", templateUrl: "app/productoClasificacion/views/productoSubClasificacion-view.html" });
+
     $routeProvider.when("/cliente", { controller: "clienteController", templateUrl: "app/cliente/views/cliente.html" });
     $routeProvider.when("/cliente/edit/:codigo", { controller: "clienteEditar", templateUrl: "app/cliente/views/cliente-view.html" });
     $routeProvider.when("/cliente/create", { controller: "clienteCrear", templateUrl: "app/cliente/views/cliente-view.html" });

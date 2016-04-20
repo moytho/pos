@@ -16,7 +16,8 @@ namespace APITest.Controllers
         private string connectionString = "";
         private string UserId = "";
         [AllowAnonymous]
-        public IHttpActionResult GetProductoes(string codigoLocal,int? codigoBodega,int? existencia,int? codigoMarca,int? codigoClasificacion, int? codigoSubClasificacion,string nombreProducto)
+        //[Route("api/productoinventarios")]
+        public IHttpActionResult GetProductoInventarios([FromUri]ProductoInventarioBusquedaFiltros filtro)
         {
             //UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
             UserId="e5e7523c-8f71-4bd7-a96c-1a4a2b1fdc93";
@@ -45,7 +46,16 @@ namespace APITest.Controllers
                                          on productoInventario.CodigoBodega equals bodega.CodigoBodega
                                          join sucursal in db.Sucursals
                                          on productoInventario.CodigoSucursal equals sucursal.CodigoSucursal
-                                         where (producto.CodigoEmpresa == conexion.CodigoEmpresa && producto.Estado == true && productoInventario.CodigoSucursal==conexion.CodigoSucursal)
+                                         where (
+                                         (producto.CodigoEmpresa == conexion.CodigoEmpresa) && 
+                                         (producto.Estado == true) && 
+                                         (productoInventario.CodigoSucursal==conexion.CodigoSucursal) &&
+                                         ((!string.IsNullOrEmpty(filtro.CodigoLocal) && producto.CodigoLocal== filtro.CodigoLocal) || //solo codigo local y nombre producto pueden ser 
+                                         (!string.IsNullOrEmpty(filtro.NombreProducto) && producto.Nombre.Contains(filtro.NombreProducto))) &&
+                                         (filtro.CodigoBodega==0 || bodega.CodigoBodega== filtro.CodigoBodega) &&
+                                         (filtro.CodigoMarca == 0 || producto.CodigoProductoMarca == filtro.CodigoMarca) &&
+                                         (filtro.CodigoClasificacion == 0 || producto.CodigoProductoClasificacion == filtro.CodigoClasificacion)
+                                         )
                                          orderby producto.Nombre
                                          select new ProductoInformacionCompleta
                                          {

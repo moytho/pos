@@ -12,7 +12,22 @@ app.controller('productoClasificacionController', ['$scope', 'productoClasificac
         });
     //Cerrar loading splash
     //$window.loading_screen.finish();
-}]);
+    }]);
+
+app.controller('productoSubClasificacionController', ['$scope', 'productoClasificacionService', 'toastr',
+    function ($scope, productoClasificacionService, toastr) {
+
+        $scope.productoSubClasificaciones = [];
+
+        productoClasificacionService.getProductoSubClasificaciones().then(function (results) {
+            $scope.productoSubClasificaciones = results.data;
+
+        }, function (error) {
+            console.log(error);
+        });
+        //Cerrar loading splash
+        //$window.loading_screen.finish();
+    }]);
 
 app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = true;
@@ -22,7 +37,7 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
-        
+
     }, function (error) {
         console.log(error);
     });
@@ -34,8 +49,8 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
         console.log($scope.productoClasificacion);
     },
         function (error) {
-        console.log(error);
-    });
+            console.log(error);
+        });
 
     $scope.goBack = function () {
         $location.path('/productoClasificacion');
@@ -59,6 +74,61 @@ app.controller('productoClasificacionEditar', ['$scope', 'productoClasificacionS
             if (results.status == 200) {
                 toastr.success("Datos eliminados correctamente", "Correcto");
                 $location.path('/productoClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+}]);
+
+app.controller('productoSubClasificacionEditar', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
+    $scope.editar = true;
+    var codigo = $routeParams.codigo;
+
+    $scope.productoClasificaciones = [];
+    $scope.productoSubClasificacion = {};
+
+    productoClasificacionService.getProductoClasificaciones().then(function (results) {
+        $scope.productoSubClasificaciones = results.data;
+        
+    }, function (error) {
+        console.log(error);
+    });
+
+    
+    productoClasificacionService.getProductoSubClasificacion(codigo).then(function (results) {
+        $scope.productoSubClasificacion = results.data[0];
+        console.log($scope.productoSubClasificacion);
+    },
+        function (error) {
+        console.log(error);
+    });
+
+    $scope.goBack = function () {
+        $location.path('/productoSubClasificacion');
+    };
+
+    $scope.update = function () {
+        productoClasificacionService.updateProductoSubClasificacion(codigo, $scope.productoSubClasificacion).then(function (results) {
+            if (results.status == 204) {
+                toastr.success("Datos actualizados correctamente", "Correcto");
+                $location.path('/productoSubClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+    $scope.delete = function () {
+        productoClasificacionService.deleteProductoSubClasificacion(codigo).then(function (results) {
+            if (results.status == 200) {
+                toastr.success("Datos eliminados correctamente", "Correcto");
+                $location.path('/productoSubClasificacion');
             } else {
                 toastr.error("Ha sucedido un error", "Error");
             }
@@ -95,6 +165,36 @@ app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionSe
 
     $scope.goBack = function () {
         $location.path('/productoClasificacion');
+    };
+
+}]);
+
+app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
+    $scope.editar = false;
+    $scope.productoClasificacion = {};
+    $scope.productoClasificaciones = [];
+
+    productoClasificacionService.getProductoClasificaciones().then(function (results) {
+        $scope.productoClasificaciones = results.data;
+
+    }, function (error) {
+        console.log(error);
+    });
+    $scope.create = function () {
+        productoClasificacionService.createProductoSubClasificacion($scope.productoSubClasificacion).then(function (results) {
+            if (results.status == 201) {
+                toastr.success("Datos creados correctamente", "Correcto");
+                $location.path('/productoSubClasificacion');
+            } else {
+                toastr.error("Ha sucedido un error", "Error");
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+    $scope.goBack = function () {
+        $location.path('/productoSubClasificacion');
     };
 
 }]);
