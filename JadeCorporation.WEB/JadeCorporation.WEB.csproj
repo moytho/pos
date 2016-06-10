@@ -64,6 +64,7 @@
     <Content Include="app\clienteTipo\views\clienteTipo-view.html" />
     <Content Include="app\clienteTipo\views\clienteTipo.html" />
     <Content Include="app\directives\inputFile.js" />
+    <Content Include="app\directives\myEnter.js" />
     <Content Include="app\directives\scrollOnClick.js" />
     <Content Include="app\directives\scrollUp.js" />
     <Content Include="app\empresa\views\empresa-view.html" />
@@ -71,6 +72,11 @@
     <Content Include="app\cliente\clienteService.js" />
     <Content Include="app\cliente\views\cliente-view.html" />
     <Content Include="app\cliente\views\cliente.html" />
+    <Content Include="app\pedido\pedidoController.js" />
+    <Content Include="app\pedido\pedidoService.js" />
+    <Content Include="app\pedido\views\pedido-view.html" />
+    <Content Include="app\factura\facturaController.js" />
+    <Content Include="app\factura\facturaService.js" />
     <Content Include="app\productoClasificacion\views\productoClasificacion.html" />
     <Content Include="app\productoClasificacion\views\productoClasificacion-view.html" />
     <Content Include="app\productoClasificacion\views\productoSubClasificacion.html" />
@@ -90,8 +96,10 @@
     <Content Include="app\productoClasificacion\productoClasificacionService.js" />
     <Content Include="app\productoClasificacion\views\productoSubClasificacion-view.html" />
     <Content Include="app\producto\productoController.js" />
-    <Content Include="app\producto\productoInventario.js" />
+    <Content Include="app\producto\productoInventarioService.js" />
+    <Content Include="app\producto\productoInventarioController.js" />
     <Content Include="app\producto\productoService.js" />
+    <Content Include="app\factura\views\factura-view.html" />
     <Content Include="app\producto\views\productoInventario.html" />
     <Content Include="app\producto\views\productoImagenes-view.html" />
     <Content Include="app\producto\views\productoPreciosEspeciales-view.html" />

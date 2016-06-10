@@ -329,6 +329,7 @@ namespace APITest.Controllers
                                          CodigoLocal = producto.CodigoLocal,
                                          CodigoProductoMarca = producto.CodigoProductoMarca,
                                          CodigoProductoClasificacion = producto.CodigoProductoClasificacion,
+                                         CodigoProductoSubClasificacion = producto.CodigoProductoSubClasificacion,
                                          Descripcion = producto.Descripcion,
                                          PrecioCosto=producto.PrecioCosto,
                                          PrecioVenta=producto.PrecioVenta,

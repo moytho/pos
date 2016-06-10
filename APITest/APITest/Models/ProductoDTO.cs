@@ -26,5 +26,6 @@ namespace APITest.Models
         public Nullable<decimal> Profundidad { get; set; }
         public string ImagenUrl { get; set; }
         public List<ProductoImagen> ProductoImagens { get; set; }
+        public Nullable<int> CodigoProductoSubClasificacion { get; set; }
     }
 }

@@ -13,7 +13,6 @@
         <AssociationConnector Association="JadeCore1Model.FK_Producto_Clasificacion1" />
         <AssociationConnector Association="JadeCore1Model.FK_Producto_Marca" />
         <AssociationConnector Association="JadeCore1Model.FK_Producto_ProductoTipo" />
-        <AssociationConnector Association="JadeCore1Model.FK_Clasificacion_Clasificacion" />
         <EntityTypeShape EntityType="JadeCore1Model.Cliente" Width="1.5" PointX="7.625" PointY="13.125" />
         <EntityTypeShape EntityType="JadeCore1Model.ClienteTipo" Width="1.5" PointX="5.375" PointY="10.625" />
         <EntityTypeShape EntityType="JadeCore1Model.ProductoAbastecimiento" Width="2.125" PointX="3.375" PointY="13.625" />
@@ -29,7 +28,21 @@
         <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_ProductoUbicacion" />
         <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_Producto" />
         <AssociationConnector Association="JadeCore1Model.FK_ProductoInventario_Sucursal" />
-      </Diagram>
+        <EntityTypeShape EntityType="JadeCore1Model.ProductoSubClasificacion" Width="1.5" PointX="5.625" PointY="18.5" />
+        <AssociationConnector Association="JadeCore1Model.FK_Producto_ProductoSubClasificacion" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoSubClasificacion_ProductoClasificacion" />
+        <EntityTypeShape EntityType="JadeCore1Model.OrdenCompra" Width="1.5" PointX="8.625" PointY="20.875" />
+        <EntityTypeShape EntityType="JadeCore1Model.OrdenCompraDetalle" Width="1.5" PointX="10.875" PointY="7.875" />
+        <AssociationConnector Association="JadeCore1Model.FK_OrdenCompraDetalle_OrdenCompra" />
+        <AssociationConnector Association="JadeCore1Model.FK_OrdenCompraDetalle_Producto" />
+        <EntityTypeShape EntityType="JadeCore1Model.ProductoAPedir" Width="1.5" PointX="10.875" PointY="0.75" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoAPedir_Producto" />
+        <AssociationConnector Association="JadeCore1Model.FK_ProductoAPedir_Sucursal" />
+        <EntityTypeShape EntityType="JadeCore1Model.Pedido" Width="1.5" PointX="5.625" PointY="25.25" />
+        <EntityTypeShape EntityType="JadeCore1Model.PedidoDetalle" Width="1.5" PointX="7.875" PointY="0.75" />
+        <AssociationConnector Association="JadeCore1Model.FK_PedidoDetalle_Pedido" />
+        <AssociationConnector Association="JadeCore1Model.FK_PedidoDetalle_Producto" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

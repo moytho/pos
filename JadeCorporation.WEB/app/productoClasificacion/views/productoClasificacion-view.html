@@ -8,25 +8,14 @@
                 <div class=" form">
                     <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
                         <div class="form-group ">
-                            <label for="nombre" class="control-label col-lg-2">Descripcion (requerido)</label>
+                            <label for="nombre" class="control-label col-lg-2">Descripcion</label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-hide="true" ng-model="productoClasificacion.CodigoProductoClasificacion" id="codigoproductoclasificacion" name="codigoproductoclasificacion" minlength="2" type="text" />
+                                <input class=" form-control" ng-hide="true" ng-model="productoClasificacion.CodigoProductoClasificacion" id="codigoproductoclasificacion" name="codigoproductoclasificacion" type="text" />
                                 <input class=" form-control" ng-model="productoClasificacion.Descripcion" id="Descripcion" name="Descripcion" type="text" required
                                        ng-class="{error:form.Descripcion.$dirty && form.Descripcion.$invalid}" />
                                 <div ng-messages="(form.Descripcion.$dirty && form.Descripcion.$error)" ng-messages-multiple>
                                     <div class="error" ng-message="required">Ingrese una descripcion para este tipo de clasificacion de producto</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="direccion" class="control-label col-lg-2">Seleccione una clasificacion si este es una subclasificacion</label>
-                            <div class="col-lg-10">
-                                <!--Usamos un enfoque diferente a app/autenticacion/views/signup
-                                    En ese caso mencionado necesitamos mandar el select como un objeto completo,en este caso solo 
-                                    enviaremos el value del select como tal-->
-                                <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="productoClasificacion.CodigoClasificacionPadre" id="codigoclasificacionpadre" name="codigoclasificacionpadre">
-                                    <option value="">Seleccione clasificacion</option>
-                                </select>
                             </div>
                         </div>
                         <div class="form-group">

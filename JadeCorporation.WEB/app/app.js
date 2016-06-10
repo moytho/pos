@@ -9,15 +9,16 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/empresa", { controller: "empresaController", templateUrl: "app/empresa/views/empresa.html" });
     //una empresa especifica GET api/empresas/id?
     $routeProvider.when("/empresa/edit/:codigo", { controller: "empresaEditar", templateUrl: "app/empresa/views/empresa-view.html" });
-    //
+    //crear empresa
     $routeProvider.when("/empresa/create", { controller: "empresaCrear", templateUrl: "app/empresa/views/empresa-view.html" });
+    
     $routeProvider.when("/sucursal", { controller: "sucursalController", templateUrl: "app/sucursal/views/sucursal.html" });
     $routeProvider.when("/sucursal/edit/:codigo", { controller: "sucursalEditar", templateUrl: "app/sucursal/views/sucursal-view.html" });
     $routeProvider.when("/sucursal/create", { controller: "sucursalCrear", templateUrl: "app/sucursal/views/sucursal-view.html" });
 
-    $routeProvider.when("/sucursal", { controller: "sucursalController", templateUrl: "app/sucursal/views/sucursal.html" });
-    $routeProvider.when("/sucursal/edit/:codigo", { controller: "sucursalEditar", templateUrl: "app/sucursal/views/sucursal-view.html" });
-    $routeProvider.when("/sucursal/create", { controller: "sucursalCrear", templateUrl: "app/sucursal/views/sucursal-view.html" });
+    $routeProvider.when("/pedido/create", { controller: "pedidoControllerCreate", templateUrl: "app/pedido/views/pedido-view.html" });
+
+    $routeProvider.when("/factura/create", { controller: "facturaControllerCreate", templateUrl: "app/factura/views/factura-view.html" });
 
     $routeProvider.when("/producto", { controller: "productoController", templateUrl: "app/producto/views/producto.html" });
     $routeProvider.when("/producto/edit/:codigo", { controller: "productoEditar", templateUrl: "app/producto/views/producto-view.html" });
@@ -26,7 +27,6 @@ app.config(function ($routeProvider,CONFIG) {
     $routeProvider.when("/producto/preciosespeciales/:codigo", { controller: "productoPreciosEspeciales", templateUrl: "app/producto/views/productoPreciosEspeciales-view.html" });
 
     $routeProvider.when("/productoInventario", { controller: "productoInventarioController", templateUrl: "app/producto/views/productoInventario.html" });
-
 
     $routeProvider.when("/productoMarca", { controller: "productoMarcaController", templateUrl: "app/productoMarca/views/productoMarca.html" });
     $routeProvider.when("/productoMarca/edit/:codigo", { controller: "productoMarcaEditar", templateUrl: "app/productoMarca/views/productoMarca-view.html" });

@@ -18,13 +18,16 @@ namespace APITest.Models
 
     public class ProductoInventarioBusquedaFiltros
     {
-        public int CodigoMarca { get; set; }
-        public int CodigoClasificacion { get; set; }
-        public int CodigoSubClasificacion { get; set; }
+        public int CodigoProductoMarca { get; set; }
+        public int CodigoProductoClasificacion { get; set; }
+        public int CodigoProductoSubClasificacion { get; set; }
+        public int CodigoProductoAbastecimiento { get; set; }
         public string NombreProducto { get; set; }
+        public string SKU { get; set; }
         public string CodigoLocal { get; set; }
         public int CodigoBodega { get; set; }
-        public Nullable<int> Cantidad { get; set; }
+        public int Existencia { get; set; }
+        public int ExistenciaMinima { get; set; }
 
     }
 

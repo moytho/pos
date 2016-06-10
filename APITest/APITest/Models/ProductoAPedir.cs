@@ -12,20 +12,17 @@ namespace APITest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductoClasificacion
+    public partial class ProductoAPedir
     {
-        public ProductoClasificacion()
-        {
-            this.Productoes = new HashSet<Producto>();
-            this.ProductoSubClasificacions = new HashSet<ProductoSubClasificacion>();
-        }
-    
-        public int CodigoProductoClasificacion { get; set; }
+        public int CodigoProductoAPedir { get; set; }
+        public int CodigoSucursal { get; set; }
         public int CodigoEmpresa { get; set; }
-        public string Descripcion { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int CodigoProducto { get; set; }
+        public string UserId { get; set; }
         public bool Estado { get; set; }
     
-        public virtual ICollection<Producto> Productoes { get; set; }
-        public virtual ICollection<ProductoSubClasificacion> ProductoSubClasificacions { get; set; }
+        public virtual Producto Producto { get; set; }
+        public virtual Sucursal Sucursal { get; set; }
     }
 }

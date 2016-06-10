@@ -48,6 +48,6 @@ namespace APITest.Models
         public Nullable<bool> Estado { get; set; }
         public int? Existencia { get; set; }
         public int? ExistenciaMinima { get; set; }
-
+        public int Cantidad { get; set; }
     }
 }

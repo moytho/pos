@@ -227,11 +227,32 @@
     <Compile Include="Controllers\ClienteTiposController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\ProductoAbastecimientosController.cs" />
     <Compile Include="Controllers\ProductoClasificacionesController.cs" />
     <Compile Include="Controllers\ProductoInventariosController.cs" />
     <Compile Include="Controllers\ProductoMarcasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Models\OrdenCompra.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdenCompraDetalle.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pedido.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PedidoDetalle.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PedidoDetalleDTO.cs" />
+    <Compile Include="Models\PedidoDTO.cs" />
+    <Compile Include="Models\ProductoAPedir.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoAPedirDTO.cs" />
+    <Compile Include="Models\ProductoSubClasificacionDTO.cs" />
+    <Compile Include="Controllers\ProductoSubClasificacionesController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -261,7 +282,7 @@
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BodegaDTO.cs" />
-    <Compile Include="Models\ClasificacionDTO.cs" />
+    <Compile Include="Models\ProductoClasificacionDTO.cs" />
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
@@ -345,6 +366,9 @@
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductoPrecio.cs">
+      <DependentUpon>ModelCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoSubClasificacion.cs">
       <DependentUpon>ModelCore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductoTipo.cs">

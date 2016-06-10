@@ -12,23 +12,22 @@ namespace APITest.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sucursal
+    public partial class OrdenCompra
     {
-        public Sucursal()
+        public OrdenCompra()
         {
-            this.ProductoInventarios = new HashSet<ProductoInventario>();
-            this.ProductoAPedirs = new HashSet<ProductoAPedir>();
+            this.OrdenCompraDetalles = new HashSet<OrdenCompraDetalle>();
         }
     
+        public int CodigoOrdenCompra { get; set; }
         public int CodigoSucursal { get; set; }
         public int CodigoEmpresa { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Area { get; set; }
-        public string Telefono { get; set; }
-        public bool Estado { get; set; }
+        public Nullable<int> NumeroLocal { get; set; }
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+        public string UserId { get; set; }
+        public Nullable<int> CodigoProveedor { get; set; }
+        public Nullable<decimal> TotalEsperado { get; set; }
     
-        public virtual ICollection<ProductoInventario> ProductoInventarios { get; set; }
-        public virtual ICollection<ProductoAPedir> ProductoAPedirs { get; set; }
+        public virtual ICollection<OrdenCompraDetalle> OrdenCompraDetalles { get; set; }
     }
 }

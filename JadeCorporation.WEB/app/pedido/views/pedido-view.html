@@ -1,0 +1,72 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Creacion de Pedido
+            </header>
+            <div class="panel-body">
+                <div class=" form">
+                    <form name="form" class="cmxform form-horizontal tasi-form">
+                        
+                            <div class="form-group">
+                                <label for="nombre" class="control-label col-lg-2">Descripcion</label>
+                                <div class="col-lg-10">
+                                    <input class=" form-control" ng-hide="true" ng-model="pedido.CodigoPedido" id="CodigoPedido" name="CodigoPedido" type="text" />
+                                    <textarea class=" form-control" ng-model="pedido.Observaciones" id="Observaciones" name="Observaciones"></textarea>
+                                    
+                                </div>
+                            </div>
+                            
+                        
+                        <div class="row table-responsive">
+
+                            <table class="table table-striped custom-table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th ng-hide="true">Codigo Producto</th>
+                                        <th class="col-lg-2"></th>
+                                        <th class="col-lg-2">Cantidad</th>
+                                        <th class="col-lg-8">Producto</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="producto in productos">
+                                        <td ng-hide="true">
+                                            {{ producto.CodigoProducto }}
+                                        </td>
+                                        <td>
+                                            <button data-toggle="button" ng-click="productos.splice($index,1)" class="btn btn-default">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <div class="col-lg-10">
+                                                <input type="number" ng-model="producto.Cantidad" class="form-control" placeholder="cantidad" required />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ producto.Nombre }}
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
+                                <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="!editar" ng-click="create()" type="submit">Guardar</button>
+                                <button scroll-up confirm="Esta completamente seguro que desea eliminar este elemento?" class="btn btn-danger" ng-show="editar" ng-click="delete()" type="submit">Eliminar</button>
+                                <button scroll-up class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

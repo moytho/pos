@@ -48,6 +48,57 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrdenCompra">
+          <Key>
+            <PropertyRef Name="CodigoOrdenCompra" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoOrdenCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="NumeroLocal" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" />
+          <Property Name="CodigoProveedor" Type="int" />
+          <Property Name="TotalEsperado" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="OrdenCompraDetalle">
+          <Key>
+            <PropertyRef Name="CodigoOrdenCompraDetalle" />
+          </Key>
+          <Property Name="CodigoOrdenCompraDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoOrdenCompra" Type="int" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioEsperado" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="CodigoPedido" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoPedidoLocal" Type="int" />
+          <Property Name="FechaCreacion" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoDetalle">
+          <Key>
+            <PropertyRef Name="CodigoPedidoDetalle" />
+          </Key>
+          <Property Name="CodigoPedidoDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoPedido" Type="int" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="CodigoProducto" />
@@ -56,6 +107,7 @@
           <Property Name="CodigoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
           <Property Name="CodigoProductoClasificacion" Type="int" />
+          <Property Name="CodigoProductoSubClasificacion" Type="int" />
           <Property Name="CodigoProductoMarca" Type="int" />
           <Property Name="CodigoLocal" Type="varchar" MaxLength="50" />
           <Property Name="SKU" Type="varchar" MaxLength="100" />
@@ -83,6 +135,21 @@
           <Property Name="DiasAbastecimiento" Type="int" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductoAPedir">
+          <Key>
+            <PropertyRef Name="CodigoProductoAPedir" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProductoAPedir" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="int" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="CodigoProducto" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProductoClasificacion">
           <Key>
             <PropertyRef Name="CodigoProductoClasificacion" />
@@ -90,7 +157,6 @@
           </Key>
           <Property Name="CodigoProductoClasificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
-          <Property Name="CodigoClasificacionPadre" Type="int" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
@@ -141,6 +207,18 @@
           <Property Name="PrecioVenta" Type="decimal" Precision="12" Scale="0" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductoSubClasificacion">
+          <Key>
+            <PropertyRef Name="CodigoProductoSubClasificacion" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoProductoClasificacion" />
+          </Key>
+          <Property Name="CodigoProductoSubClasificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoProductoClasificacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProductoTipo">
           <Key>
             <PropertyRef Name="CodigoProductoTipo" />
@@ -161,20 +239,6 @@
           <Property Name="Telefono" Type="varchar" MaxLength="10" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Clasificacion_Clasificacion">
-          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="0..1" />
-          <End Role="ProductoClasificacion1" Type="Self.ProductoClasificacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductoClasificacion">
-              <PropertyRef Name="CodigoProductoClasificacion" />
-              <PropertyRef Name="CodigoEmpresa" />
-            </Principal>
-            <Dependent Role="ProductoClasificacion1">
-              <PropertyRef Name="CodigoClasificacionPadre" />
-              <PropertyRef Name="CodigoEmpresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cliente_ClienteTipo">
           <End Role="ClienteTipo" Type="Self.ClienteTipo" Multiplicity="0..1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
@@ -189,16 +253,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Producto_Clasificacion1">
-          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="0..1" />
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+        <Association Name="FK_OrdenCompraDetalle_OrdenCompra">
+          <End Role="OrdenCompra" Type="Self.OrdenCompra" Multiplicity="1" />
+          <End Role="OrdenCompraDetalle" Type="Self.OrdenCompraDetalle" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProductoClasificacion">
-              <PropertyRef Name="CodigoProductoClasificacion" />
+            <Principal Role="OrdenCompra">
+              <PropertyRef Name="CodigoOrdenCompra" />
+              <PropertyRef Name="CodigoSucursal" />
               <PropertyRef Name="CodigoEmpresa" />
             </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="CodigoProductoClasificacion" />
+            <Dependent Role="OrdenCompraDetalle">
+              <PropertyRef Name="CodigoOrdenCompra" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenCompraDetalle_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="OrdenCompraDetalle" Type="Self.OrdenCompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="OrdenCompraDetalle">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoDetalle_Pedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="PedidoDetalle" Type="Self.PedidoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="CodigoPedido" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="PedidoDetalle">
+              <PropertyRef Name="CodigoPedido" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoDetalle_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="PedidoDetalle" Type="Self.PedidoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="PedidoDetalle">
+              <PropertyRef Name="CodigoProducto" />
               <PropertyRef Name="CodigoEmpresa" />
             </Dependent>
           </ReferentialConstraint>
@@ -231,6 +341,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Producto_ProductoClasificacion">
+          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_ProductoSubClasificacion">
+          <End Role="ProductoSubClasificacion" Type="Self.ProductoSubClasificacion" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoSubClasificacion">
+              <PropertyRef Name="CodigoProductoSubClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+              <PropertyRef Name="CodigoProductoClasificacion" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoSubClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+              <PropertyRef Name="CodigoProductoClasificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producto_ProductoTipo">
           <End Role="ProductoTipo" Type="Self.ProductoTipo" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -240,6 +380,34 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="CodigoProductoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoAPedir_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoAPedir" Type="Self.ProductoAPedir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoAPedir">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoAPedir_Sucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="ProductoAPedir" Type="Self.ProductoAPedir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoAPedir">
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -329,30 +497,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductoSubClasificacion_ProductoClasificacion">
+          <End Role="ProductoClasificacion" Type="Self.ProductoClasificacion" Multiplicity="1" />
+          <End Role="ProductoSubClasificacion" Type="Self.ProductoSubClasificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoSubClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="JadeCore1ModelStoreContainer">
           <EntitySet Name="Bodega" EntityType="Self.Bodega" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClienteTipo" EntityType="Self.ClienteTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenCompra" EntityType="Self.OrdenCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenCompraDetalle" EntityType="Self.OrdenCompraDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoDetalle" EntityType="Self.PedidoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoAbastecimiento" EntityType="Self.ProductoAbastecimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoAPedir" EntityType="Self.ProductoAPedir" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoClasificacion" EntityType="Self.ProductoClasificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoImagen" EntityType="Self.ProductoImagen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoInventario" EntityType="Self.ProductoInventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoMarca" EntityType="Self.ProductoMarca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoPrecio" EntityType="Self.ProductoPrecio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoSubClasificacion" EntityType="Self.ProductoSubClasificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductoTipo" EntityType="Self.ProductoTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="Self.FK_Clasificacion_Clasificacion">
-            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
-            <End Role="ProductoClasificacion1" EntitySet="ProductoClasificacion" />
-          </AssociationSet>
           <AssociationSet Name="FK_Cliente_ClienteTipo" Association="Self.FK_Cliente_ClienteTipo">
             <End Role="ClienteTipo" EntitySet="ClienteTipo" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK_Producto_Clasificacion1" Association="Self.FK_Producto_Clasificacion1">
-            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
+          <AssociationSet Name="FK_OrdenCompraDetalle_OrdenCompra" Association="Self.FK_OrdenCompraDetalle_OrdenCompra">
+            <End Role="OrdenCompra" EntitySet="OrdenCompra" />
+            <End Role="OrdenCompraDetalle" EntitySet="OrdenCompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenCompraDetalle_Producto" Association="Self.FK_OrdenCompraDetalle_Producto">
             <End Role="Producto" EntitySet="Producto" />
+            <End Role="OrdenCompraDetalle" EntitySet="OrdenCompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoDetalle_Pedido" Association="Self.FK_PedidoDetalle_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedidoDetalle" EntitySet="PedidoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoDetalle_Producto" Association="Self.FK_PedidoDetalle_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="PedidoDetalle" EntitySet="PedidoDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
             <End Role="ProductoMarca" EntitySet="ProductoMarca" />
@@ -362,9 +558,25 @@
             <End Role="ProductoAbastecimiento" EntitySet="ProductoAbastecimiento" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoClasificacion" Association="Self.FK_Producto_ProductoClasificacion">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_ProductoSubClasificacion" Association="Self.FK_Producto_ProductoSubClasificacion">
+            <End Role="ProductoSubClasificacion" EntitySet="ProductoSubClasificacion" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producto_ProductoTipo" Association="Self.FK_Producto_ProductoTipo">
             <End Role="ProductoTipo" EntitySet="ProductoTipo" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoAPedir_Producto" Association="Self.FK_ProductoAPedir_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoAPedir" EntitySet="ProductoAPedir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoAPedir_Sucursal" Association="Self.FK_ProductoAPedir_Sucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="ProductoAPedir" EntitySet="ProductoAPedir" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductoImagen_Producto1" Association="Self.FK_ProductoImagen_Producto1">
             <End Role="Producto" EntitySet="Producto" />
@@ -390,6 +602,10 @@
             <End Role="Producto" EntitySet="Producto" />
             <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductoSubClasificacion_ProductoClasificacion" Association="Self.FK_ProductoSubClasificacion_ProductoClasificacion">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacion" />
+            <End Role="ProductoSubClasificacion" EntitySet="ProductoSubClasificacion" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -412,10 +628,6 @@
           <AssociationSet Name="FK_Producto_ProductoTipo" Association="JadeCore1Model.FK_Producto_ProductoTipo">
             <End Role="ProductoTipo" EntitySet="ProductoTipoes" />
             <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="JadeCore1Model.FK_Clasificacion_Clasificacion">
-            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacions" />
-            <End Role="ProductoClasificacion1" EntitySet="ProductoClasificacions" />
           </AssociationSet>
           <EntitySet Name="Clientes" EntityType="JadeCore1Model.Cliente" />
           <EntitySet Name="ClienteTipoes" EntityType="JadeCore1Model.ClienteTipo" />
@@ -456,6 +668,44 @@
             <End Role="Sucursal" EntitySet="Sucursals" />
             <End Role="ProductoInventario" EntitySet="ProductoInventarios" />
           </AssociationSet>
+          <EntitySet Name="ProductoSubClasificacions" EntityType="JadeCore1Model.ProductoSubClasificacion" />
+          <AssociationSet Name="FK_Producto_ProductoSubClasificacion" Association="JadeCore1Model.FK_Producto_ProductoSubClasificacion">
+            <End Role="ProductoSubClasificacion" EntitySet="ProductoSubClasificacions" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoSubClasificacion_ProductoClasificacion" Association="JadeCore1Model.FK_ProductoSubClasificacion_ProductoClasificacion">
+            <End Role="ProductoClasificacion" EntitySet="ProductoClasificacions" />
+            <End Role="ProductoSubClasificacion" EntitySet="ProductoSubClasificacions" />
+          </AssociationSet>
+          <EntitySet Name="OrdenCompras" EntityType="JadeCore1Model.OrdenCompra" />
+          <EntitySet Name="OrdenCompraDetalles" EntityType="JadeCore1Model.OrdenCompraDetalle" />
+          <AssociationSet Name="FK_OrdenCompraDetalle_OrdenCompra" Association="JadeCore1Model.FK_OrdenCompraDetalle_OrdenCompra">
+            <End Role="OrdenCompra" EntitySet="OrdenCompras" />
+            <End Role="OrdenCompraDetalle" EntitySet="OrdenCompraDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenCompraDetalle_Producto" Association="JadeCore1Model.FK_OrdenCompraDetalle_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="OrdenCompraDetalle" EntitySet="OrdenCompraDetalles" />
+          </AssociationSet>
+          <EntitySet Name="ProductoAPedirs" EntityType="JadeCore1Model.ProductoAPedir" />
+          <AssociationSet Name="FK_ProductoAPedir_Producto" Association="JadeCore1Model.FK_ProductoAPedir_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="ProductoAPedir" EntitySet="ProductoAPedirs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoAPedir_Sucursal" Association="JadeCore1Model.FK_ProductoAPedir_Sucursal">
+            <End Role="Sucursal" EntitySet="Sucursals" />
+            <End Role="ProductoAPedir" EntitySet="ProductoAPedirs" />
+          </AssociationSet>
+          <EntitySet Name="Pedidoes" EntityType="JadeCore1Model.Pedido" />
+          <EntitySet Name="PedidoDetalles" EntityType="JadeCore1Model.PedidoDetalle" />
+          <AssociationSet Name="FK_PedidoDetalle_Pedido" Association="JadeCore1Model.FK_PedidoDetalle_Pedido">
+            <End Role="Pedido" EntitySet="Pedidoes" />
+            <End Role="PedidoDetalle" EntitySet="PedidoDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoDetalle_Producto" Association="JadeCore1Model.FK_PedidoDetalle_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="PedidoDetalle" EntitySet="PedidoDetalles" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sucursal">
           <Key>
@@ -470,6 +720,7 @@
           <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ProductoInventarios" Relationship="JadeCore1Model.FK_ProductoInventario_Sucursal" FromRole="Sucursal" ToRole="ProductoInventario" />
+          <NavigationProperty Name="ProductoAPedirs" Relationship="JadeCore1Model.FK_ProductoAPedir_Sucursal" FromRole="Sucursal" ToRole="ProductoAPedir" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -501,6 +752,11 @@
           <NavigationProperty Name="ProductoPrecios" Relationship="JadeCore1Model.FK_ProductoPrecio_Producto" FromRole="Producto" ToRole="ProductoPrecio" />
           <NavigationProperty Name="ProductoImagens" Relationship="JadeCore1Model.FK_ProductoImagen_Producto1" FromRole="Producto" ToRole="ProductoImagen" />
           <NavigationProperty Name="ProductoInventarios" Relationship="JadeCore1Model.FK_ProductoInventario_Producto" FromRole="Producto" ToRole="ProductoInventario" />
+          <Property Name="CodigoProductoSubClasificacion" Type="Int32" />
+          <NavigationProperty Name="ProductoSubClasificacion" Relationship="JadeCore1Model.FK_Producto_ProductoSubClasificacion" FromRole="Producto" ToRole="ProductoSubClasificacion" />
+          <NavigationProperty Name="OrdenCompraDetalles" Relationship="JadeCore1Model.FK_OrdenCompraDetalle_Producto" FromRole="Producto" ToRole="OrdenCompraDetalle" />
+          <NavigationProperty Name="ProductoAPedirs" Relationship="JadeCore1Model.FK_ProductoAPedir_Producto" FromRole="Producto" ToRole="ProductoAPedir" />
+          <NavigationProperty Name="PedidoDetalles" Relationship="JadeCore1Model.FK_PedidoDetalle_Producto" FromRole="Producto" ToRole="PedidoDetalle" />
         </EntityType>
         <EntityType Name="ProductoClasificacion">
           <Key>
@@ -509,13 +765,11 @@
           </Key>
           <Property Name="CodigoProductoClasificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
-          <Property Name="CodigoClasificacionPadre" Type="Int32" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_Clasificacion1" FromRole="ProductoClasificacion" ToRole="Producto" />
-          <NavigationProperty Name="ProductoClasificacion1" Relationship="JadeCore1Model.FK_Clasificacion_Clasificacion" FromRole="ProductoClasificacion" ToRole="ProductoClasificacion1" />
-          <NavigationProperty Name="ProductoClasificacion2" Relationship="JadeCore1Model.FK_Clasificacion_Clasificacion" FromRole="ProductoClasificacion1" ToRole="ProductoClasificacion" />
-        </EntityType>
+          <NavigationProperty Name="ProductoSubClasificacions" Relationship="JadeCore1Model.FK_ProductoSubClasificacion_ProductoClasificacion" FromRole="ProductoClasificacion" ToRole="ProductoSubClasificacion" />
+          </EntityType>
         <EntityType Name="ProductoMarca">
           <Key>
             <PropertyRef Name="CodigoProductoMarca" />
@@ -572,20 +826,6 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="CodigoProductoTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Clasificacion_Clasificacion">
-          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion" Multiplicity="0..1" />
-          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductoClasificacion">
-              <PropertyRef Name="CodigoProductoClasificacion" />
-              <PropertyRef Name="CodigoEmpresa" />
-            </Principal>
-            <Dependent Role="ProductoClasificacion1">
-              <PropertyRef Name="CodigoClasificacionPadre" />
-              <PropertyRef Name="CodigoEmpresa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -805,6 +1045,212 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductoSubClasificacion">
+          <Key>
+            <PropertyRef Name="CodigoProductoSubClasificacion" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoProductoClasificacion" />
+          </Key>
+          <Property Name="CodigoProductoSubClasificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoProductoClasificacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Productoes" Relationship="JadeCore1Model.FK_Producto_ProductoSubClasificacion" FromRole="ProductoSubClasificacion" ToRole="Producto" />
+          <NavigationProperty Name="ProductoClasificacion" Relationship="JadeCore1Model.FK_ProductoSubClasificacion_ProductoClasificacion" FromRole="ProductoSubClasificacion" ToRole="ProductoClasificacion" />
+        </EntityType>
+        <Association Name="FK_Producto_ProductoSubClasificacion">
+          <End Type="JadeCore1Model.ProductoSubClasificacion" Role="ProductoSubClasificacion" Multiplicity="0..1" />
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoSubClasificacion">
+              <PropertyRef Name="CodigoProductoSubClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+              <PropertyRef Name="CodigoProductoClasificacion" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="CodigoProductoSubClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+              <PropertyRef Name="CodigoProductoClasificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoSubClasificacion_ProductoClasificacion">
+          <End Type="JadeCore1Model.ProductoClasificacion" Role="ProductoClasificacion" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoSubClasificacion" Role="ProductoSubClasificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoSubClasificacion">
+              <PropertyRef Name="CodigoProductoClasificacion" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrdenCompra">
+          <Key>
+            <PropertyRef Name="CodigoOrdenCompra" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoOrdenCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoSucursal" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="NumeroLocal" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoProveedor" Type="Int32" />
+          <Property Name="TotalEsperado" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="OrdenCompraDetalles" Relationship="JadeCore1Model.FK_OrdenCompraDetalle_OrdenCompra" FromRole="OrdenCompra" ToRole="OrdenCompraDetalle" />
+        </EntityType>
+        <EntityType Name="OrdenCompraDetalle">
+          <Key>
+            <PropertyRef Name="CodigoOrdenCompraDetalle" />
+          </Key>
+          <Property Name="CodigoOrdenCompraDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoOrdenCompra" Type="Int32" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioEsperado" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="OrdenCompra" Relationship="JadeCore1Model.FK_OrdenCompraDetalle_OrdenCompra" FromRole="OrdenCompraDetalle" ToRole="OrdenCompra" />
+          <NavigationProperty Name="Producto" Relationship="JadeCore1Model.FK_OrdenCompraDetalle_Producto" FromRole="OrdenCompraDetalle" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_OrdenCompraDetalle_OrdenCompra">
+          <End Type="JadeCore1Model.OrdenCompra" Role="OrdenCompra" Multiplicity="1" />
+          <End Type="JadeCore1Model.OrdenCompraDetalle" Role="OrdenCompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenCompra">
+              <PropertyRef Name="CodigoOrdenCompra" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="OrdenCompraDetalle">
+              <PropertyRef Name="CodigoOrdenCompra" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenCompraDetalle_Producto">
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="JadeCore1Model.OrdenCompraDetalle" Role="OrdenCompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="OrdenCompraDetalle">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductoAPedir">
+          <Key>
+            <PropertyRef Name="CodigoProductoAPedir" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProductoAPedir" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoSucursal" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="JadeCore1Model.FK_ProductoAPedir_Producto" FromRole="ProductoAPedir" ToRole="Producto" />
+          <NavigationProperty Name="Sucursal" Relationship="JadeCore1Model.FK_ProductoAPedir_Sucursal" FromRole="ProductoAPedir" ToRole="Sucursal" />
+        </EntityType>
+        <Association Name="FK_ProductoAPedir_Producto">
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoAPedir" Role="ProductoAPedir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoAPedir">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoAPedir_Sucursal">
+          <End Type="JadeCore1Model.Sucursal" Role="Sucursal" Multiplicity="1" />
+          <End Type="JadeCore1Model.ProductoAPedir" Role="ProductoAPedir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="ProductoAPedir">
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="CodigoPedido" />
+            <PropertyRef Name="CodigoSucursal" />
+            <PropertyRef Name="CodigoEmpresa" />
+          </Key>
+          <Property Name="CodigoPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoSucursal" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoPedidoLocal" Type="Int32" />
+          <Property Name="FechaCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PedidoDetalles" Relationship="JadeCore1Model.FK_PedidoDetalle_Pedido" FromRole="Pedido" ToRole="PedidoDetalle" />
+        </EntityType>
+        <EntityType Name="PedidoDetalle">
+          <Key>
+            <PropertyRef Name="CodigoPedidoDetalle" />
+          </Key>
+          <Property Name="CodigoPedidoDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoPedido" Type="Int32" Nullable="false" />
+          <Property Name="CodigoSucursal" Type="Int32" Nullable="false" />
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="JadeCore1Model.FK_PedidoDetalle_Pedido" FromRole="PedidoDetalle" ToRole="Pedido" />
+          <NavigationProperty Name="Producto" Relationship="JadeCore1Model.FK_PedidoDetalle_Producto" FromRole="PedidoDetalle" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_PedidoDetalle_Pedido">
+          <End Type="JadeCore1Model.Pedido" Role="Pedido" Multiplicity="1" />
+          <End Type="JadeCore1Model.PedidoDetalle" Role="PedidoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="CodigoPedido" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="PedidoDetalle">
+              <PropertyRef Name="CodigoPedido" />
+              <PropertyRef Name="CodigoSucursal" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoDetalle_Producto">
+          <End Type="JadeCore1Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="JadeCore1Model.PedidoDetalle" Role="PedidoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Principal>
+            <Dependent Role="PedidoDetalle">
+              <PropertyRef Name="CodigoProducto" />
+              <PropertyRef Name="CodigoEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -827,6 +1273,7 @@
           <EntitySetMapping Name="Productoes">
             <EntityTypeMapping TypeName="JadeCore1Model.Producto">
               <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="CodigoProductoSubClasificacion" ColumnName="CodigoProductoSubClasificacion" />
                 <ScalarProperty Name="ImagenUrl" ColumnName="ImagenUrl" />
                 <ScalarProperty Name="Profundidad" ColumnName="Profundidad" />
                 <ScalarProperty Name="Ancho" ColumnName="Ancho" />
@@ -853,7 +1300,6 @@
               <MappingFragment StoreEntitySet="ProductoClasificacion">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="CodigoClasificacionPadre" ColumnName="CodigoClasificacionPadre" />
                 <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
                 <ScalarProperty Name="CodigoProductoClasificacion" ColumnName="CodigoProductoClasificacion" />
               </MappingFragment>
@@ -962,6 +1408,81 @@
                 <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="CodigoProductoInventario" ColumnName="CodigoProductoInventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoSubClasificacions">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoSubClasificacion">
+              <MappingFragment StoreEntitySet="ProductoSubClasificacion">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoProductoClasificacion" ColumnName="CodigoProductoClasificacion" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoProductoSubClasificacion" ColumnName="CodigoProductoSubClasificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenCompras">
+            <EntityTypeMapping TypeName="JadeCore1Model.OrdenCompra">
+              <MappingFragment StoreEntitySet="OrdenCompra">
+                <ScalarProperty Name="TotalEsperado" ColumnName="TotalEsperado" />
+                <ScalarProperty Name="CodigoProveedor" ColumnName="CodigoProveedor" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="NumeroLocal" ColumnName="NumeroLocal" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoSucursal" ColumnName="CodigoSucursal" />
+                <ScalarProperty Name="CodigoOrdenCompra" ColumnName="CodigoOrdenCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenCompraDetalles">
+            <EntityTypeMapping TypeName="JadeCore1Model.OrdenCompraDetalle">
+              <MappingFragment StoreEntitySet="OrdenCompraDetalle">
+                <ScalarProperty Name="PrecioEsperado" ColumnName="PrecioEsperado" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoSucursal" ColumnName="CodigoSucursal" />
+                <ScalarProperty Name="CodigoOrdenCompra" ColumnName="CodigoOrdenCompra" />
+                <ScalarProperty Name="CodigoOrdenCompraDetalle" ColumnName="CodigoOrdenCompraDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoAPedirs">
+            <EntityTypeMapping TypeName="JadeCore1Model.ProductoAPedir">
+              <MappingFragment StoreEntitySet="ProductoAPedir">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoSucursal" ColumnName="CodigoSucursal" />
+                <ScalarProperty Name="CodigoProductoAPedir" ColumnName="CodigoProductoAPedir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidoes">
+            <EntityTypeMapping TypeName="JadeCore1Model.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CodigoPedidoLocal" ColumnName="CodigoPedidoLocal" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoSucursal" ColumnName="CodigoSucursal" />
+                <ScalarProperty Name="CodigoPedido" ColumnName="CodigoPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedidoDetalles">
+            <EntityTypeMapping TypeName="JadeCore1Model.PedidoDetalle">
+              <MappingFragment StoreEntitySet="PedidoDetalle">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+                <ScalarProperty Name="CodigoSucursal" ColumnName="CodigoSucursal" />
+                <ScalarProperty Name="CodigoPedido" ColumnName="CodigoPedido" />
+                <ScalarProperty Name="CodigoPedidoDetalle" ColumnName="CodigoPedidoDetalle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

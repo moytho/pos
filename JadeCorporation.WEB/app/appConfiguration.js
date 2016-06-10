@@ -13,5 +13,4 @@ app.constant('CONFIG', {
     'SERVICE_BASE': 'http://localhost:64486/',
     'HOME_URL': 'http://localhost:3883/#/home',
     'LOGIN_URL': 'http://localhost:3883/login.html'
-
 });

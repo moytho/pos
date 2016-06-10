@@ -9,16 +9,23 @@ app.controller('menuController', ['$scope', 'authService', '$location', function
                 "modulo": "Dashboard",
                 "icon": "fa fa-home",
                 "submodulo": []
+            }, {
+                "modulo": "Facturacion",
+                "icon": "fa fa-th",
+                "submodulo": [
+                    { "Descripcion": "Crear factura", "Url": "#/factura/create" },
+                    { "Descripcion": "Reimpresiones", "Url": "#/facturaReimpresion" }
+                ]
             },
                         {
                             "modulo": "Productos",
                             "icon": "fa fa-th",
                             "submodulo": [
+                                { "Descripcion": "Inventario", "Url": "#/productoInventario" },
                                 { "Descripcion": "Sub-Clasificaciones", "Url": "#/productoSubClasificacion" },
                                 { "Descripcion": "Clasificaciones", "Url": "#/productoClasificacion" },
                                 { "Descripcion": "Producto", "Url": "#/producto" },
                                 { "Descripcion": "Bodega", "Url": "#/bodega" },
-                                { "Descripcion": "Inventario", "Url": "#/productoInventario" },
                                 { "Descripcion": "Busqueda", "Url": "#/productobusqueda" },
                                 { "Descripcion": "Transferir producto", "Url": "#/productotransferir" },
                                 { "Descripcion": "Marcas", "Url": "#/productoMarca" },

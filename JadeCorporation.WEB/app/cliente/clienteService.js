@@ -17,6 +17,27 @@ app.factory('clienteService', ['$http', 'CONFIG', function ($http, CONFIG) {
         });
     };
 
+    var _getClientePorNombre = function (nombre) {
+
+        return $http.get(serviceBase + 'api/clientes/pornombre/' + nombre).then(function (results) {
+            return results;
+        });
+    };
+
+    var _getClientePorIdentificacion = function (identificacion) {
+
+        return $http.get(serviceBase + 'api/clientes/poridentificacion/' + identificacion).then(function (results) {
+            return results;
+        });
+    };
+
+    var _getClientePorNombreEIdentificacion = function (busqueda) {
+
+        return $http.get(serviceBase + 'api/clientespornombreeidentificacion/?busqueda=' + busqueda).then(function (results) {
+            return results;
+        });
+    };
+
     var _updateCliente = function (codigo, cliente) {
 
         return $http.put(serviceBase + 'api/clientes/' + codigo, cliente).then(function (results) {
@@ -40,6 +61,9 @@ app.factory('clienteService', ['$http', 'CONFIG', function ($http, CONFIG) {
 
     clienteServiceFactory.getClientes = _getClientes;
     clienteServiceFactory.getCliente = _getCliente;
+    clienteServiceFactory.getClientePorNombre = _getClientePorNombre;
+    clienteServiceFactory.getClientePorIdentificacion = _getClientePorIdentificacion;
+    clienteServiceFactory.getClientePorNombreEIdentificacion = _getClientePorNombreEIdentificacion;
     clienteServiceFactory.createCliente = _createCliente;
     clienteServiceFactory.updateCliente = _updateCliente;
     clienteServiceFactory.deleteCliente = _deleteCliente;

@@ -4,28 +4,32 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading head-border">
-                Crear una clasificacion de productos <a class="btn btn-success btn-xs" href="#/productoClasificacion/create"><i class="fa fa-check"></i></a>
+                Crear una sub-clasificacion de productos <a class="btn btn-success btn-xs" href="#/productoSubClasificacion/create"><i class="fa fa-check"></i></a>
             </header>
             <table class="table table-striped custom-table table-hover">
                 <thead> 
                     <tr>
-                        <th ng-hide="true">Codigo Producto Clasificacion</th>
+                        <th ng-hide="true">Codigo Producto Sub-Clasificacion</th>
+                        <th>Sub-Clasificacion</th>
                         <th>Clasificacion</th>
                         <th ng-hide="true">Estado</th>
                         <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="productoClasificacion in productoClasificaciones">
+                    <tr data-ng-repeat="productoSubClasificacion in productoSubClasificaciones">
                         <td ng-hide="true">
-                            {{ productoClasificacion.CodigoProductoClasificacion }}
+                            {{ productoSubClasificacion.CodigoProductoSubClasificacion }}
                         </td>
                         <td>
-                            {{ productoClasificacion.Descripcion }}
+                            {{ productoSubClasificacion.Descripcion }}
+                        </td>
+                        <td>
+                            {{ productoSubClasificacion.ProductoClasificacionDescripcion }}
                         </td>
                         
                         <td class="hidden-xs">
-                            <a class="btn btn-primary btn-xs" href="#/productoClasificacion/edit/{{productoClasificacion.CodigoProductoClasificacion}}"><i class="fa fa-pencil"></i></a>                           
+                            <a class="btn btn-primary btn-xs" href="#/productoSubClasificacion/edit/{{productoSubClasificacion.CodigoProductoSubClasificacion}}"><i class="fa fa-pencil"></i></a>                           
                         </td>
                     </tr>
                 </tbody>

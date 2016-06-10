@@ -45,6 +45,13 @@ app.factory('productoClasificacionService', ['$http', 'CONFIG', function ($http,
         });
     };
 
+    var _getProductoSubClasificacionesPorSuClasificacion = function (codigo) {
+
+        return $http.get(serviceBase + 'api/productosubclasificacionesporsuclasificacion/'+ codigo).then(function (results) {
+            return results;
+        });
+    };
+
     var _getProductoSubClasificacion = function (codigo) {
 
         return $http.get(serviceBase + 'api/productosubclasificaciones/' + codigo).then(function (results) {
@@ -67,8 +74,7 @@ app.factory('productoClasificacionService', ['$http', 'CONFIG', function ($http,
     };
 
     var _deleteProductoSubClasificacion = function (codigo, productosubclasificacion) {
-
-        return $http.delete(serviceBase + 'api/productosubclasificaciones/' + codigo).then(function (results) {
+        return $http.post(serviceBase + 'api/deleteproductosubclasificaciones/' + codigo, productosubclasificacion).then(function (results) {
             return results;
         });
     };
@@ -79,11 +85,12 @@ app.factory('productoClasificacionService', ['$http', 'CONFIG', function ($http,
     productoClasificacionServiceFactory.updateProductoClasificacion = _updateProductoClasificacion;
     productoClasificacionServiceFactory.deleteProductoClasificacion = _deleteProductoClasificacion;
 
-    productoClasificacionServiceFactory.getSubProductoClasificacion =   _getSubProductoClasificacion;
-    productoClasificacionServiceFactory.getSubProductoClasificaciones = _getSubProductoClasificaciones;
-    productoClasificacionServiceFactory.createSubProductoClasificacion = _createSubProductoClasificacion;
-    productoClasificacionServiceFactory.updateSubProductoClasificacion = _updateSubProductoClasificacion;
-    productoClasificacionServiceFactory.deleteSubProductoClasificacion = _deleteSubProductoClasificacion;
+    productoClasificacionServiceFactory.getProductoSubClasificacion = _getProductoSubClasificacion;
+    productoClasificacionServiceFactory.getProductoSubClasificacionesPorSuClasificacion = _getProductoSubClasificacionesPorSuClasificacion;
+    productoClasificacionServiceFactory.getProductoSubClasificaciones = _getProductoSubClasificaciones;
+    productoClasificacionServiceFactory.createProductoSubClasificacion = _createProductoSubClasificacion;
+    productoClasificacionServiceFactory.updateProductoSubClasificacion = _updateProductoSubClasificacion;
+    productoClasificacionServiceFactory.deleteProductoSubClasificacion = _deleteProductoSubClasificacion;
 
     return productoClasificacionServiceFactory;
 

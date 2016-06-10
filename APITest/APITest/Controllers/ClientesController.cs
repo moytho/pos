@@ -79,6 +79,55 @@ namespace APITest.Controllers
             else return Unauthorized();
         }
 
+        [ResponseType(typeof(Cliente))]
+        [Route("api/clientespornombreeidentificacion/")]
+        [AllowAnonymous]
+        public IHttpActionResult GetClienteByNombreEIdentificacion([FromUri] string busqueda)
+        {
+            //UserId = HttpContext.Current.User.Identity.GetUserId().ToString();
+            UserId = "e5e7523c-8f71-4bd7-a96c-1a4a2b1fdc93";
+            ClaseConexion conexion = new ClaseConexion(UserId, this.GetType().FullName.ToString(), "ClientesController");
+
+            if (conexion.PoseePermiso == 1)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings[conexion.NameConnectionString].ConnectionString;
+                    using (JadeCore1Entities db = new JadeCore1Entities())
+                    {
+                        //una manera diferente de obtener la(s) sucursal(es) y convertir a la clase SucursalDTO
+                        var query = (from cliente in db.Clientes
+                                     where (cliente.CodigoEmpresa == conexion.CodigoEmpresa && (cliente.NombreComercial.Contains(busqueda) || cliente.Identificador.Contains(busqueda)))
+                                     orderby cliente.NombreComercial
+                                     select new ClienteDTO()
+                                     {
+                                         CodigoEmpresa = cliente.CodigoEmpresa,
+                                         CodigoCliente = cliente.CodigoCliente,
+                                         NombreComercial = cliente.NombreComercial,
+                                         Estado = cliente.Estado,
+                                         Responsable = cliente.Responsable,
+                                         Telefono = cliente.Telefono,
+                                         Direccion = cliente.Direccion,
+                                         Area = cliente.Area,
+                                         CorreoElectronico = cliente.CorreoElectronico,
+                                         Identificador = cliente.Identificador
+                                     }).ToList();
+                        if (query == null)
+                        {
+                            return NotFound();
+                        }
+
+                        return Ok(query);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    return InternalServerError();
+                }
+            }
+            else return Unauthorized();
+        }
+
         // GET api/Clientes/5
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult GetCliente(int id)

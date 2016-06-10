@@ -92,7 +92,7 @@ app.controller('productoSubClasificacionEditar', ['$scope', 'productoClasificaci
     $scope.productoSubClasificacion = {};
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
-        $scope.productoSubClasificaciones = results.data;
+        $scope.productoClasificaciones = results.data;
         
     }, function (error) {
         console.log(error);
@@ -125,8 +125,9 @@ app.controller('productoSubClasificacionEditar', ['$scope', 'productoClasificaci
     };
 
     $scope.delete = function () {
-        productoClasificacionService.deleteProductoSubClasificacion(codigo).then(function (results) {
-            if (results.status == 200) {
+        productoClasificacionService.deleteProductoSubClasificacion(codigo,$scope.productoSubClasificacion).then(function (results) {
+            //porque utilice un metodo post, entonces el retorno de estado es el 204
+            if (results.status == 204) {
                 toastr.success("Datos eliminados correctamente", "Correcto");
                 $location.path('/productoSubClasificacion');
             } else {
@@ -169,9 +170,9 @@ app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionSe
 
 }]);
 
-app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
+app.controller('productoSubClasificacionCrear', ['$scope', 'productoClasificacionService', '$routeParams', '$location', 'toastr', function ($scope, productoClasificacionService, $routeParams, $location, toastr) {
     $scope.editar = false;
-    $scope.productoClasificacion = {};
+    $scope.productoSubClasificacion = {};
     $scope.productoClasificaciones = [];
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
@@ -181,6 +182,7 @@ app.controller('productoClasificacionCrear', ['$scope', 'productoClasificacionSe
         console.log(error);
     });
     $scope.create = function () {
+        console.log($scope.productoSubClasificacion);
         productoClasificacionService.createProductoSubClasificacion($scope.productoSubClasificacion).then(function (results) {
             if (results.status == 201) {
                 toastr.success("Datos creados correctamente", "Correcto");

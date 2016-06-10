@@ -4,7 +4,8 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading head-border">
-                Producto <a class="btn btn-success btn-xs" href="#/producto/create"><i class="fa fa-check"></i></a>
+               <a class="btn btn-success btn-xs" href="#/pedido/create"><i class="fa fa-plus"> Crear Pedido</i></a>
+
             </header>
 
             <!-- Filters -->
@@ -14,7 +15,7 @@
                     <!-- Nombre producto-->
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="busqueda.Nombre" placeholder="Nombre Producto" />
+                            <input type="text" class="form-control" ng-model="busqueda.NombreProducto" placeholder="Nombre Producto" />
                         </div>
                     </div>
                     <!-- Codigo Local-->
@@ -32,8 +33,8 @@
                     <!--Marca-->
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" ng-options="opcion.CodigoProductoMarca as opcion.Nombre for opcion in productoMarcas" ng-model="busqueda.Marca">
-                                <option value="%">Marca</option>
+                            <select ng-model="busqueda.CodigoProductoMarca" class="form-control" ng-options="opcion.CodigoProductoMarca as opcion.Nombre for opcion in productoMarcas">
+                                <option value="">Filtro Marca</option>
 
                             </select>
                         </div>
@@ -41,8 +42,8 @@
                     <!--Clasificacion-->
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="busqueda.Clasfificacion">
-                                <option value="%">Clasificacion</option>
+                            <select ng-model="busqueda.CodigoProductoClasificacion" class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-change="cargarSubClasificaciones()">
+                                <option value="">Filtro Clasificacion</option>
 
                             </select>
                         </div>
@@ -50,8 +51,8 @@
                     <!--Sub-Clasificacion-->
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="busqueda.SubClasfificacion">
-                                <option value="%">Sub Clasificacion</option>
+                            <select ng-model="busqueda.CodigoProductoSubClasfificacion" class="form-control" ng-options="opcion.CodigoProductoSubClasificacion as opcion.Descripcion for opcion in productoSubClasificaciones">
+                                <option value="">Filtro Sub-Clasificacion</option>
 
                             </select>
                         </div>
@@ -59,8 +60,8 @@
                     <!--Abastecimiento-->
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" ng-options="opcion.CodigoProductoAbastecimiento as opcion.Descripcion for opcion in productoAbastecimientos" ng-model="busqueda.Abastecimiento">
-                                <option value="%">Abastecimiento</option>
+                            <select ng-model="busqueda.CodigoProductoAbastecimiento" class="form-control" ng-options="opcion.CodigoProductoAbastecimiento as opcion.Descripcion for opcion in productoAbastecimientos">
+                                <option value="">Filtro Abastecimiento</option>
 
                             </select>
                         </div>
@@ -68,15 +69,15 @@
                     <!--Bodega-->
                     <div class="form-group">
                         <div class="input-group">
-                            <select class="form-control" ng-options="opcion.CodigoBodega as opcion.Nombre for opcion in bodegas" ng-model="busqueda.Bodega">
-                                <option value="%">Bodega</option>
+                            <select ng-model="busqueda.CodigoBodega" class="form-control" ng-options="opcion.CodigoBodega as opcion.Nombre for opcion in bodegas">
+                                <option value="">Filtro Bodega</option>
 
                             </select>
                         </div>
                     </div>
                     <!--Apply button -->
                     <div class="form-group">
-                        <!-- Apply button     <button type="submit" ng-click="applyFilter()" class="btn btn-default">Apply</button> -->
+                         <button type="submit" ng-click="buscar()" class="btn btn-primary">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -88,15 +89,18 @@
                         <th ng-hide="true">Codigo Producto</th>
                         <th>Codigo Local</th>
                         <th>Nombre</th>
-                        <th>Precio Costo</th>
                         <th>Clasificacion</th>
+                        <th>Sub-Clasificacion</th>
                         <th>Marca</th>
+                        <th>Bodega</th>
+                        <th>Existencia</th>
+                        <th>Existencia Minima</th>
                         <th ng-hide="true">Estado</th>
                         <th class="hidden-xs"><i class="fa fa-cogs"></i> Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="producto in productos">
+                    <tr data-ng-repeat="producto in productos" ng-class="{'danger': (producto.Existencia < producto.ExistenciaMinima)}">
                         <td ng-hide="true">
                             {{ producto.CodigoProducto }}
                         </td>
@@ -107,18 +111,25 @@
                             {{ producto.Nombre }}
                         </td>
                         <td>
-                            {{ producto.PrecioCosto }}
+                            {{ producto.Clasificacion}}
                         </td>
                         <td>
-                            {{ producto.Clasificacion}}
+                            Subclasificacion
                         </td>
                         <td>
                             {{ producto.Marca}}
                         </td>
-                        
+                        <td>
+                            {{ producto.Bodega}}
+                        </td>
+                        <td>
+                            {{ producto.Existencia}}
+                        </td>
+                        <td>
+                            {{ producto.ExistenciaMinima}}
+                        </td>
                         <td class="hidden-xs">
-                            <a class="btn btn-primary btn-xs" href="#/producto/edit/{{producto.CodigoProducto}}"><i class="fa fa-pencil"></i></a>                           
-                            <a class="btn btn-primary btn-xs" href="#/producto/imagen/{{producto.CodigoProducto}}"><i class="fa fa-file-picture-o"></i></a>                           
+                            <button type="button" class="btn btn-success" ng-click="agregarProductoAPedir(producto)"><i class="fa fa-plus"></i></button>
                         </td>
                     </tr>
                 </tbody>

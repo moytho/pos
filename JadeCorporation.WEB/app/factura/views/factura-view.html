@@ -1,0 +1,226 @@
+﻿
+<form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Creacion de Factura
+                </header>
+                <div class="col-md-12 text-center">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#cliente" target="_self">Informacion Cliente</a></li>
+                        <li><a data-toggle="pill" href="#producto" target="_self">Agregar Productos</a></li>
+                        <li><a data-toggle="pill" href="#confirmar" target="_self">Confirmar Venta</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+
+                    <div id="cliente" class="panel-body tab-pane fade in active">
+
+                        <div class="form">
+
+                            <br />
+                            <input type="hidden" ng-model="factura.cliente.CodigoCliente" />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Busqueda: </label>
+                                <!-- Typeahead -->
+                                <div class="col-lg-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="cliente"
+                                           typeahead-on-select="agregarCliente($item)"
+                                           uib-typeahead="cliente as cliente.NombreComercial for cliente in getClientePorNombreEIdentificacion($viewValue)"
+                                           typeahead-loading="loadingLocations"
+                                           typeahead-no-results="noResults"
+                                           placeholder="Ingrese Nombre o Identificador/NIT del Cliente" />
+                                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                    <div ng-show="noResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No se ha encontrado el cliente
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-2" for="Identificador">Identificador/NIT</label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input ng-model="cliente.Identificador" type="text" name="Identificador" class="form-control" placeholder="Identificador/NIT" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-2 control-label col-lg-2" for="NombreComercial">Nombre</label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input type="text" ng-model="cliente.NombreComercial" name="NombreComercial" class="form-control" placeholder="Nombre" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-2" for="CorreoElectronico">Email</label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input ng-model="cliente.CorreoElectronico" type="text" name="CorreoElectronico" class="form-control" placeholder="CorreoElectronico">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-2 control-label col-lg-2" for="Telefono">Telefono</label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input type="text" ng-model="cliente.Telefono" name="Telefono" class="form-control" placeholder="Telefono">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Direccion: </label>
+                                <div class="col-lg-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="cliente.Direccion"
+                                           placeholder="Direccion" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="(factura.cliente.CodigoCliente!=null)" ng-click="update()" type="submit">Actualizar datos</button>
+                                    <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="factura.cliente.CodigoCliente==null" ng-click="create()" type="submit">Crear</button>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="producto" class="tab-pane fade">
+                        <br />
+                        <br />
+                        <div class="form">
+                            <div class="row">
+                                <br />
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-2" for="Identificador">Codigo Producto</label>
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input ng-model="productobusqueda.Codigo" my-enter="buscarProductoPorCodigo(productobusqueda.Codigo)" type="text" name="CodigoProducto" id="CodigoProducto" class="form-control" placeholder="Codigo del producto">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-2 control-label col-lg-2" for="Nombre">Nombre</label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input type="text"
+                                                   ng-model="productobusqueda.Nombre"
+                                                   name="Nombre"
+                                                   id="Nombre"
+                                                   typeahead-on-select="agregarProducto($item)"
+                                                   class="form-control"
+                                                   placeholder="Nombre del producto"
+                                                   uib-typeahead="producto as producto.Nombre for producto in buscarProducto($viewValue)"
+                                                   typeahead-loading="loadingLocations"
+                                                   typeahead-no-results="noResults" />
+                                        </div>
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <div ng-show="noResults">
+                                            <i class="glyphicon glyphicon-remove"></i> No se ha encontrado el cliente
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                
+                                
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th ng-hide="true">Codigo Producto</th>
+                                            <th class="col-lg-2"></th>
+                                            <th class="col-lg-2">Cantidad</th>
+                                            <th class="col-lg-4">Nombre</th>
+                                            <th class="col-lg-2">Precio</th>
+                                            <th class="col-lg-2">Subtotal</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="producto in factura.FacturaDetalles" ng-form >
+                                            <td ng-hide="true">
+                                                {{ producto.CodigoProducto }}
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <button data-toggle="button" ng-click="factura.FacturaDetalles.splice($index,1);calcularTotales();" class="btn btn-default">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </td>
+                                            <td class="col-lg-1">
+
+                                                <input type="number" ng-model="producto.Cantidad" ng-change="calcularTotales();" min="1" class="form-control" placeholder="cantidad" required />
+
+                                            </td>
+                                            <td class="col-lg-4">
+                                                {{ producto.Nombre }}
+                                            </td>
+                                            <td class="col-lg-2">
+                                                {{ producto.PrecioVenta | currency: "Q":2}}
+                                            </td>
+                                            <td class="col-lg-2">
+                                                {{ producto.Cantidad * producto.PrecioVenta | currency : "Q":2}}
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" align="right">Subtotal</td><td><span><strong>{{factura.subtotal | currency : "Q":2}}</strong></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" align="right">Descuento</td><td><span><strong>{{factura.descuento | currency : "Q":2}}</strong></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" align="right">Total</td><td><span style="font-size:x-large;"><strong>{{factura.total | currency : "Q":2}}</strong></span></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                            
+                            <div style="white-space: pre-wrap;">
+
+                                <pre>
+                                
+                                {{factura}}
+                                </pre>
+                            </div>
+
+                        </div>
+
+                    <div id="confirmar" class="tab-pane fade">
+                        <div class="panel-body">
+                            <h3>Confirmacion</h3>
+                            <p>Cliente:</p>
+                            <h4>{{cliente.NombreComercial}}</h4>
+                            <p>Total:</p>
+                            <h4>{{factura.total}}</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+

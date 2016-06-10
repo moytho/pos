@@ -19,6 +19,9 @@ namespace APITest.Models
             this.ProductoPrecios = new HashSet<ProductoPrecio>();
             this.ProductoImagens = new HashSet<ProductoImagen>();
             this.ProductoInventarios = new HashSet<ProductoInventario>();
+            this.OrdenCompraDetalles = new HashSet<OrdenCompraDetalle>();
+            this.ProductoAPedirs = new HashSet<ProductoAPedir>();
+            this.PedidoDetalles = new HashSet<PedidoDetalle>();
         }
     
         public int CodigoProducto { get; set; }
@@ -39,6 +42,7 @@ namespace APITest.Models
         public Nullable<decimal> Ancho { get; set; }
         public Nullable<decimal> Profundidad { get; set; }
         public string ImagenUrl { get; set; }
+        public Nullable<int> CodigoProductoSubClasificacion { get; set; }
     
         public virtual ProductoClasificacion ProductoClasificacion { get; set; }
         public virtual ProductoMarca ProductoMarca { get; set; }
@@ -47,5 +51,9 @@ namespace APITest.Models
         public virtual ICollection<ProductoPrecio> ProductoPrecios { get; set; }
         public virtual ICollection<ProductoImagen> ProductoImagens { get; set; }
         public virtual ICollection<ProductoInventario> ProductoInventarios { get; set; }
+        public virtual ProductoSubClasificacion ProductoSubClasificacion { get; set; }
+        public virtual ICollection<OrdenCompraDetalle> OrdenCompraDetalles { get; set; }
+        public virtual ICollection<ProductoAPedir> ProductoAPedirs { get; set; }
+        public virtual ICollection<PedidoDetalle> PedidoDetalles { get; set; }
     }
 }

@@ -115,6 +115,7 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
         console.log(error);
     });
 
+
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;
 
@@ -129,6 +130,12 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
 
                 productoService.getProducto(codigo).then(function (results) {
                     $scope.producto = results.data[0];
+                    console.log($scope.producto);
+                    productoClasificacionService.getProductoSubClasificacionesPorSuClasificacion($scope.producto.CodigoProductoClasificacion).then(function (results) {
+                        $scope.productoSubClasificaciones = results.data;
+                    }, function (error) {
+                        console.log(error);
+                    });
                 
                 }, function (error) {
                     console.log(error);
@@ -146,6 +153,15 @@ app.controller('productoEditar', ['$scope', '$window', 'productoService', 'produ
     }, function (error) {
         console.log(error);
     });
+
+    $scope.cargarSubClasificaciones = function () {
+        console.log("sub " + $scope.producto.CodigoProductoClasificacion);
+        productoClasificacionService.getProductoSubClasificacionesPorSuClasificacion($scope.producto.CodigoProductoClasificacion).then(function (results) {
+            $scope.productoSubClasificaciones = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+    };
 
     $scope.goBack = function () {
         $location.path('/producto');
@@ -184,9 +200,20 @@ app.controller('productoCrear', ['$scope', '$window', 'productoService', 'produc
     $scope.editar = false;
     $scope.productoMarcas = [];
     $scope.productoClasificaciones = [];
+    $scope.productoSubClasificaciones = [];
     $scope.productoAbastecimientos = [];
     $scope.productoTipos = [];
     $scope.producto = {};
+
+    $scope.cargarSubClasificaciones = function () {
+        console.log("sub " + $scope.producto.CodigoProductoClasificacion);
+        productoClasificacionService.getProductoSubClasificacionesPorSuClasificacion($scope.producto.CodigoProductoClasificacion).then(function (results) {
+            $scope.productoSubClasificaciones = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
 
     productoClasificacionService.getProductoClasificaciones().then(function (results) {
         $scope.productoClasificaciones = results.data;

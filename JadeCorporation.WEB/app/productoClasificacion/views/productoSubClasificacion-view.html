@@ -2,33 +2,41 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Clasificacion del producto
+                Sub-Clasificacion del producto
             </header>
             <div class="panel-body">
                 <div class=" form">
                     <form name="form" class="cmxform form-horizontal tasi-form" id="commentForm" novalidate>
+                        
                         <div class="form-group ">
-                            <label for="nombre" class="control-label col-lg-2">Descripcion (requerido)</label>
+                            <label for="nombre" class="control-label col-lg-2">Descripcion </label>
                             <div class="col-lg-10">
-                                <input class=" form-control" ng-hide="true" ng-model="productoClasificacion.CodigoProductoClasificacion" id="codigoproductoclasificacion" name="codigoproductoclasificacion" minlength="2" type="text" />
-                                <input class=" form-control" ng-model="productoClasificacion.Descripcion" id="Descripcion" name="Descripcion" type="text" required
+                                <input class=" form-control" ng-hide="true" ng-model="productoSubClasificacion.CodigoProductoSubClasificacion" id="CodigoProductoSubClasificacion" name="CodigoProductoSubClasificacion" type="text" />
+                                <input class=" form-control" ng-model="productoSubClasificacion.Descripcion" id="Descripcion" name="Descripcion" type="text" required
                                        ng-class="{error:form.Descripcion.$dirty && form.Descripcion.$invalid}" />
                                 <div ng-messages="(form.Descripcion.$dirty && form.Descripcion.$error)" ng-messages-multiple>
-                                    <div class="error" ng-message="required">Ingrese una descripcion para este tipo de clasificacion de producto</div>
+                                    <div class="error" ng-message="required">Ingrese una descripcion para esta sub-clasificacion de producto</div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group ">
-                            <label for="direccion" class="control-label col-lg-2">Seleccione una clasificacion si este es una subclasificacion</label>
+                            <label for="direccion" class="control-label col-lg-2">Seleccione una clasificacion</label>
                             <div class="col-lg-10">
                                 <!--Usamos un enfoque diferente a app/autenticacion/views/signup
                                     En ese caso mencionado necesitamos mandar el select como un objeto completo,en este caso solo 
                                     enviaremos el value del select como tal-->
-                                <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="productoClasificacion.CodigoClasificacionPadre" id="codigoclasificacionpadre" name="codigoclasificacionpadre">
+                                <select class="form-control" ng-options="opcion.CodigoProductoClasificacion as opcion.Descripcion for opcion in productoClasificaciones" ng-model="productoSubClasificacion.CodigoProductoClasificacion" id="CodigoProductoClasificacion" name="CodigoProductoClasificacion" required>
                                     <option value="">Seleccione clasificacion</option>
                                 </select>
+
+                                <div ng-messages="(form.CodigoProductoClasificacion.$dirty && form.CodigoProductoClasificacion.$error)" ng-messages-multiple>
+                                    <div class="error" ng-message="required">Seleccione una clasificacion para esta sub-clasificacion</div>
+                                </div>
+
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button scroll-up class="btn btn-success" ng-disabled="form.$invalid" ng-show="editar" ng-click="update()" type="submit">Actualizar</button>
@@ -37,6 +45,8 @@
                                 <button scroll-up class="btn btn-default" ng-click="goBack()" type="button">Cancelar</button>
                             </div>
                         </div>
+                    
+                    
                     </form>
                 </div>
             </div>

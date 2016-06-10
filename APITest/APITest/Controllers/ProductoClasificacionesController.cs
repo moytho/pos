@@ -84,7 +84,6 @@ namespace APITest.Controllers
                                      {
                                          CodigoEmpresa = productoClasificacion.CodigoEmpresa,
                                          CodigoProductoClasificacion = productoClasificacion.CodigoProductoClasificacion,
-                                         CodigoClasificacionPadre = productoClasificacion.CodigoClasificacionPadre,
                                          Descripcion = productoClasificacion.Descripcion,
                                          Estado = productoClasificacion.Estado
                                      }).ToList();
